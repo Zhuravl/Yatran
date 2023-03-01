@@ -1,6 +1,7 @@
 package ua.com.yatran.frames;
 
-import ua.com.yatran.common.Constants;
+import ua.com.yatran.constants.Constants;
+import ua.com.yatran.enums.Language;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +16,8 @@ public class LandingFrame extends JFrame {
 
     public static final int W_FRAME = 700;
     public static final int H_FRAME = 600;
-    public static final Font FONT_PREFERENCE = new Font("Tahoma", Font.PLAIN, 26);
 
     private JLabel labelLogo;
-    private JButton buttonUkrainian;
-    private JButton buttonEnglish;
     private JPanel contentPane;
     private Insets insets;
 
@@ -37,6 +35,9 @@ public class LandingFrame extends JFrame {
         GUI();
     }
 
+    /**
+     * Initiates and configures the UI elements
+     */
     private void GUI() {
         contentPane = new JPanel();
         contentPane.setLayout(null);
@@ -46,35 +47,41 @@ public class LandingFrame extends JFrame {
         labelLogo.setBounds(0, 0, 700, 300);
         contentPane.add(labelLogo);
 
-        buttonUkrainian = new JButton("Українською!");
-        buttonUkrainian.setFont(FONT_PREFERENCE);
-        buttonUkrainian.setBounds(labelLogo.getX() + 150, labelLogo.getY() + 300, 400, 100);
-        buttonUkrainian.setFocusPainted(false);
-        buttonUkrainian.addActionListener(e -> {
-            EventQueue.invokeLater(() -> {
-                LandingFrame.this.dispose();
-                Locale.setDefault(new Locale("uk", "UA"));
-                ResourceBundle.clearCache();
-                new MainFrame();
-            });
-        });
-        contentPane.add(buttonUkrainian);
-
-        buttonEnglish = new JButton("In English!");
-        buttonEnglish.setFont(FONT_PREFERENCE);
-        buttonEnglish.setBounds(200, 300, 200, 30);
-        buttonEnglish.setBounds(buttonUkrainian.getX(), buttonUkrainian.getY() + 120, 400, 100);
-        buttonEnglish.setFocusPainted(false);
-        buttonEnglish.addActionListener(e -> {
-            EventQueue.invokeLater(() -> {
-                LandingFrame.this.dispose();
-                Locale.setDefault(new Locale("en", "US"));
-                ResourceBundle.clearCache();
-                new MainFrame();
-            });
-        });
-        contentPane.add(buttonEnglish);
+        createButtonsForAllLocales();
 
         setContentPane(contentPane);
+    }
+
+    /**
+     * Creates buttons for all available locales
+     */
+    private void createButtonsForAllLocales() {
+        int previousX = labelLogo.getX();
+        int previousY = labelLogo.getY();
+
+        for (int index = 0; index < Language.values().length; index++) {
+            JButton button = new JButton(ResourceBundle.getBundle(Constants.LOCALE_PREFIX, Language.values()[index].getLocale()).getString("landing_button"));
+            button.setFont(Constants.FONT_LANDING);
+            button.setBounds(200, 300, 200, 30);
+            if (index == 0) {
+                button.setBounds(previousX + 150, previousY + 300, 400, 100);
+            } else {
+                button.setBounds(previousX, previousY + 120, 400, 100);
+            }
+            button.setFocusPainted(false);
+            int finalIndex = index;
+            button.addActionListener(e -> {
+                EventQueue.invokeLater(() -> {
+                    LandingFrame.this.dispose();
+                    Locale.setDefault(Language.values()[finalIndex].getLocale());
+                    ResourceBundle.clearCache();
+                    new MainFrame();
+                });
+            });
+            contentPane.add(button);
+
+            previousX = button.getX();
+            previousY = button.getY();
+        }
     }
 }
