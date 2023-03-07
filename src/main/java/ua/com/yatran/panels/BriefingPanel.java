@@ -14,9 +14,9 @@ public class BriefingPanel extends JPanel {
     private JLabel briefingPicture, briefingText;
     private JButton continueButton;
 
-    public BriefingPanel(JPanel panel) {
-        contentPane = panel;
-        setLayout(null);
+    public BriefingPanel(JPanel contentPane) {
+        this.contentPane = contentPane;
+        this.setLayout(null);
         registerKeyboardAction(
                 e -> continueButton.doClick(),
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0),

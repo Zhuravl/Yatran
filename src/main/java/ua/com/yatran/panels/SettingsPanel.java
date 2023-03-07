@@ -1,8 +1,7 @@
 package ua.com.yatran.panels;
 
-import ua.com.yatran.common.Context;
+import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
-import ua.com.yatran.entities.Settings;
 import ua.com.yatran.enums.Language;
 
 import javax.swing.*;
@@ -12,15 +11,13 @@ import java.util.ResourceBundle;
 
 public class SettingsPanel extends JPanel {
 
-    private Settings settings;
     private JPanel contentPane;
     private JButton startButton, exitButton;
     private JLabel keyboardLabel, levelLabel, soundLabel;
     private JComboBox keyboardBox, levelBox, soundBox;
 
-    public SettingsPanel(JPanel panel, Settings settings) {
-        contentPane = panel;
-        this.settings = settings;
+    public SettingsPanel(JPanel contentPane) {
+        this.contentPane = contentPane;
         this.setLayout(null);
 
         GUI();
@@ -38,9 +35,9 @@ public class SettingsPanel extends JPanel {
         startButton.setBounds(10, 10, 400, 100);
         startButton.setFocusPainted(false);
         startButton.addActionListener(e -> EventQueue.invokeLater(() -> {
-            settings.setLanguage(Language.getByKeyboardName((String) keyboardBox.getSelectedItem()));
-            settings.setLevel(levelBox.getSelectedIndex() + 1);
-            settings.setSoundOn(rb.getString("sound_on_label").equals(soundBox.getSelectedItem()));
+            GameContext.getSettings().setLanguage(Language.getByKeyboardName((String) keyboardBox.getSelectedItem()));
+            GameContext.getSettings().setLevel(levelBox.getSelectedIndex() + 1);
+            GameContext.getSettings().setSoundOn(rb.getString("sound_on_label").equals(soundBox.getSelectedItem()));
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.BRIEFING);
         }));
@@ -51,10 +48,10 @@ public class SettingsPanel extends JPanel {
         keyboardLabel.setBounds(startButton.getX(), startButton.getY() + startButton.getHeight() + 20, 150, 50);
         this.add(keyboardLabel);
 
-        keyboardBox = new JComboBox(Context.getAvailableKeyboards());
+        keyboardBox = new JComboBox(GameContext.getAvailableKeyboards());
         keyboardBox.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + 20, keyboardLabel.getY(), 150, keyboardLabel.getHeight());
         keyboardBox.addActionListener(e -> {
-            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(Context.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(GameContext.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
             levelBox.setModel(model);
         });
         this.add(keyboardBox);
@@ -64,7 +61,7 @@ public class SettingsPanel extends JPanel {
         levelLabel.setBounds(keyboardLabel.getX(), keyboardLabel.getY() + keyboardLabel.getHeight() + 20, 150, 50);
         this.add(levelLabel);
 
-        levelBox = new JComboBox(Context.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
+        levelBox = new JComboBox(GameContext.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
         levelBox.setBounds(levelLabel.getX() + levelLabel.getWidth() + 20, levelLabel.getY(), 150, levelLabel.getHeight());
         this.add(levelBox);
 
@@ -73,7 +70,7 @@ public class SettingsPanel extends JPanel {
         soundLabel.setBounds(levelLabel.getX(), levelLabel.getY() + levelLabel.getHeight() + 20, 150, 50);
         this.add(soundLabel);
 
-        soundBox = new JComboBox(Context.getSoundOptions());
+        soundBox = new JComboBox(GameContext.getSoundOptions());
         soundBox.setBounds(soundLabel.getX() + soundLabel.getWidth() + 20, soundLabel.getY(), 150, soundLabel.getHeight());
         this.add(soundBox);
 

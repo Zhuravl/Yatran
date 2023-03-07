@@ -2,6 +2,7 @@ package ua.com.yatran.common;
 
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.RankingRecord;
+import ua.com.yatran.entities.Settings;
 import ua.com.yatran.enums.Language;
 
 import java.io.FileInputStream;
@@ -13,7 +14,52 @@ import java.util.*;
 /**
  * This class contains methods that work with dynamic context
  */
-public class Context {
+public class GameContext {
+
+    private static Settings settings;
+    private static RankingRecord record;
+
+    /**
+     * Creates (if empty) and returns the settings instance with user preferences
+     */
+    public static Settings getSettings() {
+        if (settings == null) {
+            settings = new Settings(Language.getByLocale(Locale.getDefault()), 1, true);
+        }
+        return settings;
+    }
+
+    /**
+     * Sets the defined record to context
+     *
+     * @param record user record to add
+     */
+    public static void setRecord(RankingRecord record) {
+        GameContext.record = record;
+    }
+
+    /**
+     * Returns the ranking record instance with user results
+     */
+    public static RankingRecord getRecord() {
+        return record;
+    }
+
+    /**
+     * Saves the current record to the existing records list
+     */
+    public static void saveRecordToDisk() {
+        List<RankingRecord> recordList = getRecordList();
+        recordList.add(getRecord());
+        try (
+                FileOutputStream fout = new FileOutputStream(Constants.Common.RANKING_FILE_NAME, false);
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+        ) {
+            oos.writeObject(recordList);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * Returns all supported in the application keyboards
@@ -60,24 +106,6 @@ public class Context {
         Locale locale = Locale.getDefault();
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
         return new String[]{rb.getString("ranking_table_place"), rb.getString("ranking_table_name"), rb.getString("ranking_table_scores"), rb.getString("ranking_table_level"), rb.getString("ranking_table_speed"), rb.getString("ranking_table_mistakes"), rb.getString("ranking_table_date")};
-    }
-
-    /**
-     * Adds the defined record to the existing records list
-     *
-     * @param record record to add to the result list
-     */
-    public static void addToRecordList(RankingRecord record) {
-        List<RankingRecord> recordList = getRecordList();
-        recordList.add(record);
-        try (
-                FileOutputStream fout = new FileOutputStream(Constants.Common.RANKING_FILE_NAME, false);
-                ObjectOutputStream oos = new ObjectOutputStream(fout);
-        ) {
-            oos.writeObject(recordList);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     /**

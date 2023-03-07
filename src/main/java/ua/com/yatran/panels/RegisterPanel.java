@@ -1,5 +1,6 @@
 package ua.com.yatran.panels;
 
+import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.JTextFieldLimit;
 import ua.com.yatran.entities.RankingRecord;
@@ -15,12 +16,10 @@ public class RegisterPanel extends JPanel {
     private JButton button;
     private JLabel usernameLabel;
     private JTextField usernameField;
-    private RankingRecord rankingRecord;
 
-    public RegisterPanel(JPanel panel, RankingRecord rankingRecord) {
-        this.rankingRecord = rankingRecord;
-        contentPane = panel;
-        setLayout(null);
+    public RegisterPanel(JPanel contentPane) {
+        this.contentPane = contentPane;
+        this.setLayout(null);
 
         GUI();
     }
@@ -48,7 +47,7 @@ public class RegisterPanel extends JPanel {
         button.setBounds(usernameField.getX(), usernameField.getY() + 30, 400, 100);
         button.setFocusPainted(false);
         button.addActionListener(e -> EventQueue.invokeLater(() -> {
-            rankingRecord.setUsername(usernameField.getText());
+            GameContext.setRecord(new RankingRecord(usernameField.getText())); //create record for new user
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.SETTINGS);
         }));

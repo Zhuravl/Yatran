@@ -1,5 +1,6 @@
 package ua.com.yatran.panels;
 
+import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.RankingRecord;
 import ua.com.yatran.entities.RankingTableModel;
@@ -18,8 +19,8 @@ public class RankingPanel extends JPanel {
     private JScrollPane scrollPane;
     private RankingTableModel tableModel;
 
-    public RankingPanel(JPanel panel) {
-        contentPane = panel;
+    public RankingPanel(JPanel contentPane) {
+        this.contentPane = contentPane;
         this.tableModel = new RankingTableModel();
         this.setLayout(null);
         registerKeyboardAction(
@@ -65,6 +66,7 @@ public class RankingPanel extends JPanel {
         continueButton.setBounds(scrollPane.getX(), scrollPane.getY() + scrollPane.getHeight() + 100, 400, 100);
         continueButton.setFocusPainted(false);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
+            GameContext.setRecord(new RankingRecord(GameContext.getRecord().getUsername())); //create record for new game
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.SETTINGS);
         }));

@@ -1,15 +1,11 @@
 package ua.com.yatran.frames;
 
 import ua.com.yatran.constants.Constants;
-import ua.com.yatran.entities.RankingRecord;
-import ua.com.yatran.entities.Settings;
-import ua.com.yatran.enums.Language;
 import ua.com.yatran.panels.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serial;
-import java.util.Locale;
 
 public class MainFrame extends JFrame {
 
@@ -18,8 +14,6 @@ public class MainFrame extends JFrame {
 
     private JPanel contentPane, registerPanel, settingsPanel, briefingPanel, gamePanel, rankingPanel;
     private Insets insets;
-    private RankingRecord rankingRecord;
-    private Settings settings;
 
     public MainFrame() {
         super(Constants.Common.APP_NAME);
@@ -31,8 +25,6 @@ public class MainFrame extends JFrame {
         setVisible(true);
 
         insets = getInsets();
-        rankingRecord = new RankingRecord();
-        settings = new Settings(Language.getByLocale(Locale.getDefault()), 1, true);
 
         GUI();
     }
@@ -45,11 +37,11 @@ public class MainFrame extends JFrame {
         contentPane.setLayout(new CardLayout());
         contentPane.setBounds(insets.left, insets.top, Constants.Common.MAIN_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.MAIN_WINDOW_HEIGHT - insets.bottom - insets.top);
 
-        registerPanel = new RegisterPanel(contentPane, rankingRecord);
-        settingsPanel = new SettingsPanel(contentPane, settings);
+        registerPanel = new RegisterPanel(contentPane);
+        settingsPanel = new SettingsPanel(contentPane);
         briefingPanel = new BriefingPanel(contentPane);
         rankingPanel = new RankingPanel(contentPane);
-        gamePanel = new GamePanel(contentPane, (RankingPanel) rankingPanel, rankingRecord);
+        gamePanel = new GamePanel(contentPane, (RankingPanel) rankingPanel);
 
         contentPane.add(registerPanel, Constants.Screen.REGISTER);
         contentPane.add(settingsPanel, Constants.Screen.SETTINGS);

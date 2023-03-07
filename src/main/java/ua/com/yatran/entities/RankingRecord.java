@@ -25,6 +25,10 @@ public class RankingRecord implements Serializable {
     public RankingRecord() {
     }
 
+    public RankingRecord(String username) {
+        this.username = username;
+    }
+
     public RankingRecord(String username, Integer score, Integer level, Integer speed, Integer mistakes, Calendar date) {
         this.username = username;
         this.score = score;

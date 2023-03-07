@@ -1,6 +1,6 @@
 package ua.com.yatran.entities;
 
-import ua.com.yatran.common.Context;
+import ua.com.yatran.common.GameContext;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Comparator;
@@ -18,13 +18,8 @@ public class RankingTableModel extends AbstractTableModel {
     private static int resultIndexLocal;
 
     public RankingTableModel() {
-        columnNames = Context.getRankingTableColumnNames();
-        data = new String[][]{};
-    }
-
-    public RankingTableModel(RankingRecord record) {
-        columnNames = Context.getRankingTableColumnNames();
-        data = getRankingTableData(record);
+        columnNames = GameContext.getRankingTableColumnNames();
+        data = new String[][]{}; //create empty table for app initialisation
     }
 
     @Override
@@ -68,7 +63,7 @@ public class RankingTableModel extends AbstractTableModel {
      */
     private static String[][] getRankingTableData(RankingRecord currentRecord) {
         String[][] resultArray;
-        List<RankingRecord> recordList = Context.getRecordList();
+        List<RankingRecord> recordList = GameContext.getRecordList();
         if (recordList == null || recordList.size() == 0) {
             resultArray = new String[][]{};
         } else {
@@ -77,7 +72,7 @@ public class RankingTableModel extends AbstractTableModel {
             int resultIndexGeneral = getRecordIndex(currentRecord, recordList);
             int maxIndex = Math.min(RANKING_TABLE_SIZE, recordList.size());
             resultArray = new String[maxIndex][];
-            if (resultIndexLocal < RANKING_TABLE_SIZE) {
+            if (resultIndexGeneral < RANKING_TABLE_SIZE) {
                 for (int i = 0; i < maxIndex; i++) {
                     resultArray[i] = getRecordForTable(i + 1, recordList.get(i));
                 }
@@ -88,7 +83,7 @@ public class RankingTableModel extends AbstractTableModel {
                 }
                 resultArray[RANKING_TABLE_SIZE - 2] = getRecordForTable(null, null);
                 resultArray[RANKING_TABLE_SIZE - 1] = getRecordForTable(resultIndexGeneral, recordList.get(resultIndexGeneral));
-                resultIndexLocal = RANKING_TABLE_SIZE;
+                resultIndexLocal = (RANKING_TABLE_SIZE - 1);
             }
         }
         return resultArray;

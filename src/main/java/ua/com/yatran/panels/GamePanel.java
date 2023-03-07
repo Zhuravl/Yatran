@@ -1,8 +1,7 @@
 package ua.com.yatran.panels;
 
-import ua.com.yatran.common.Context;
+import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
-import ua.com.yatran.entities.RankingRecord;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,15 +13,13 @@ import java.util.ResourceBundle;
 
 public class GamePanel extends JPanel {
 
-    private RankingRecord rankingRecord;
     private JPanel contentPane;
     private RankingPanel rankingPanel;
     private JButton continueButton;
 
-    public GamePanel(JPanel panel, RankingPanel rankingPanel, RankingRecord record) {
-        contentPane = panel;
+    public GamePanel(JPanel contentPane, RankingPanel rankingPanel) {
+        this.contentPane = contentPane;
         this.rankingPanel = rankingPanel;
-        rankingRecord = record;
         this.setLayout(null);
         registerKeyboardAction(
                 e -> continueButton.doClick(),
@@ -43,13 +40,13 @@ public class GamePanel extends JPanel {
         continueButton.setBounds(100, 100, 400, 100);
         continueButton.setFocusPainted(false);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
-            rankingRecord.setScore(new Random().nextInt(200));
-            rankingRecord.setLevel(new Random().nextInt(15));
-            rankingRecord.setSpeed(new Random().nextInt(100));
-            rankingRecord.setMistakes(new Random().nextInt(50));
-            rankingRecord.setDate(Calendar.getInstance());
-            Context.addToRecordList(rankingRecord);
-            rankingPanel.refreshTable(rankingRecord);
+            GameContext.getRecord().setScore(new Random().nextInt(200));
+            GameContext.getRecord().setLevel(new Random().nextInt(15));
+            GameContext.getRecord().setSpeed(new Random().nextInt(100));
+            GameContext.getRecord().setMistakes(new Random().nextInt(50));
+            GameContext.getRecord().setDate(Calendar.getInstance());
+            GameContext.saveRecordToDisk();
+            rankingPanel.refreshTable(GameContext.getRecord());
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.RANKING);
         }));
