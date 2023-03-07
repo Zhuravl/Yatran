@@ -1,7 +1,7 @@
 package ua.com.yatran.frames;
 
 import ua.com.yatran.constants.Constants;
-import ua.com.yatran.entities.Record;
+import ua.com.yatran.entities.RankingRecord;
 import ua.com.yatran.entities.Settings;
 import ua.com.yatran.enums.Language;
 import ua.com.yatran.panels.*;
@@ -16,25 +16,22 @@ public class MainFrame extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static final int W_FRAME = 1080;
-    public static final int H_FRAME = (int) (W_FRAME / ((Math.sqrt(5) + 1) / 2));
-
-    private JPanel contentPane, registerPanel, settingsPanel, briefingPanel, gamePanel, chartPanel;
+    private JPanel contentPane, registerPanel, settingsPanel, briefingPanel, gamePanel, rankingPanel;
     private Insets insets;
-    private Record record;
+    private RankingRecord rankingRecord;
     private Settings settings;
 
     public MainFrame() {
-        super(Constants.APP_NAME);
+        super(Constants.Common.APP_NAME);
         setLayout(null);
-        setSize(W_FRAME, H_FRAME);
+        setSize(Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT);
         setResizable(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
 
         insets = getInsets();
-        record = new Record();
+        rankingRecord = new RankingRecord();
         settings = new Settings(Language.getByLocale(Locale.getDefault()), 1, true);
 
         GUI();
@@ -46,19 +43,19 @@ public class MainFrame extends JFrame {
     private void GUI() {
         contentPane = new JPanel();
         contentPane.setLayout(new CardLayout());
-        contentPane.setBounds(insets.left, insets.top, W_FRAME - insets.left - insets.right, H_FRAME - insets.bottom - insets.top);
+        contentPane.setBounds(insets.left, insets.top, Constants.Common.MAIN_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.MAIN_WINDOW_HEIGHT - insets.bottom - insets.top);
 
-        registerPanel = new RegisterPanel(contentPane, record);
+        registerPanel = new RegisterPanel(contentPane, rankingRecord);
         settingsPanel = new SettingsPanel(contentPane, settings);
         briefingPanel = new BriefingPanel(contentPane);
-        gamePanel = new GamePanel(contentPane);
-        chartPanel = new ChartPanel(contentPane);
+        rankingPanel = new RankingPanel(contentPane);
+        gamePanel = new GamePanel(contentPane, (RankingPanel) rankingPanel, rankingRecord);
 
-        contentPane.add(registerPanel);
-        contentPane.add(settingsPanel);
-        contentPane.add(briefingPanel);
-        contentPane.add(gamePanel);
-        contentPane.add(chartPanel);
+        contentPane.add(registerPanel, Constants.Screen.REGISTER);
+        contentPane.add(settingsPanel, Constants.Screen.SETTINGS);
+        contentPane.add(briefingPanel, Constants.Screen.BRIEFING);
+        contentPane.add(gamePanel, Constants.Screen.GAME);
+        contentPane.add(rankingPanel, Constants.Screen.RANKING);
 
         setContentPane(contentPane);
     }

@@ -22,7 +22,7 @@ public class LandingFrame extends JFrame {
     private Insets insets;
 
     public LandingFrame() {
-        super(Constants.APP_NAME);
+        super(Constants.Common.APP_NAME);
         setResizable(false);
         setLayout(null);
         setSize(W_FRAME, H_FRAME);
@@ -60,8 +60,8 @@ public class LandingFrame extends JFrame {
         int previousY = labelLogo.getY();
 
         for (int index = 0; index < Language.values().length; index++) {
-            JButton button = new JButton(ResourceBundle.getBundle(Constants.LOCALE_PREFIX, Language.values()[index].getLocale()).getString("landing_button"));
-            button.setFont(Constants.FONT_LANDING);
+            JButton button = new JButton(ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.values()[index].getLocale()).getString("landing_button"));
+            button.setFont(Constants.Common.FONT_LANDING);
             button.setBounds(200, 300, 200, 30);
             if (index == 0) {
                 button.setBounds(previousX + 150, previousY + 300, 400, 100);

@@ -1,3 +1,6 @@
+#Game artifacts
+*.ytr
+
 # Compiled class file
 *.class
 

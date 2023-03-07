@@ -31,10 +31,10 @@ public class SettingsPanel extends JPanel {
      */
     private void GUI() {
         Locale locale = Locale.getDefault();
-        ResourceBundle rb = ResourceBundle.getBundle(Constants.LOCALE_PREFIX, locale);
+        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         startButton = new JButton(rb.getString("start_button"));
-        startButton.setFont(Constants.FONT_MAIN);
+        startButton.setFont(Constants.Common.FONT_MAIN);
         startButton.setBounds(10, 10, 400, 100);
         startButton.setFocusPainted(false);
         startButton.addActionListener(e -> EventQueue.invokeLater(() -> {
@@ -42,12 +42,12 @@ public class SettingsPanel extends JPanel {
             settings.setLevel(levelBox.getSelectedIndex() + 1);
             settings.setSoundOn(rb.getString("sound_on_label").equals(soundBox.getSelectedItem()));
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.next(contentPane);
+            cardLayout.show(contentPane, Constants.Screen.BRIEFING);
         }));
         this.add(startButton);
 
         keyboardLabel = new JLabel(rb.getString("keyboard_label"));
-        keyboardLabel.setFont(Constants.FONT_MAIN);
+        keyboardLabel.setFont(Constants.Common.FONT_MAIN);
         keyboardLabel.setBounds(startButton.getX(), startButton.getY() + startButton.getHeight() + 20, 150, 50);
         this.add(keyboardLabel);
 
@@ -60,7 +60,7 @@ public class SettingsPanel extends JPanel {
         this.add(keyboardBox);
 
         levelLabel = new JLabel(rb.getString("level_label"));
-        levelLabel.setFont(Constants.FONT_MAIN);
+        levelLabel.setFont(Constants.Common.FONT_MAIN);
         levelLabel.setBounds(keyboardLabel.getX(), keyboardLabel.getY() + keyboardLabel.getHeight() + 20, 150, 50);
         this.add(levelLabel);
 
@@ -69,7 +69,7 @@ public class SettingsPanel extends JPanel {
         this.add(levelBox);
 
         soundLabel = new JLabel(rb.getString("sound_label"));
-        soundLabel.setFont(Constants.FONT_MAIN);
+        soundLabel.setFont(Constants.Common.FONT_MAIN);
         soundLabel.setBounds(levelLabel.getX(), levelLabel.getY() + levelLabel.getHeight() + 20, 150, 50);
         this.add(soundLabel);
 
@@ -78,7 +78,7 @@ public class SettingsPanel extends JPanel {
         this.add(soundBox);
 
         exitButton = new JButton(rb.getString("exit_button"));
-        exitButton.setFont(Constants.FONT_MAIN);
+        exitButton.setFont(Constants.Common.FONT_MAIN);
         exitButton.setBounds(soundLabel.getX(), soundLabel.getY() + soundLabel.getHeight() + 20, 400, 100);
         exitButton.setFocusPainted(false);
         exitButton.addActionListener(e -> EventQueue.invokeLater(() -> {

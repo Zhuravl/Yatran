@@ -2,7 +2,7 @@ package ua.com.yatran.panels;
 
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.JTextFieldLimit;
-import ua.com.yatran.entities.Record;
+import ua.com.yatran.entities.RankingRecord;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,10 +15,10 @@ public class RegisterPanel extends JPanel {
     private JButton button;
     private JLabel usernameLabel;
     private JTextField usernameField;
-    private Record record;
+    private RankingRecord rankingRecord;
 
-    public RegisterPanel(JPanel panel, Record record) {
-        this.record = record;
+    public RegisterPanel(JPanel panel, RankingRecord rankingRecord) {
+        this.rankingRecord = rankingRecord;
         contentPane = panel;
         setLayout(null);
 
@@ -30,10 +30,10 @@ public class RegisterPanel extends JPanel {
      */
     private void GUI() {
         Locale locale = Locale.getDefault();
-        ResourceBundle rb = ResourceBundle.getBundle(Constants.LOCALE_PREFIX, locale);
+        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         usernameLabel = new JLabel(rb.getString("username_label"));
-        usernameLabel.setFont(Constants.FONT_MAIN);
+        usernameLabel.setFont(Constants.Common.FONT_MAIN);
         usernameLabel.setBounds(120, 140, 400, 20);
         this.add(usernameLabel);
 
@@ -44,13 +44,13 @@ public class RegisterPanel extends JPanel {
         this.add(usernameField);
 
         button = new JButton(rb.getString("continue_button"));
-        button.setFont(Constants.FONT_MAIN);
+        button.setFont(Constants.Common.FONT_MAIN);
         button.setBounds(usernameField.getX(), usernameField.getY() + 30, 400, 100);
         button.setFocusPainted(false);
         button.addActionListener(e -> EventQueue.invokeLater(() -> {
-            record.setUsername(usernameField.getText());
+            rankingRecord.setUsername(usernameField.getText());
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.next(contentPane);
+            cardLayout.show(contentPane, Constants.Screen.SETTINGS);
         }));
         this.add(button);
     }

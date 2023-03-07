@@ -1,12 +1,19 @@
 package ua.com.yatran.entities;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
  * This class represents information about the user's result
  */
-public class Record {
+public class RankingRecord implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private String username;
     private Integer score;
@@ -15,14 +22,10 @@ public class Record {
     private Integer mistakes;
     private Calendar date;
 
-    public Record() {
+    public RankingRecord() {
     }
 
-    public Record(String username) {
-        this.username = username;
-    }
-
-    public Record(String username, Integer score, Integer level, Integer speed, Integer mistakes, Calendar date) {
+    public RankingRecord(String username, Integer score, Integer level, Integer speed, Integer mistakes, Calendar date) {
         this.username = username;
         this.score = score;
         this.level = level;
@@ -75,6 +78,14 @@ public class Record {
         return date;
     }
 
+    public String getDateFormatted() {
+        if (date != null) {
+            return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(date.getTimeInMillis());
+        } else {
+            return null;
+        }
+    }
+
     public void setDate(Calendar date) {
         this.date = date;
     }
@@ -83,8 +94,8 @@ public class Record {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Record record = (Record) o;
-        return Objects.equals(username, record.username) && Objects.equals(score, record.score) && Objects.equals(level, record.level) && Objects.equals(speed, record.speed) && Objects.equals(mistakes, record.mistakes) && Objects.equals(date, record.date);
+        RankingRecord rankingRecord = (RankingRecord) o;
+        return Objects.equals(username, rankingRecord.username) && Objects.equals(score, rankingRecord.score) && Objects.equals(level, rankingRecord.level) && Objects.equals(speed, rankingRecord.speed) && Objects.equals(mistakes, rankingRecord.mistakes) && Objects.equals(date, rankingRecord.date);
     }
 
     @Override
@@ -94,13 +105,13 @@ public class Record {
 
     @Override
     public String toString() {
-        return "Record{" +
+        return "RankingRecord{" +
                 "username='" + username + '\'' +
                 ", score=" + score +
                 ", level=" + level +
                 ", speed=" + speed +
                 ", mistakes=" + mistakes +
-                ", date=" + date +
+                ", date=" + getDateFormatted() +
                 '}';
     }
 }
