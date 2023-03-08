@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class RankingTableModel extends AbstractTableModel {
 
-    private static final int RANKING_TABLE_SIZE = 5;
+    private static final int RANKING_TABLE_SIZE = 15;
 
-    private String[] columnNames;
+    private final String[] columnNames;
     private Object[][] data;
     private static int resultIndexLocal;
 
@@ -68,6 +68,10 @@ public class RankingTableModel extends AbstractTableModel {
             resultArray = new String[][]{};
         } else {
             recordList.sort(Comparator.comparing(RankingRecord::getDate));
+            recordList.sort(Comparator.comparing(RankingRecord::getUsername));
+            recordList.sort(Comparator.comparing(RankingRecord::getMistakes));
+            recordList.sort(Comparator.comparing(RankingRecord::getSpeed).reversed());
+            recordList.sort(Comparator.comparing(RankingRecord::getLevel).reversed());
             recordList.sort(Comparator.comparing(RankingRecord::getScore).reversed());
             int resultIndexGeneral = getRecordIndex(currentRecord, recordList);
             int maxIndex = Math.min(RANKING_TABLE_SIZE, recordList.size());

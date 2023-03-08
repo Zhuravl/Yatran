@@ -40,6 +40,7 @@ public class RegisterPanel extends JPanel {
         usernameField.setBounds(usernameLabel.getX(), usernameLabel.getY() + 30, 150, 20);
         usernameField.addActionListener(e -> button.doClick());
         usernameField.setDocument(new JTextFieldLimit(15));
+        usernameField.setText(GameContext.getRecord() != null ? GameContext.getRecord().getUsername() : "");
         this.add(usernameField);
 
         button = new JButton(rb.getString("continue_button"));
@@ -47,9 +48,11 @@ public class RegisterPanel extends JPanel {
         button.setBounds(usernameField.getX(), usernameField.getY() + 30, 400, 100);
         button.setFocusPainted(false);
         button.addActionListener(e -> EventQueue.invokeLater(() -> {
-            GameContext.setRecord(new RankingRecord(usernameField.getText())); //create record for new user
-            CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.show(contentPane, Constants.Screen.SETTINGS);
+            if (usernameField.getText() != null && !usernameField.getText().isBlank()) {
+                GameContext.setRecord(new RankingRecord(usernameField.getText()));
+                CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+                cardLayout.show(contentPane, Constants.Screen.SETTINGS);
+            }
         }));
         this.add(button);
     }

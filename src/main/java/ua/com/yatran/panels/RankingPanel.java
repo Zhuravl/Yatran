@@ -1,6 +1,5 @@
 package ua.com.yatran.panels;
 
-import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.RankingRecord;
 import ua.com.yatran.entities.RankingTableModel;
@@ -14,7 +13,7 @@ import java.util.ResourceBundle;
 public class RankingPanel extends JPanel {
 
     private JPanel contentPane;
-    private JButton continueButton;
+    private JButton continueButton, exitButton;
     private JTable rankingTable;
     private JScrollPane scrollPane;
     private RankingTableModel tableModel;
@@ -51,7 +50,7 @@ public class RankingPanel extends JPanel {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         rankingTable = new JTable(tableModel);
-        rankingTable.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH - 20, 400);
+        rankingTable.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH - 20, 350);
         rankingTable.setEnabled(false);
         rankingTable.getTableHeader().setEnabled(false);
         rankingTable.setShowGrid(true);
@@ -63,13 +62,21 @@ public class RankingPanel extends JPanel {
 
         continueButton = new JButton(rb.getString("continue_button"));
         continueButton.setFont(Constants.Common.FONT_MAIN);
-        continueButton.setBounds(scrollPane.getX(), scrollPane.getY() + scrollPane.getHeight() + 100, 400, 100);
+        continueButton.setBounds(scrollPane.getX(), scrollPane.getY() + scrollPane.getHeight() + 20, 400, 100);
         continueButton.setFocusPainted(false);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
-            GameContext.setRecord(new RankingRecord(GameContext.getRecord().getUsername())); //create record for new game
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.show(contentPane, Constants.Screen.SETTINGS);
+            cardLayout.show(contentPane, Constants.Screen.REGISTER);
         }));
         this.add(continueButton);
+
+        exitButton = new JButton(rb.getString("exit_button"));
+        exitButton.setFont(Constants.Common.FONT_MAIN);
+        exitButton.setBounds(continueButton.getX(), continueButton.getY() + continueButton.getHeight() + 20, 400, 100);
+        exitButton.setFocusPainted(false);
+        exitButton.addActionListener(e -> EventQueue.invokeLater(() -> {
+            System.exit(0);
+        }));
+        this.add(exitButton);
     }
 }
