@@ -1,7 +1,7 @@
 package ua.com.yatran.panels;
 
+import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
-import ua.com.yatran.entities.RankingRecord;
 import ua.com.yatran.entities.RankingTableModel;
 
 import javax.swing.*;
@@ -31,13 +31,11 @@ public class RankingPanel extends JPanel {
     }
 
     /**
-     * Refreshes the Ranking Table by pulling the latest data
-     *
-     * @param record the current user record to show it among the general results
+     * Refreshes GUI to pull the latest data
      */
-    public void refreshTable(RankingRecord record) {
+    public void refreshGUI() {
         RankingTableModel model = (RankingTableModel) rankingTable.getModel();
-        model.refreshData(record);
+        model.refreshData(GameContext.getRecord());
         rankingTable.setRowSelectionInterval(model.getCurrentUserRowIndex(), model.getCurrentUserRowIndex());
         rankingTable.revalidate();
     }

@@ -15,6 +15,8 @@ public class Constants {
         public static final int MAIN_WINDOW_HEIGHT = (int) (MAIN_WINDOW_WIDTH / ((Math.sqrt(5) + 1) / 2));
         public static final Font FONT_LANDING = new Font("Tahoma", Font.PLAIN, 26);
         public static final Font FONT_MAIN = new Font("Tahoma", Font.PLAIN, 14);
+        public static final int MISTAKES_MIN = 0;
+        public static final int MISTAKES_MAX = 10;
     }
 
     public static class Screen {

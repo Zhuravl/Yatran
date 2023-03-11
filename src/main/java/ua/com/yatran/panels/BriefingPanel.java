@@ -33,12 +33,12 @@ public class BriefingPanel extends JPanel {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         briefingPicture = new JLabel(new ImageIcon("src/main/resources/images/Ukrainian-keyboard-standard.png"));
-        briefingPicture.setBounds(0, 0, 700, 300);
+        briefingPicture.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, 400);
         this.add(briefingPicture);
 
         briefingText = new JLabel(rb.getString("briefing_label"));
         briefingText.setFont(Constants.Common.FONT_MAIN);
-        briefingText.setBounds(briefingPicture.getX() + (briefingPicture.getWidth() / 2), briefingPicture.getY() + briefingPicture.getHeight() + 50, 400, 20);
+        briefingText.setBounds(50, briefingPicture.getY() + briefingPicture.getHeight() + 50, Constants.Common.MAIN_WINDOW_WIDTH, 20);
         this.add(briefingText);
 
         continueButton = new JButton(rb.getString("continue_button"));

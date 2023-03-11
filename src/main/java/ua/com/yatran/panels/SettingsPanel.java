@@ -15,9 +15,11 @@ public class SettingsPanel extends JPanel {
     private JButton startButton, exitButton;
     private JLabel keyboardLabel, levelLabel, soundLabel;
     private JComboBox keyboardBox, levelBox, soundBox;
+    private GamePanel gamePanel;
 
-    public SettingsPanel(JPanel contentPane) {
+    public SettingsPanel(JPanel contentPane, GamePanel gamePanel) {
         this.contentPane = contentPane;
+        this.gamePanel = gamePanel;
         this.setLayout(null);
 
         GUI();
@@ -40,6 +42,7 @@ public class SettingsPanel extends JPanel {
             GameContext.getSettings().setSoundOn(rb.getString("sound_on_label").equals(soundBox.getSelectedItem()));
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.BRIEFING);
+            gamePanel.refreshGUI();
         }));
         this.add(startButton);
 

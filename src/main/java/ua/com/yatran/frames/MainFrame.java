@@ -38,10 +38,10 @@ public class MainFrame extends JFrame {
         contentPane.setBounds(insets.left, insets.top, Constants.Common.MAIN_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.MAIN_WINDOW_HEIGHT - insets.bottom - insets.top);
 
         registerPanel = new RegisterPanel(contentPane);
-        settingsPanel = new SettingsPanel(contentPane);
         briefingPanel = new BriefingPanel(contentPane);
         rankingPanel = new RankingPanel(contentPane);
         gamePanel = new GamePanel(contentPane, (RankingPanel) rankingPanel);
+        settingsPanel = new SettingsPanel(contentPane, (GamePanel) gamePanel);
 
         contentPane.add(registerPanel, Constants.Screen.REGISTER);
         contentPane.add(settingsPanel, Constants.Screen.SETTINGS);
