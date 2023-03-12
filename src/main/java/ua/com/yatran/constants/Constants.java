@@ -17,6 +17,8 @@ public class Constants {
         public static final Font FONT_MAIN = new Font("Tahoma", Font.PLAIN, 14);
         public static final int MISTAKES_MIN = 0;
         public static final int MISTAKES_MAX = 10;
+        public static final Color BUTTON_COLOR_DEFAULT = Color.WHITE;
+        public static final Color BUTTON_COLOR_ACCENT = Color.BLUE;
     }
 
     public static class Screen {

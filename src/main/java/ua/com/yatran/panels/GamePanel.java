@@ -1,9 +1,14 @@
 package ua.com.yatran.panels;
 
+import ua.com.yatran.common.GameContext;
+import ua.com.yatran.constants.Constants;
 import ua.com.yatran.panels.subpanels.GameSubPanel;
 import ua.com.yatran.panels.subpanels.KeyboardSubPanel;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+import java.util.ResourceBundle;
 
 public class GamePanel extends JPanel {
 
@@ -17,10 +22,17 @@ public class GamePanel extends JPanel {
         this.contentPane = contentPane;
         this.rankingPanel = rankingPanel;
         this.setLayout(null);
-//        registerKeyboardAction(
-//                e -> continueButton.doClick(),
-//                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0),
-//                JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, GameContext.getSettings().getLanguage().getLocale());
+        String keyNames = rb.getString("key_list");
+        registerKeyboardAction(
+                e -> {
+                    int rnd = new Random().nextInt(keyNames.length() - 1);
+                    String str = keyNames.substring(rnd, rnd + 1);
+                    keyboardSubPanel.highlightButton(str);
+                    System.out.println("Highlight = " + str);
+                },
+                KeyStroke.getKeyStroke(KeyEvent.VK_G, 0),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         GUI();
     }
