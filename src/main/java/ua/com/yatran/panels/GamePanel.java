@@ -29,7 +29,6 @@ public class GamePanel extends JPanel {
                     int rnd = new Random().nextInt(keyNames.length() - 1);
                     String str = keyNames.substring(rnd, rnd + 1);
                     keyboardSubPanel.highlightButton(str);
-                    System.out.println("Highlight = " + str);
                 },
                 KeyStroke.getKeyStroke(KeyEvent.VK_G, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);

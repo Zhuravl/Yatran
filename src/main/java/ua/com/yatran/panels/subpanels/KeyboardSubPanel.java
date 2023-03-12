@@ -13,8 +13,8 @@ import java.util.ResourceBundle;
 
 /**
  * This class is responsible for the visualization of the keyboard and keys that are needed to press.
- * It is super important to keep the current number of chars in the locale file due to hardcoded indexes in this implementation!
- * Please, re-implement this class once have a chance!
+ * It is super important to keep the current number of chars in the locale file (the 'key_list' variable) due to hardcoded indexes in this implementation!
+ * This class could be a nice candidate for refactoring!
  */
 public class KeyboardSubPanel extends JPanel {
 
@@ -91,305 +91,115 @@ public class KeyboardSubPanel extends JPanel {
      * @param text button text to search by
      */
     public void highlightButton(String text) {
-        System.out.println("text = " + text);
+        final int SPACE_KEY_INDEX = 94;
         setBackgroundColor(Constants.Common.BUTTON_COLOR_DEFAULT, getComponents());
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, GameContext.getSettings().getLanguage().getLocale());
         Color accentColor = Constants.Common.BUTTON_COLOR_ACCENT;
         String keyNames = rb.getString("key_list");
         int neededKeyIndex;
         if (" ".equals(text)) {
-            neededKeyIndex = 94;
+            neededKeyIndex = SPACE_KEY_INDEX;
         } else {
             neededKeyIndex = keyNames.indexOf(text);
         }
         switch (neededKeyIndex) {
-            case 0:
-                setBackgroundColor(accentColor, getComponent(32));
-                break;
-            case 1:
-                setBackgroundColor(accentColor, getComponent(35));
-                break;
-            case 2:
-                setBackgroundColor(accentColor, getComponent(31));
-                break;
-            case 3:
-                setBackgroundColor(accentColor, getComponent(36));
-                break;
-            case 4:
-                setBackgroundColor(accentColor, getComponent(30));
-                break;
-            case 5:
-                setBackgroundColor(accentColor, getComponent(37));
-                break;
-            case 6:
-                setBackgroundColor(accentColor, getComponent(29));
-                break;
-            case 7:
-                setBackgroundColor(accentColor, getComponent(38));
-                break;
-            case 8:
-                setBackgroundColor(accentColor, getComponent(33));
-                break;
-            case 9:
-                setBackgroundColor(accentColor, getComponent(34));
-                break;
-            case 10:
-                setBackgroundColor(accentColor, getComponent(18));
-                break;
-            case 11:
-                setBackgroundColor(accentColor, getComponent(21));
-                break;
-            case 12:
-                setBackgroundColor(accentColor, getComponent(19));
-                break;
-            case 13:
-                setBackgroundColor(accentColor, getComponent(20));
-                break;
-            case 14:
-                setBackgroundColor(accentColor, getComponent(45));
-                break;
-            case 15:
-                setBackgroundColor(accentColor, getComponent(48));
-                break;
-            case 16:
-                setBackgroundColor(accentColor, getComponent(46));
-                break;
-            case 17:
-                setBackgroundColor(accentColor, getComponent(47));
-                break;
-            case 18:
-                setBackgroundColor(accentColor, getComponent(17));
-                break;
-            case 19:
-                setBackgroundColor(accentColor, getComponent(22));
-                break;
-            case 20:
-                setBackgroundColor(accentColor, getComponent(44));
-                break;
-            case 21:
-                setBackgroundColor(accentColor, getComponent(16));
-                break;
-            case 22:
-                setBackgroundColor(accentColor, getComponent(23));
-                break;
-            case 23:
-                setBackgroundColor(accentColor, getComponent(43));
-                break;
-            case 24:
-                setBackgroundColor(accentColor, getComponent(15));
-                break;
-            case 25:
-                setBackgroundColor(accentColor, getComponent(24));
-                break;
-            case 26:
-                setBackgroundColor(accentColor, getComponent(42));
-                break;
-            case 27:
-                setBackgroundColor(accentColor, getComponent(49));
-                break;
-            case 28:
-                setBackgroundColor(accentColor, getComponent(50));
-                break;
-            case 29:
-                setBackgroundColor(accentColor, getComponent(25));
-                break;
-            case 30:
-                setBackgroundColor(accentColor, getComponent(39));
-                break;
-            case 31:
-                setBackgroundColor(accentColor, getComponent(26));
-                break;
-            case 32:
-                setBackgroundColor(accentColor, getComponent(51));
-                break;
-            case 33:
-                setBackgroundColor(accentColor, getComponent(5));
-                break;
-            case 34:
-                setBackgroundColor(accentColor, getComponent(6));
-                break;
-            case 35:
-                setBackgroundColor(accentColor, getComponent(7));
-                break;
-            case 36:
-                setBackgroundColor(accentColor, getComponent(4));
-                break;
-            case 37:
-                setBackgroundColor(accentColor, getComponent(8));
-                break;
-            case 38:
-                setBackgroundColor(accentColor, getComponent(3));
-                break;
-            case 39:
-                setBackgroundColor(accentColor, getComponent(9));
-                break;
-            case 40:
-                setBackgroundColor(accentColor, getComponent(2));
-                break;
-            case 41:
-                setBackgroundColor(accentColor, getComponent(10));
-                break;
-            case 42:
-                setBackgroundColor(accentColor, getComponent(1));
-                break;
-            case 43:
-                setBackgroundColor(accentColor, getComponent(11));
-                break;
-            case 44:
-                setBackgroundColor(accentColor, getComponent(0));
-                break;
-            case 45:
-                setBackgroundColor(accentColor, getComponent(12));
-                break;
-            case 46:
-                setBackgroundColor(accentColor, getComponent(27));
-                break;
-            case 47:
-                setBackgroundColor(accentColor, getComponent(32), getComponent(41));
-                break;
-            case 48:
-                setBackgroundColor(accentColor, getComponent(35), getComponent(41));
-                break;
-            case 49:
-                setBackgroundColor(accentColor, getComponent(31), getComponent(41));
-                break;
-            case 50:
-                setBackgroundColor(accentColor, getComponent(36), getComponent(41));
-                break;
-            case 51:
-                setBackgroundColor(accentColor, getComponent(30), getComponent(41));
-                break;
-            case 52:
-                setBackgroundColor(accentColor, getComponent(37), getComponent(41));
-                break;
-            case 53:
-                setBackgroundColor(accentColor, getComponent(29), getComponent(41));
-                break;
-            case 54:
-                setBackgroundColor(accentColor, getComponent(38), getComponent(41));
-                break;
-            case 55:
-                setBackgroundColor(accentColor, getComponent(33), getComponent(41));
-                break;
-            case 56:
-                setBackgroundColor(accentColor, getComponent(34), getComponent(41));
-                break;
-            case 57:
-                setBackgroundColor(accentColor, getComponent(18), getComponent(41));
-                break;
-            case 58:
-                setBackgroundColor(accentColor, getComponent(21), getComponent(41));
-                break;
-            case 59:
-                setBackgroundColor(accentColor, getComponent(19), getComponent(41));
-                break;
-            case 60:
-                setBackgroundColor(accentColor, getComponent(20), getComponent(41));
-                break;
-            case 61:
-                setBackgroundColor(accentColor, getComponent(45), getComponent(41));
-                break;
-            case 62:
-                setBackgroundColor(accentColor, getComponent(48), getComponent(41));
-                break;
-            case 63:
-                setBackgroundColor(accentColor, getComponent(46), getComponent(41));
-                break;
-            case 64:
-                setBackgroundColor(accentColor, getComponent(47), getComponent(41));
-                break;
-            case 65:
-                setBackgroundColor(accentColor, getComponent(17), getComponent(41));
-                break;
-            case 66:
-                setBackgroundColor(accentColor, getComponent(22), getComponent(41));
-                break;
-            case 67:
-                setBackgroundColor(accentColor, getComponent(44), getComponent(41));
-                break;
-            case 68:
-                setBackgroundColor(accentColor, getComponent(16), getComponent(41));
-                break;
-            case 69:
-                setBackgroundColor(accentColor, getComponent(23), getComponent(41));
-                break;
-            case 70:
-                setBackgroundColor(accentColor, getComponent(43), getComponent(41));
-                break;
-            case 71:
-                setBackgroundColor(accentColor, getComponent(15), getComponent(41));
-                break;
-            case 72:
-                setBackgroundColor(accentColor, getComponent(24), getComponent(41));
-                break;
-            case 73:
-                setBackgroundColor(accentColor, getComponent(42), getComponent(41));
-                break;
-            case 74:
-                setBackgroundColor(accentColor, getComponent(49), getComponent(41));
-                break;
-            case 75:
-                setBackgroundColor(accentColor, getComponent(50), getComponent(41));
-                break;
-            case 76:
-                setBackgroundColor(accentColor, getComponent(25), getComponent(41));
-                break;
-            case 77:
-                setBackgroundColor(accentColor, getComponent(39), getComponent(41));
-                break;
-            case 78:
-                setBackgroundColor(accentColor, getComponent(26), getComponent(41));
-                break;
-            case 79:
-                setBackgroundColor(accentColor, getComponent(51), getComponent(41));
-                break;
-            case 80:
-                setBackgroundColor(accentColor, getComponent(5), getComponent(41));
-                break;
-            case 81:
-                setBackgroundColor(accentColor, getComponent(6), getComponent(41));
-                break;
-            case 82:
-                setBackgroundColor(accentColor, getComponent(7), getComponent(41));
-                break;
-            case 83:
-                setBackgroundColor(accentColor, getComponent(4), getComponent(41));
-                break;
-            case 84:
-                setBackgroundColor(accentColor, getComponent(8), getComponent(41));
-                break;
-            case 85:
-                setBackgroundColor(accentColor, getComponent(3), getComponent(41));
-                break;
-            case 86:
-                setBackgroundColor(accentColor, getComponent(9), getComponent(41));
-                break;
-            case 87:
-                setBackgroundColor(accentColor, getComponent(2), getComponent(41));
-                break;
-            case 88:
-                setBackgroundColor(accentColor, getComponent(10), getComponent(41));
-                break;
-            case 89:
-                setBackgroundColor(accentColor, getComponent(1), getComponent(41));
-                break;
-            case 90:
-                setBackgroundColor(accentColor, getComponent(11), getComponent(41));
-                break;
-            case 91:
-                setBackgroundColor(accentColor, getComponent(0), getComponent(41));
-                break;
-            case 92:
-                setBackgroundColor(accentColor, getComponent(12), getComponent(41));
-                break;
-            case 93:
-                setBackgroundColor(accentColor, getComponent(27), getComponent(41));
-                break;
-            case 94:
-                setBackgroundColor(accentColor, getComponent(54));
-                break;
-            default:
-                throw new IllegalArgumentException("There is not a defined pattern for the key with index - '" + neededKeyIndex + "'!");
+            case 0 -> setBackgroundColor(accentColor, getComponent(32));
+            case 1 -> setBackgroundColor(accentColor, getComponent(35));
+            case 2 -> setBackgroundColor(accentColor, getComponent(31));
+            case 3 -> setBackgroundColor(accentColor, getComponent(36));
+            case 4 -> setBackgroundColor(accentColor, getComponent(30));
+            case 5 -> setBackgroundColor(accentColor, getComponent(37));
+            case 6 -> setBackgroundColor(accentColor, getComponent(29));
+            case 7 -> setBackgroundColor(accentColor, getComponent(38));
+            case 8 -> setBackgroundColor(accentColor, getComponent(33));
+            case 9 -> setBackgroundColor(accentColor, getComponent(34));
+            case 10 -> setBackgroundColor(accentColor, getComponent(18));
+            case 11 -> setBackgroundColor(accentColor, getComponent(21));
+            case 12 -> setBackgroundColor(accentColor, getComponent(19));
+            case 13 -> setBackgroundColor(accentColor, getComponent(20));
+            case 14 -> setBackgroundColor(accentColor, getComponent(45));
+            case 15 -> setBackgroundColor(accentColor, getComponent(48));
+            case 16 -> setBackgroundColor(accentColor, getComponent(46));
+            case 17 -> setBackgroundColor(accentColor, getComponent(47));
+            case 18 -> setBackgroundColor(accentColor, getComponent(17));
+            case 19 -> setBackgroundColor(accentColor, getComponent(22));
+            case 20 -> setBackgroundColor(accentColor, getComponent(44));
+            case 21 -> setBackgroundColor(accentColor, getComponent(16));
+            case 22 -> setBackgroundColor(accentColor, getComponent(23));
+            case 23 -> setBackgroundColor(accentColor, getComponent(43));
+            case 24 -> setBackgroundColor(accentColor, getComponent(15));
+            case 25 -> setBackgroundColor(accentColor, getComponent(24));
+            case 26 -> setBackgroundColor(accentColor, getComponent(42));
+            case 27 -> setBackgroundColor(accentColor, getComponent(49));
+            case 28 -> setBackgroundColor(accentColor, getComponent(50));
+            case 29 -> setBackgroundColor(accentColor, getComponent(25));
+            case 30 -> setBackgroundColor(accentColor, getComponent(39));
+            case 31 -> setBackgroundColor(accentColor, getComponent(26));
+            case 32 -> setBackgroundColor(accentColor, getComponent(51));
+            case 33 -> setBackgroundColor(accentColor, getComponent(5));
+            case 34 -> setBackgroundColor(accentColor, getComponent(6));
+            case 35 -> setBackgroundColor(accentColor, getComponent(7));
+            case 36 -> setBackgroundColor(accentColor, getComponent(4));
+            case 37 -> setBackgroundColor(accentColor, getComponent(8));
+            case 38 -> setBackgroundColor(accentColor, getComponent(3));
+            case 39 -> setBackgroundColor(accentColor, getComponent(9));
+            case 40 -> setBackgroundColor(accentColor, getComponent(2));
+            case 41 -> setBackgroundColor(accentColor, getComponent(10));
+            case 42 -> setBackgroundColor(accentColor, getComponent(1));
+            case 43 -> setBackgroundColor(accentColor, getComponent(11));
+            case 44 -> setBackgroundColor(accentColor, getComponent(0));
+            case 45 -> setBackgroundColor(accentColor, getComponent(12));
+            case 46 -> setBackgroundColor(accentColor, getComponent(27));
+            case 47 -> setBackgroundColor(accentColor, getComponent(32), getComponent(41));
+            case 48 -> setBackgroundColor(accentColor, getComponent(35), getComponent(41));
+            case 49 -> setBackgroundColor(accentColor, getComponent(31), getComponent(41));
+            case 50 -> setBackgroundColor(accentColor, getComponent(36), getComponent(41));
+            case 51 -> setBackgroundColor(accentColor, getComponent(30), getComponent(41));
+            case 52 -> setBackgroundColor(accentColor, getComponent(37), getComponent(41));
+            case 53 -> setBackgroundColor(accentColor, getComponent(29), getComponent(41));
+            case 54 -> setBackgroundColor(accentColor, getComponent(38), getComponent(41));
+            case 55 -> setBackgroundColor(accentColor, getComponent(33), getComponent(41));
+            case 56 -> setBackgroundColor(accentColor, getComponent(34), getComponent(41));
+            case 57 -> setBackgroundColor(accentColor, getComponent(18), getComponent(41));
+            case 58 -> setBackgroundColor(accentColor, getComponent(21), getComponent(41));
+            case 59 -> setBackgroundColor(accentColor, getComponent(19), getComponent(41));
+            case 60 -> setBackgroundColor(accentColor, getComponent(20), getComponent(41));
+            case 61 -> setBackgroundColor(accentColor, getComponent(45), getComponent(41));
+            case 62 -> setBackgroundColor(accentColor, getComponent(48), getComponent(41));
+            case 63 -> setBackgroundColor(accentColor, getComponent(46), getComponent(41));
+            case 64 -> setBackgroundColor(accentColor, getComponent(47), getComponent(41));
+            case 65 -> setBackgroundColor(accentColor, getComponent(17), getComponent(41));
+            case 66 -> setBackgroundColor(accentColor, getComponent(22), getComponent(41));
+            case 67 -> setBackgroundColor(accentColor, getComponent(44), getComponent(41));
+            case 68 -> setBackgroundColor(accentColor, getComponent(16), getComponent(41));
+            case 69 -> setBackgroundColor(accentColor, getComponent(23), getComponent(41));
+            case 70 -> setBackgroundColor(accentColor, getComponent(43), getComponent(41));
+            case 71 -> setBackgroundColor(accentColor, getComponent(15), getComponent(41));
+            case 72 -> setBackgroundColor(accentColor, getComponent(24), getComponent(41));
+            case 73 -> setBackgroundColor(accentColor, getComponent(42), getComponent(41));
+            case 74 -> setBackgroundColor(accentColor, getComponent(49), getComponent(41));
+            case 75 -> setBackgroundColor(accentColor, getComponent(50), getComponent(41));
+            case 76 -> setBackgroundColor(accentColor, getComponent(25), getComponent(41));
+            case 77 -> setBackgroundColor(accentColor, getComponent(39), getComponent(41));
+            case 78 -> setBackgroundColor(accentColor, getComponent(26), getComponent(41));
+            case 79 -> setBackgroundColor(accentColor, getComponent(51), getComponent(41));
+            case 80 -> setBackgroundColor(accentColor, getComponent(5), getComponent(41));
+            case 81 -> setBackgroundColor(accentColor, getComponent(6), getComponent(41));
+            case 82 -> setBackgroundColor(accentColor, getComponent(7), getComponent(41));
+            case 83 -> setBackgroundColor(accentColor, getComponent(4), getComponent(41));
+            case 84 -> setBackgroundColor(accentColor, getComponent(8), getComponent(41));
+            case 85 -> setBackgroundColor(accentColor, getComponent(3), getComponent(41));
+            case 86 -> setBackgroundColor(accentColor, getComponent(9), getComponent(41));
+            case 87 -> setBackgroundColor(accentColor, getComponent(2), getComponent(41));
+            case 88 -> setBackgroundColor(accentColor, getComponent(10), getComponent(41));
+            case 89 -> setBackgroundColor(accentColor, getComponent(1), getComponent(41));
+            case 90 -> setBackgroundColor(accentColor, getComponent(11), getComponent(41));
+            case 91 -> setBackgroundColor(accentColor, getComponent(0), getComponent(41));
+            case 92 -> setBackgroundColor(accentColor, getComponent(12), getComponent(41));
+            case 93 -> setBackgroundColor(accentColor, getComponent(27), getComponent(41));
+            case 94 -> setBackgroundColor(accentColor, getComponent(54));
+            default ->
+                    throw new IllegalArgumentException("There is not a defined pattern for the key with index - '" + neededKeyIndex + "'!");
         }
     }
 
@@ -508,7 +318,7 @@ public class KeyboardSubPanel extends JPanel {
      * @param text text to set for the button
      */
     private JComponent createButton(String text) {
-        JComponent comp = null;
+        JComponent comp;
         if (text == null || text.equalsIgnoreCase("fill")) {
             comp = new JLabel();
         } else {
