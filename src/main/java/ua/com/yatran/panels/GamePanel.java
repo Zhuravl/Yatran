@@ -3,6 +3,7 @@ package ua.com.yatran.panels;
 import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.panels.subpanels.GameSubPanel;
+import ua.com.yatran.panels.subpanels.InfoBarSubPanel;
 import ua.com.yatran.panels.subpanels.KeyboardSubPanel;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.util.ResourceBundle;
 public class GamePanel extends JPanel {
 
     private JPanel contentPane;
+    private InfoBarSubPanel infoBarSubPanel;
     private GameSubPanel gameSubPanel;
     private KeyboardSubPanel keyboardSubPanel;
 
@@ -40,6 +42,7 @@ public class GamePanel extends JPanel {
      * Refreshes GUI to pull the latest data
      */
     public void refreshGUI() {
+        infoBarSubPanel.refreshGUI();
         gameSubPanel.refreshGUI();
         keyboardSubPanel.refreshGUI();
     }
@@ -48,10 +51,16 @@ public class GamePanel extends JPanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
+        infoBarSubPanel = new InfoBarSubPanel();
+        infoBarSubPanel.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 8);
+        this.add(infoBarSubPanel);
+
         gameSubPanel = new GameSubPanel(contentPane, rankingPanel);
+        gameSubPanel.setBounds(0, Constants.Common.MAIN_WINDOW_HEIGHT / 8, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 2);
         this.add(gameSubPanel);
 
         keyboardSubPanel = new KeyboardSubPanel();
+        keyboardSubPanel.setBounds(0, (Constants.Common.MAIN_WINDOW_HEIGHT / 2) + (Constants.Common.MAIN_WINDOW_HEIGHT / 8), Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 2);
         this.add(keyboardSubPanel);
     }
 }

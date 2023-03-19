@@ -22,6 +22,7 @@ public class KeyboardSubPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     public KeyboardSubPanel() {
+        this.setLayout(new KeyBoardLayout());
         GUI();
     }
 
@@ -207,9 +208,6 @@ public class KeyboardSubPanel extends JPanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        setBounds(0, Constants.Common.MAIN_WINDOW_HEIGHT / 2, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 2);
-        setLayout(new KeyBoardLayout());
-
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, GameContext.getSettings().getLanguage().getLocale());
         String keyNames = rb.getString("key_list");
         Key[][] keys = new Key[][]{

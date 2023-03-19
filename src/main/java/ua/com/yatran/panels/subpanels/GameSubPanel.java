@@ -4,8 +4,12 @@ import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.panels.RankingPanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serial;
 import java.util.Calendar;
 import java.util.Locale;
@@ -17,11 +21,13 @@ public class GameSubPanel extends JPanel {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private JLabel keyboardLabel, levelLabel, scoresLabel, mistakesLabel;
-    private JTextField keyboardField, levelField, scoresField;
-    private JProgressBar mistakesBar;
     private RankingPanel rankingPanel;
     private JPanel contentPane;
+
+    private int x = 0;
+    private int y = 0;
+    private BufferedImage image;
+    private Timer timer;
 
     private JButton continueButton; //technical button for development purposes only
 
@@ -29,8 +35,18 @@ public class GameSubPanel extends JPanel {
         this.contentPane = contentPane;
         this.rankingPanel = rankingPanel;
 
-        this.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 2);
         this.setLayout(null);
+
+        try {
+            this.image = ImageIO.read(new File("src/main/resources/images/Pfnu.gif"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.timer = new Timer(40, e -> {
+            moveBall();
+            repaint();
+        });
 
         GUI();
     }
@@ -39,10 +55,7 @@ public class GameSubPanel extends JPanel {
      * Refreshes GUI to pull the latest data
      */
     public void refreshGUI() {
-        keyboardField.setText(GameContext.getSettings().getLanguage().getKeyboardName());
-        levelField.setText(String.valueOf(GameContext.getSettings().getLevel()));
-        scoresField.setText(String.valueOf(new Random().nextInt(200)));
-        mistakesBar.setValue(new Random().nextInt(Constants.Common.MISTAKES_MAX));
+        timer.start();
     }
 
     /**
@@ -52,55 +65,15 @@ public class GameSubPanel extends JPanel {
         Locale locale = Locale.getDefault();
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
-        keyboardLabel = new JLabel(rb.getString("keyboard_label") + ":");
-        keyboardLabel.setFont(Constants.Common.FONT_MAIN);
-        keyboardLabel.setBounds(20, 20, 80, 50);
-        this.add(keyboardLabel);
-
-        keyboardField = new JTextField();
-        keyboardField.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + 20, keyboardLabel.getY(), 70, keyboardLabel.getHeight());
-        keyboardField.setEnabled(false);
-        this.add(keyboardField);
-
-        levelLabel = new JLabel(rb.getString("level_label") + ":");
-        levelLabel.setFont(Constants.Common.FONT_MAIN);
-        levelLabel.setBounds(keyboardField.getX() + keyboardField.getWidth() + 20, keyboardField.getY(), 70, keyboardField.getHeight());
-        this.add(levelLabel);
-
-        levelField = new JTextField();
-        levelField.setBounds(levelLabel.getX() + levelLabel.getWidth() + 20, levelLabel.getY(), 70, levelLabel.getHeight());
-        levelField.setEnabled(false);
-        this.add(levelField);
-
-        scoresLabel = new JLabel(rb.getString("scores_label") + ":");
-        scoresLabel.setFont(Constants.Common.FONT_MAIN);
-        scoresLabel.setBounds(levelField.getX() + levelField.getWidth() + 20, levelField.getY(), 70, levelField.getHeight());
-        this.add(scoresLabel);
-
-        scoresField = new JTextField();
-        scoresField.setBounds(scoresLabel.getX() + scoresLabel.getWidth() + 20, scoresLabel.getY(), 70, scoresLabel.getHeight());
-        scoresField.setEnabled(false);
-        this.add(scoresField);
-
-        mistakesLabel = new JLabel(rb.getString("mistakes_label") + ":");
-        mistakesLabel.setFont(Constants.Common.FONT_MAIN);
-        mistakesLabel.setBounds(scoresField.getX() + scoresField.getWidth() + 20, scoresField.getY(), 70, scoresField.getHeight());
-        this.add(mistakesLabel);
-
-        mistakesBar = new JProgressBar(Constants.Common.MISTAKES_MIN, Constants.Common.MISTAKES_MAX);
-        mistakesBar.setBounds(mistakesLabel.getX() + mistakesLabel.getWidth() + 20, mistakesLabel.getY(), 70, mistakesLabel.getHeight());
-        mistakesBar.setStringPainted(true);
-        this.add(mistakesBar);
-
         continueButton = new JButton(rb.getString("continue_button"));
         continueButton.setFont(Constants.Common.FONT_MAIN);
         continueButton.setBounds(100, 100, 400, 100);
         continueButton.setFocusPainted(false);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
-            GameContext.getRecord().setScore(Integer.parseInt(scoresField.getText()));
-            GameContext.getRecord().setLevel(Integer.parseInt(levelField.getText()));
+            GameContext.getRecord().setScore(new Random().nextInt(200));
+            GameContext.getRecord().setLevel(new Random().nextInt(20));
             GameContext.getRecord().setSpeed(new Random().nextInt(100));
-            GameContext.getRecord().setMistakes(mistakesBar.getValue());
+            GameContext.getRecord().setMistakes(new Random().nextInt(Constants.Common.MISTAKES_MAX));
             GameContext.getRecord().setDate(Calendar.getInstance());
             GameContext.saveRecordToDisk();
             rankingPanel.refreshGUI();
@@ -108,5 +81,25 @@ public class GameSubPanel extends JPanel {
             cardLayout.show(contentPane, Constants.Screen.RANKING);
         }));
         this.add(continueButton);
+    }
+
+    private void moveBall() {
+        x++;
+        y++;
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(200, 200);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.drawImage(image, x, y, this);
+//        g2d.setColor(Color.RED);
+//        g2d.fillOval(x, y, 30, 30);
+        g2d.dispose();
     }
 }
