@@ -16,6 +16,8 @@ import java.util.*;
  */
 public class GameContext {
 
+    private static final int CHARACTERS_IN_LEVEL = 2;
+
     private static Settings settings;
     private static RankingRecord record;
 
@@ -78,10 +80,10 @@ public class GameContext {
     public static String[] getAvailableLevels(Language language) {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, language.getLocale());
         char[] keyArray = rb.getString("key_list").toCharArray();
-        int lastLevel = keyArray.length / 2;
-        if (keyArray.length % 2 != 0) {
+        int lastLevel = keyArray.length / CHARACTERS_IN_LEVEL;
+        if (keyArray.length % CHARACTERS_IN_LEVEL != 0) {
             //Add an extra level to cover the last key without a pair
-            lastLevel = (keyArray.length / 2) + 1;
+            lastLevel = lastLevel + 1;
         }
         String[] resultArray = new String[lastLevel];
         for (int i = 1; i <= lastLevel; i++) {
@@ -120,6 +122,25 @@ public class GameContext {
             resultList = (List<RankingRecord>) objectinputstream.readObject();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return resultList;
+    }
+
+    /**
+     * Returns randomly created array of characters based on the current level and keyboard preference
+     */
+    public static String[] getRandomLettersForLevel() {
+        String[] resultList = new String[Constants.Game.LEVEL_CHARACTER_SIZE];
+        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, getSettings().getLanguage().getLocale());
+        String keys = " " + rb.getString("key_list");
+        int maxIndex = (getSettings().getLevel() * CHARACTERS_IN_LEVEL) + 1;
+        if (maxIndex > keys.length()) {
+            //Normalize the MAX index for the last level with an odd number of characters
+            maxIndex = maxIndex - 1;
+        }
+        for (int i = 0; i < Constants.Game.LEVEL_CHARACTER_SIZE; i++) {
+            int randomKey = new Random().nextInt(maxIndex);
+            resultList[i] = (String.valueOf(keys.charAt(randomKey)));
         }
         return resultList;
     }

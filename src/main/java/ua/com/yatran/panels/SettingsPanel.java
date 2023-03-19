@@ -42,7 +42,7 @@ public class SettingsPanel extends JPanel {
             GameContext.getSettings().setSoundOn(rb.getString("sound_on_label").equals(soundBox.getSelectedItem()));
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.BRIEFING);
-            gamePanel.refreshGUI();
+            gamePanel.startGame();
         }));
         this.add(startButton);
 

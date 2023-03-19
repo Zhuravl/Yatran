@@ -17,6 +17,7 @@ public class GamePanel extends JPanel {
     private InfoBarSubPanel infoBarSubPanel;
     private GameSubPanel gameSubPanel;
     private KeyboardSubPanel keyboardSubPanel;
+    private String[] letters;
 
     private RankingPanel rankingPanel;
 
@@ -39,11 +40,12 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Refreshes GUI to pull the latest data
+     * Refreshes GUI to pull the latest data and start the game
      */
-    public void refreshGUI() {
+    public void startGame() {
+        letters = GameContext.getRandomLettersForLevel();
         infoBarSubPanel.refreshGUI();
-        gameSubPanel.refreshGUI();
+        gameSubPanel.refreshGUI(letters);
         keyboardSubPanel.refreshGUI();
     }
 

@@ -15,10 +15,16 @@ public class Constants {
         public static final int MAIN_WINDOW_HEIGHT = (int) (MAIN_WINDOW_WIDTH / ((Math.sqrt(5) + 1) / 2));
         public static final Font FONT_LANDING = new Font("Tahoma", Font.PLAIN, 26);
         public static final Font FONT_MAIN = new Font("Tahoma", Font.PLAIN, 14);
-        public static final int MISTAKES_MIN = 0;
-        public static final int MISTAKES_MAX = 10;
+        public static final Font FONT_LETTER_BLOCK = new Font("Tahoma", Font.PLAIN, 16);
         public static final Color BUTTON_COLOR_DEFAULT = Color.WHITE;
         public static final Color BUTTON_COLOR_ACCENT = Color.BLUE;
+    }
+
+    public static class Game {
+        public static final int MISTAKES_MIN = 0;
+        public static final int MISTAKES_MAX = 10;
+        public static final int MOVING_FLOOR_SPEED = 1;
+        public static final int LEVEL_CHARACTER_SIZE = 20;
     }
 
     public static class Screen {

@@ -43,7 +43,7 @@ public class InfoBarSubPanel extends JPanel {
         keyboardField.setText(GameContext.getSettings().getLanguage().getKeyboardName());
         levelField.setText(String.valueOf(GameContext.getSettings().getLevel()));
         scoresField.setText(String.valueOf(new Random().nextInt(200)));
-        mistakesBar.setValue(new Random().nextInt(Constants.Common.MISTAKES_MAX));
+        mistakesBar.setValue(new Random().nextInt(Constants.Game.MISTAKES_MAX));
     }
 
     /**
@@ -88,7 +88,7 @@ public class InfoBarSubPanel extends JPanel {
         mistakesLabel.setBounds(scoresField.getX() + scoresField.getWidth() + 20, scoresField.getY(), 70, scoresField.getHeight());
         this.add(mistakesLabel);
 
-        mistakesBar = new JProgressBar(Constants.Common.MISTAKES_MIN, Constants.Common.MISTAKES_MAX);
+        mistakesBar = new JProgressBar(Constants.Game.MISTAKES_MIN, Constants.Game.MISTAKES_MAX);
         mistakesBar.setBounds(mistakesLabel.getX() + mistakesLabel.getWidth() + 20, mistakesLabel.getY(), 70, mistakesLabel.getHeight());
         mistakesBar.setStringPainted(true);
         this.add(mistakesBar);
