@@ -1,8 +1,9 @@
 package ua.com.yatran.panels;
 
-import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
+import ua.com.yatran.entities.Settings;
 import ua.com.yatran.enums.Language;
+import ua.com.yatran.helpers.GameContext;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,9 +38,13 @@ public class SettingsPanel extends JPanel {
         startButton.setBounds(10, 10, 400, 100);
         startButton.setFocusPainted(false);
         startButton.addActionListener(e -> EventQueue.invokeLater(() -> {
-            GameContext.getSettings().setLanguage(Language.getByKeyboardName((String) keyboardBox.getSelectedItem()));
-            GameContext.getSettings().setLevel(levelBox.getSelectedIndex() + 1);
-            GameContext.getSettings().setSoundOn(rb.getString("sound_on_label").equals(soundBox.getSelectedItem()));
+            Settings settings = new Settings();
+            settings.setLanguage(Language.getByKeyboardName((String) keyboardBox.getSelectedItem()));
+            settings.setLevel(levelBox.getSelectedIndex() + 1);
+            settings.setScore(0);
+            settings.setMistakes(0);
+            settings.setSoundOn(rb.getString("sound_on_label").equals(soundBox.getSelectedItem()));
+            GameContext.setSettings(settings);
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.BRIEFING);
             gamePanel.startGame();

@@ -1,35 +1,32 @@
-package ua.com.yatran.panels.subpanels;
+package ua.com.yatran.panels;
 
-import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
+import ua.com.yatran.helpers.GameContext;
 
 import javax.swing.*;
 import java.io.Serial;
 import java.util.Locale;
-import java.util.Random;
 import java.util.ResourceBundle;
 
-public class InfoBarSubPanel extends JPanel {
+public class InfoBarPanel extends JPanel {
 
     @Serial
     private static final long serialVersionUID = 1L;
+    private static final int MISTAKES_MIN = 0;
+    private static final int MISTAKES_MAX = 10;
 
     private JLabel keyboardLabel, levelLabel, scoresLabel, mistakesLabel;
-    private JTextField keyboardField, levelField, scoresField;
+    private JTextField keyboardField, levelField, scoreField;
     private JProgressBar mistakesBar;
 
-    public InfoBarSubPanel() {
+    public InfoBarPanel() {
         this.setLayout(null);
 
         GUI();
     }
 
-    public void setLevelField(int level) {
-        this.levelField.setText(String.valueOf(level));
-    }
-
-    public void setScoresField(int scores) {
-        this.scoresField.setText(String.valueOf(scores));
+    public void setScoreField(int score) {
+        this.scoreField.setText(String.valueOf(score));
     }
 
     public void setMistakesBar(int mistakes) {
@@ -42,8 +39,9 @@ public class InfoBarSubPanel extends JPanel {
     public void refreshGUI() {
         keyboardField.setText(GameContext.getSettings().getLanguage().getKeyboardName());
         levelField.setText(String.valueOf(GameContext.getSettings().getLevel()));
-        scoresField.setText(String.valueOf(new Random().nextInt(200)));
-        mistakesBar.setValue(new Random().nextInt(Constants.Game.MISTAKES_MAX));
+        scoreField.setText(String.valueOf(GameContext.getSettings().getScore()));
+        mistakesBar.setMaximum(GameContext.getMaxMistakes());
+        mistakesBar.setValue(GameContext.getSettings().getMistakes());
     }
 
     /**
@@ -73,22 +71,22 @@ public class InfoBarSubPanel extends JPanel {
         levelField.setEnabled(false);
         this.add(levelField);
 
-        scoresLabel = new JLabel(rb.getString("scores_label") + ":");
+        scoresLabel = new JLabel(rb.getString("score_label") + ":");
         scoresLabel.setFont(Constants.Common.FONT_MAIN);
         scoresLabel.setBounds(levelField.getX() + levelField.getWidth() + 20, levelField.getY(), 70, levelField.getHeight());
         this.add(scoresLabel);
 
-        scoresField = new JTextField();
-        scoresField.setBounds(scoresLabel.getX() + scoresLabel.getWidth() + 20, scoresLabel.getY(), 70, scoresLabel.getHeight());
-        scoresField.setEnabled(false);
-        this.add(scoresField);
+        scoreField = new JTextField();
+        scoreField.setBounds(scoresLabel.getX() + scoresLabel.getWidth() + 20, scoresLabel.getY(), 70, scoresLabel.getHeight());
+        scoreField.setEnabled(false);
+        this.add(scoreField);
 
         mistakesLabel = new JLabel(rb.getString("mistakes_label") + ":");
         mistakesLabel.setFont(Constants.Common.FONT_MAIN);
-        mistakesLabel.setBounds(scoresField.getX() + scoresField.getWidth() + 20, scoresField.getY(), 70, scoresField.getHeight());
+        mistakesLabel.setBounds(scoreField.getX() + scoreField.getWidth() + 20, scoreField.getY(), 70, scoreField.getHeight());
         this.add(mistakesLabel);
 
-        mistakesBar = new JProgressBar(Constants.Game.MISTAKES_MIN, Constants.Game.MISTAKES_MAX);
+        mistakesBar = new JProgressBar(MISTAKES_MIN, MISTAKES_MAX);
         mistakesBar.setBounds(mistakesLabel.getX() + mistakesLabel.getWidth() + 20, mistakesLabel.getY(), 70, mistakesLabel.getHeight());
         mistakesBar.setStringPainted(true);
         this.add(mistakesBar);

@@ -21,8 +21,6 @@ public class Constants {
     }
 
     public static class Game {
-        public static final int MISTAKES_MIN = 0;
-        public static final int MISTAKES_MAX = 10;
         public static final int MOVING_FLOOR_SPEED = 1;
         public static final int LEVEL_CHARACTER_SIZE = 20;
     }

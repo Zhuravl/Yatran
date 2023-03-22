@@ -1,10 +1,11 @@
-package ua.com.yatran.panels.subpanels;
+package ua.com.yatran.panels;
 
-import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.Key;
 import ua.com.yatran.entities.KeyBoardLayout;
 import ua.com.yatran.entities.KeyConstraint;
+import ua.com.yatran.enums.Language;
+import ua.com.yatran.helpers.GameContext;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,12 +17,12 @@ import java.util.ResourceBundle;
  * It is super important to keep the current number of chars in the locale file (the 'key_list' variable) due to hardcoded indexes in this implementation!
  * This class could be a nice candidate for refactoring!
  */
-public class KeyboardSubPanel extends JPanel {
+public class KeyboardPanel extends JPanel {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public KeyboardSubPanel() {
+    public KeyboardPanel() {
         this.setLayout(new KeyBoardLayout());
         GUI();
     }
@@ -208,7 +209,7 @@ public class KeyboardSubPanel extends JPanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, GameContext.getSettings().getLanguage().getLocale());
+        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.UKRAINIAN.getLocale());
         String keyNames = rb.getString("key_list");
         Key[][] keys = new Key[][]{
                 {

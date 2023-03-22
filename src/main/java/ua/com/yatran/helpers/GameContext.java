@@ -1,4 +1,4 @@
-package ua.com.yatran.common;
+package ua.com.yatran.helpers;
 
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.RankingRecord;
@@ -20,14 +20,21 @@ public class GameContext {
 
     private static Settings settings;
     private static RankingRecord record;
+    private static Calendar levelStartTime;
 
     /**
-     * Creates (if empty) and returns the settings instance with user preferences
+     * Sets the defined settings to context
+     *
+     * @param settings settings instance to add
+     */
+    public static void setSettings(Settings settings) {
+        GameContext.settings = settings;
+    }
+
+    /**
+     * Returns the settings instance with user preferences
      */
     public static Settings getSettings() {
-        if (settings == null) {
-            settings = new Settings(Language.getByLocale(Locale.getDefault()), 1, true);
-        }
         return settings;
     }
 
@@ -90,6 +97,39 @@ public class GameContext {
             resultArray[i - 1] = String.valueOf(i);
         }
         return resultArray;
+    }
+
+    /**
+     * Returns the last available level for the current keyboard language
+     */
+    public static int getMaxLevel() {
+        String[] levelsArray = getAvailableLevels(getSettings().getLanguage());
+        return Integer.parseInt(levelsArray[levelsArray.length - 1]);
+    }
+
+    /**
+     * Returns the MAX allowed mistakes for the current keyboard language.
+     * The number of allowed mistakes should equal 10% of all symbols typed during the game (during remaining levels, including the current).
+     */
+    public static int getMaxMistakes() {
+        int levelsRemaining = (getAvailableLevels(getSettings().getLanguage()).length - getSettings().getLevel()) + 1;
+        return (int) (levelsRemaining * Constants.Game.LEVEL_CHARACTER_SIZE * 0.1);
+    }
+
+    /**
+     * Sets the current time as the game start time
+     */
+    public static void logLevelStartTime() {
+        levelStartTime = Calendar.getInstance();
+    }
+
+    /**
+     * Calculates gamer typing speed using the start and current time
+     */
+    public static int getTypingSpeed() {
+        final int MILLIS_IN_SECOND = 1000;
+        long diffSec = (Calendar.getInstance().getTimeInMillis() - levelStartTime.getTimeInMillis()) / MILLIS_IN_SECOND;
+        return (int) (Constants.Game.LEVEL_CHARACTER_SIZE / diffSec);
     }
 
     /**

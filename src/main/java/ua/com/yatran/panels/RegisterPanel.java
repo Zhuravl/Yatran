@@ -1,9 +1,9 @@
 package ua.com.yatran.panels;
 
-import ua.com.yatran.common.GameContext;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.JTextFieldLimit;
 import ua.com.yatran.entities.RankingRecord;
+import ua.com.yatran.helpers.GameContext;
 
 import javax.swing.*;
 import java.awt.*;

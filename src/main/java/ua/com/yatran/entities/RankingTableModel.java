@@ -1,6 +1,6 @@
 package ua.com.yatran.entities;
 
-import ua.com.yatran.common.GameContext;
+import ua.com.yatran.helpers.GameContext;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Comparator;
