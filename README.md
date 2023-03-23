@@ -18,11 +18,11 @@ means more variety of characters in the level).
 
 To add a localization:
 
-1. Create a *.properties file with translated item names. Make sure the file has the next format name - 'Locale_
-   {language}_{COUNTRY}.properties';
+1. Create a `*.properties` file with translated item names. Make sure the file has the next format name - `Locale_
+   {language}_{COUNTRY}.properties`;
 2. Put the file in the `src/main/resources/` folder;
 3. Add a new variable in the `src/main/java/ua/com/yatran/enums/Language.java` file with the appropriate information.
-   Note that the `Locale` parameters should be the same with the {language} and {COUNTRY} values.
+   Note that the `Locale` parameters should be the same with the `{language}` and `{COUNTRY}` values.
 
 **Note:** It is super important to keep the current number of chars in the locale file (the `key_list` variable) due to
 hard-coded indexes in the current implementation of the `KeyboardPanel` class!
