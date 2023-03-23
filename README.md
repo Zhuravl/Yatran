@@ -31,9 +31,9 @@ hard-coded indexes in the current implementation of the `KeyboardPanel` class!
 
 To extend the existing game view by the different designs of the levels:
 
-1. Create a new class that extends the `AbstractGamePanel` class
-2. Override the `startGame()` and `stopGame()` methods and implement a new game logic
-3. Put the class in the `src/main/java/ua/com/yatran/panels/games/` folder
+1. Create a new class that extends the `AbstractGamePanel` class;
+2. Override the `startGame()` and `stopGame()` methods and implement a new game logic;
+3. Put the class in the `src/main/java/ua/com/yatran/panels/games/` folder.
 
 **Note:** It is also needed to implement a `Factory` class to have some logic for choosing the existing designs for the
 moment.
