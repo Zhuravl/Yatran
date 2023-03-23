@@ -17,9 +17,11 @@ public class RankingPanel extends JPanel {
     private JTable rankingTable;
     private JScrollPane scrollPane;
     private RankingTableModel tableModel;
+    private SettingsPanel settingsPanel;
 
-    public RankingPanel(JPanel contentPane) {
+    public RankingPanel(JPanel contentPane, SettingsPanel settingsPanel) {
         this.contentPane = contentPane;
+        this.settingsPanel = settingsPanel;
         this.tableModel = new RankingTableModel();
         this.setLayout(null);
         registerKeyboardAction(
@@ -63,6 +65,7 @@ public class RankingPanel extends JPanel {
         continueButton.setBounds(scrollPane.getX(), scrollPane.getY() + scrollPane.getHeight() + 20, 400, 100);
         continueButton.setFocusPainted(false);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
+            settingsPanel.selectLevel(GameContext.getSettings() != null ? GameContext.getSettings().getLevel() : 1);
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.REGISTER);
         }));

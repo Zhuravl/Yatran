@@ -226,11 +226,15 @@ public class GamePanel extends JPanel {
         if (letters[currentLetterIndex].equals(key)) {
             //The correct key was pressed - add scores
             gameSubPanel.hideBlock(currentLetterIndex);
-            currentLetterIndex++;
             int score = GameContext.getSettings().getScore();
             GameContext.getSettings().setScore(score + GameContext.getSettings().getLevel());
             infoBarPanel.setScoreField(score);
-            keyboardPanel.highlightButton(letters[currentLetterIndex]);
+            currentLetterIndex++;
+            if (letters.length > currentLetterIndex) {
+                keyboardPanel.highlightButton(letters[currentLetterIndex]);
+            } else {
+                keyboardPanel.resetButtonHighlighting();
+            }
         } else {
             //The incorrect key was pressed - add mistakes
             int mistakes = GameContext.getSettings().getMistakes();

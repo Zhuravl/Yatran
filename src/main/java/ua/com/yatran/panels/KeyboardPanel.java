@@ -88,13 +88,20 @@ public class KeyboardPanel extends JPanel {
     }
 
     /**
+     * Resets highlighting for all buttons
+     */
+    public void resetButtonHighlighting() {
+        setBackgroundColor(Constants.Common.BUTTON_COLOR_DEFAULT, getComponents());
+    }
+
+    /**
      * Highlights a button with defined text
      *
      * @param text button text to search by
      */
     public void highlightButton(String text) {
         final int SPACE_KEY_INDEX = 94;
-        setBackgroundColor(Constants.Common.BUTTON_COLOR_DEFAULT, getComponents());
+        resetButtonHighlighting();
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, GameContext.getSettings().getLanguage().getLocale());
         Color accentColor = Constants.Common.BUTTON_COLOR_ACCENT;
         String keyNames = rb.getString("key_list");

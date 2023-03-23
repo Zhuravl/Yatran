@@ -25,6 +25,15 @@ public class SettingsPanel extends JPanel {
     }
 
     /**
+     * Sets the defined level
+     *
+     * @param level level to set as the current
+     */
+    public void selectLevel(int level) {
+        levelBox.setSelectedItem(String.valueOf(level));
+    }
+
+    /**
      * Initiates and configures the UI elements
      */
     private void GUI() {

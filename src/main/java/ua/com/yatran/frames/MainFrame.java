@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
 
         registerPanel = new RegisterPanel(contentPane);
         settingsPanel = new SettingsPanel(contentPane);
-        rankingPanel = new RankingPanel(contentPane);
+        rankingPanel = new RankingPanel(contentPane, (SettingsPanel) settingsPanel);
         gamePanel = new GamePanel(contentPane, (RankingPanel) rankingPanel);
         briefingPanel = new BriefingPanel(contentPane, (GamePanel) gamePanel);
 
