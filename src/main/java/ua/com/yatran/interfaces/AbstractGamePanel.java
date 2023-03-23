@@ -18,6 +18,18 @@ public abstract class AbstractGamePanel extends JPanel {
     }
 
     /**
+     * Start the game
+     */
+    public void startGame() {
+    }
+
+    /**
+     * Stops the game
+     */
+    public void stopGame() {
+    }
+
+    /**
      * Hides a letter block with the defined index to allow the Hero to move forward
      *
      * @param index block index to use

@@ -13,9 +13,11 @@ public class BriefingPanel extends JPanel {
     private JPanel contentPane;
     private JLabel briefingPicture, briefingText;
     private JButton continueButton;
+    private GamePanel gamePanel;
 
-    public BriefingPanel(JPanel contentPane) {
+    public BriefingPanel(JPanel contentPane, GamePanel gamePanel) {
         this.contentPane = contentPane;
+        this.gamePanel = gamePanel;
         this.setLayout(null);
         registerKeyboardAction(
                 e -> continueButton.doClick(),
@@ -48,6 +50,7 @@ public class BriefingPanel extends JPanel {
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.GAME);
+            gamePanel.startGame();
         }));
         this.add(continueButton);
     }

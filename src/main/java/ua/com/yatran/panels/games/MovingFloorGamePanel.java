@@ -52,8 +52,22 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
         });
 
         GUI();
+    }
 
+    /**
+     * Start the game
+     */
+    @Override
+    public void startGame() {
         timer.start();
+    }
+
+    /**
+     * Stops the game
+     */
+    @Override
+    public void stopGame() {
+        timer.stop();
     }
 
     /**

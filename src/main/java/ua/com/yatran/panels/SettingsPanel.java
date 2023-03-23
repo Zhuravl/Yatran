@@ -16,11 +16,9 @@ public class SettingsPanel extends JPanel {
     private JButton startButton, exitButton;
     private JLabel keyboardLabel, levelLabel, soundLabel;
     private JComboBox keyboardBox, levelBox, soundBox;
-    private GamePanel gamePanel;
 
-    public SettingsPanel(JPanel contentPane, GamePanel gamePanel) {
+    public SettingsPanel(JPanel contentPane) {
         this.contentPane = contentPane;
-        this.gamePanel = gamePanel;
         this.setLayout(null);
 
         GUI();
@@ -47,7 +45,6 @@ public class SettingsPanel extends JPanel {
             GameContext.setSettings(settings);
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.BRIEFING);
-            gamePanel.startGame();
         }));
         this.add(startButton);
 
@@ -57,6 +54,7 @@ public class SettingsPanel extends JPanel {
         this.add(keyboardLabel);
 
         keyboardBox = new JComboBox(GameContext.getAvailableKeyboards());
+        keyboardBox.setSelectedItem(Language.getByLocale(locale).getKeyboardName());
         keyboardBox.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + 20, keyboardLabel.getY(), 150, keyboardLabel.getHeight());
         keyboardBox.addActionListener(e -> {
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(GameContext.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
