@@ -143,6 +143,7 @@ public class GamePanel extends JPanel {
         infoBarPanel.refreshGUI();
         keyboardPanel.refreshGUI();
         GameContext.logLevelStartTime();
+        keyboardPanel.highlightButton(letters[currentLetterIndex]);
         setGameSubPanel(new MovingFloorGamePanel(this, letters));
         gameSubPanel.startGame();
     }
