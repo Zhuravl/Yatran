@@ -5,10 +5,7 @@ import ua.com.yatran.entities.RankingRecord;
 import ua.com.yatran.entities.Settings;
 import ua.com.yatran.enums.Language;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -143,6 +140,8 @@ public class GameContext {
                 ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
         ) {
             resultList = (List<RankingRecord>) objectinputstream.readObject();
+        } catch (FileNotFoundException e) {
+            //Do nothing - the missed file will be created automatically
         } catch (Exception e) {
             e.printStackTrace();
         }
