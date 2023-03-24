@@ -70,7 +70,6 @@ public class RankingTableModel extends AbstractTableModel {
             recordList.sort(Comparator.comparing(RankingRecord::getDate));
             recordList.sort(Comparator.comparing(RankingRecord::getUsername));
             recordList.sort(Comparator.comparing(RankingRecord::getMistakes));
-            recordList.sort(Comparator.comparing(RankingRecord::getSpeed).reversed());
             recordList.sort(Comparator.comparing(RankingRecord::getLevel).reversed());
             recordList.sort(Comparator.comparing(RankingRecord::getScore).reversed());
             int resultIndexGeneral = getRecordIndex(currentRecord, recordList);
@@ -122,9 +121,8 @@ public class RankingTableModel extends AbstractTableModel {
         String usernameString = (record != null && record.getUsername() != null) ? record.getUsername() : EMPTY_VALUE;
         String scoreString = (record != null && record.getScore() != null) ? String.valueOf(record.getScore()) : EMPTY_VALUE;
         String levelString = (record != null && record.getLevel() != null) ? String.valueOf(record.getLevel()) : EMPTY_VALUE;
-        String speedString = (record != null && record.getSpeed() != null) ? String.valueOf(record.getSpeed()) : EMPTY_VALUE;
         String mistakesString = (record != null && record.getMistakes() != null) ? String.valueOf(record.getMistakes()) : EMPTY_VALUE;
         String dateString = (record != null && record.getScore() != null) ? record.getDateFormatted() : EMPTY_VALUE;
-        return new String[]{placeString, usernameString, scoreString, levelString, speedString, mistakesString, dateString};
+        return new String[]{placeString, usernameString, scoreString, levelString, mistakesString, dateString};
     }
 }

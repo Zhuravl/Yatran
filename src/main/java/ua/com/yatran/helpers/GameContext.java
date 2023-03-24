@@ -20,7 +20,6 @@ public class GameContext {
 
     private static Settings settings;
     private static RankingRecord record;
-    private static Calendar levelStartTime;
 
     /**
      * Sets the defined settings to context
@@ -117,22 +116,6 @@ public class GameContext {
     }
 
     /**
-     * Sets the current time as the game start time
-     */
-    public static void logLevelStartTime() {
-        levelStartTime = Calendar.getInstance();
-    }
-
-    /**
-     * Calculates gamer typing speed using the start and current time
-     */
-    public static int getTypingSpeed() {
-        final int MILLIS_IN_SECOND = 1000;
-        long diffSec = (Calendar.getInstance().getTimeInMillis() - levelStartTime.getTimeInMillis()) / MILLIS_IN_SECOND;
-        return (int) (Constants.Game.LEVEL_CHARACTER_SIZE / diffSec);
-    }
-
-    /**
      * Returns a list with localized sound options
      */
     public static String[] getSoundOptions() {
@@ -147,7 +130,7 @@ public class GameContext {
     public static String[] getRankingTableColumnNames() {
         Locale locale = Locale.getDefault();
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
-        return new String[]{rb.getString("ranking_table_place"), rb.getString("ranking_table_name"), rb.getString("ranking_table_scores"), rb.getString("ranking_table_level"), rb.getString("ranking_table_speed"), rb.getString("ranking_table_mistakes"), rb.getString("ranking_table_date")};
+        return new String[]{rb.getString("ranking_table_place"), rb.getString("ranking_table_name"), rb.getString("ranking_table_scores"), rb.getString("ranking_table_level"), rb.getString("ranking_table_mistakes"), rb.getString("ranking_table_date")};
     }
 
     /**

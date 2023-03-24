@@ -142,7 +142,6 @@ public class GamePanel extends JPanel {
         currentLetterIndex = 0;
         infoBarPanel.refreshGUI();
         keyboardPanel.refreshGUI();
-        GameContext.logLevelStartTime();
         keyboardPanel.highlightButton(letters[currentLetterIndex]);
         setGameSubPanel(new MovingFloorGamePanel(this, letters));
         gameSubPanel.startGame();
@@ -171,7 +170,6 @@ public class GamePanel extends JPanel {
         gameSubPanel.stopGame();
         GameContext.getRecord().setScore(GameContext.getSettings().getScore());
         GameContext.getRecord().setLevel(GameContext.getSettings().getLevel());
-        GameContext.getRecord().setSpeed(GameContext.getTypingSpeed());
         GameContext.getRecord().setMistakes(GameContext.getSettings().getMistakes());
         GameContext.getRecord().setDate(Calendar.getInstance());
         GameContext.saveRecordToDisk();

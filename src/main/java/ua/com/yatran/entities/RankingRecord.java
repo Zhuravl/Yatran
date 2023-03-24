@@ -18,7 +18,6 @@ public class RankingRecord implements Serializable {
     private String username;
     private Integer score;
     private Integer level;
-    private Integer speed;
     private Integer mistakes;
     private Calendar date;
 
@@ -29,11 +28,10 @@ public class RankingRecord implements Serializable {
         this.username = username;
     }
 
-    public RankingRecord(String username, Integer score, Integer level, Integer speed, Integer mistakes, Calendar date) {
+    public RankingRecord(String username, Integer score, Integer level, Integer mistakes, Calendar date) {
         this.username = username;
         this.score = score;
         this.level = level;
-        this.speed = speed;
         this.mistakes = mistakes;
         this.date = date;
     }
@@ -60,14 +58,6 @@ public class RankingRecord implements Serializable {
 
     public void setLevel(Integer level) {
         this.level = level;
-    }
-
-    public Integer getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(Integer speed) {
-        this.speed = speed;
     }
 
     public Integer getMistakes() {
@@ -99,12 +89,12 @@ public class RankingRecord implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RankingRecord rankingRecord = (RankingRecord) o;
-        return Objects.equals(username, rankingRecord.username) && Objects.equals(score, rankingRecord.score) && Objects.equals(level, rankingRecord.level) && Objects.equals(speed, rankingRecord.speed) && Objects.equals(mistakes, rankingRecord.mistakes) && Objects.equals(date, rankingRecord.date);
+        return Objects.equals(username, rankingRecord.username) && Objects.equals(score, rankingRecord.score) && Objects.equals(level, rankingRecord.level) && Objects.equals(mistakes, rankingRecord.mistakes) && Objects.equals(date, rankingRecord.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, score, level, speed, mistakes, date);
+        return Objects.hash(username, score, level, mistakes, date);
     }
 
     @Override
@@ -113,7 +103,6 @@ public class RankingRecord implements Serializable {
                 "username='" + username + '\'' +
                 ", score=" + score +
                 ", level=" + level +
-                ", speed=" + speed +
                 ", mistakes=" + mistakes +
                 ", date=" + getDateFormatted() +
                 '}';
