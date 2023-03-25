@@ -226,7 +226,9 @@ public class GamePanel extends JPanel {
             //The correct key was pressed - add scores
             gameSubPanel.hideBlock(currentLetterIndex);
             int score = GameContext.getSettings().getScore();
-            GameContext.getSettings().setScore(score + GameContext.getSettings().getLevel());
+            int level = GameContext.getSettings().getLevel();
+            score = score + level; //Level-based score multiplication to make the higher level more valuable compared with the same effort spent
+            GameContext.getSettings().setScore(score);
             infoBarPanel.setScoreField(score);
             currentLetterIndex++;
             if (letters.length > currentLetterIndex) {
