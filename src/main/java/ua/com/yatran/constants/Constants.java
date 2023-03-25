@@ -21,6 +21,7 @@ public class Constants {
     }
 
     public static class Game {
+        public static final int CHARACTERS_IN_LEVEL = 2;
         public static final int MOVING_FLOOR_SPEED = 1;
         public static final int LEVEL_CHARACTER_SIZE = 20;
     }

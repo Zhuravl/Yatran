@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Locale;
 
-public class Main {
+public class Yatran {
     public static void main(String[] args) {
         Locale.setDefault(new Locale("en", "US"));
         try {

@@ -7,6 +7,8 @@
     <groupId>ua.com.yatran</groupId>
     <artifactId>Yatran</artifactId>
     <version>1.0.0</version>
+    <name>Yatran</name>
+    <packaging>jar</packaging>
 
     <properties>
         <flatlaf.version>3.0</flatlaf.version>
@@ -24,4 +26,30 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>ua.com.yatran.Yatran</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

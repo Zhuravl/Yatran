@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class GameContext {
 
-    private static final int CHARACTERS_IN_LEVEL = 2;
+    private static final String FILE_PATH = System.getProperty("user.home") + System.getProperty("file.separator") + Constants.Common.APP_NAME + System.getProperty("file.separator") + Constants.Common.RANKING_FILE_NAME;
 
     private static Settings settings;
     private static RankingRecord record;
@@ -54,11 +54,18 @@ public class GameContext {
      * Saves the current record to the existing records list
      */
     public static void saveRecordToDisk() {
+        File file = new File(FILE_PATH);
+        try {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         List<RankingRecord> recordList = getRecordList();
         recordList.add(getRecord());
         try (
-                FileOutputStream fout = new FileOutputStream(Constants.Common.RANKING_FILE_NAME, false);
-                ObjectOutputStream oos = new ObjectOutputStream(fout);
+                FileOutputStream fout = new FileOutputStream(file, false);
+                ObjectOutputStream oos = new ObjectOutputStream(fout)
         ) {
             oos.writeObject(recordList);
         } catch (Exception ex) {
@@ -83,8 +90,8 @@ public class GameContext {
     public static String[] getAvailableLevels(Language language) {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, language.getLocale());
         char[] keyArray = rb.getString("key_list").toCharArray();
-        int lastLevel = keyArray.length / CHARACTERS_IN_LEVEL;
-        if (keyArray.length % CHARACTERS_IN_LEVEL != 0) {
+        int lastLevel = keyArray.length / Constants.Game.CHARACTERS_IN_LEVEL;
+        if (keyArray.length % Constants.Game.CHARACTERS_IN_LEVEL != 0) {
             //Add an extra level to cover the last key without a pair
             lastLevel = lastLevel + 1;
         }
@@ -136,12 +143,12 @@ public class GameContext {
     public static List<RankingRecord> getRecordList() {
         List<RankingRecord> resultList = new ArrayList<>();
         try (
-                FileInputStream streamIn = new FileInputStream(Constants.Common.RANKING_FILE_NAME);
-                ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
+                FileInputStream streamIn = new FileInputStream(FILE_PATH);
+                ObjectInputStream objectinputstream = new ObjectInputStream(streamIn)
         ) {
             resultList = (List<RankingRecord>) objectinputstream.readObject();
-        } catch (FileNotFoundException e) {
-            //Do nothing - the missed file will be created automatically
+        } catch (EOFException e) {
+            //Do nothing - the missed file will be created automatically after the first result is saved
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,7 +162,7 @@ public class GameContext {
         String[] resultList = new String[Constants.Game.LEVEL_CHARACTER_SIZE];
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, getSettings().getLanguage().getLocale());
         String keys = " " + rb.getString("key_list");
-        int maxIndex = (getSettings().getLevel() * CHARACTERS_IN_LEVEL) + 1;
+        int maxIndex = (getSettings().getLevel() * Constants.Game.CHARACTERS_IN_LEVEL) + 1;
         if (maxIndex > keys.length()) {
             //Normalize the MAX index for the last level with an odd number of characters
             maxIndex = maxIndex - 1;

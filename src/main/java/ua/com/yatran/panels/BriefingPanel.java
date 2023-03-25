@@ -2,9 +2,12 @@ package ua.com.yatran.panels;
 
 import ua.com.yatran.constants.Constants;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,7 +37,14 @@ public class BriefingPanel extends JPanel {
         Locale locale = Locale.getDefault();
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
-        briefingPicture = new JLabel(new ImageIcon("src/main/resources/images/Ukrainian-keyboard-standard.png"));
+        briefingPicture = new JLabel();
+        try {
+            InputStream stream = getClass().getResourceAsStream("/images/Ukrainian-keyboard-standard.png");
+            briefingPicture.setIcon(new ImageIcon(ImageIO.read(stream)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        briefingPicture.setHorizontalAlignment(SwingConstants.CENTER);
         briefingPicture.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, 400);
         this.add(briefingPicture);
 
