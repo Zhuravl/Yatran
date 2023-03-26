@@ -8,13 +8,14 @@
     <artifactId>Yatran</artifactId>
     <version>1.0.0</version>
     <name>Yatran</name>
+    <description>Typing tutor for children that allows improving typing words speed in a fun way</description>
     <packaging>jar</packaging>
 
     <properties>
         <flatlaf.version>3.0</flatlaf.version>
 
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
