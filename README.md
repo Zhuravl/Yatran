@@ -59,7 +59,7 @@ application for a platform ONLY under the target platform!
 5. After the JAR file was created, execute the next command in the console to create an installation file (Windows OS
    example):
 
-   `jpackage --input target/ --dest target/ --name Yatran --app-version 1.0.0 --description Typing tutor for children that allows improving typing words speed in a fun way --icon src/main/resources/images/logo.ico --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type exe --win-dir-chooser --win-menu --win-per-user-install --win-shortcut `
+   `jpackage --input target/ --dest target/ --name Yatran --app-version 1.0.0 --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/logo.ico --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type exe --win-dir-chooser --win-menu --win-per-user-install --win-shortcut`
 6. After the command is executed, you will be able to find the installation file in the `target` folder.
 
 ---
