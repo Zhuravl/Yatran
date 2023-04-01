@@ -1,4 +1,4 @@
-<h2 style="text-align: center;">![Yatran logo](src/main/resources/images/Yatran-logo.png)</h2>
+![Yatran logo](src/main/resources/images/Yatran-logo.png)
 
 **Yatran** is a typing tutor designed to help children improve their typing speed in an engaging way.
 
