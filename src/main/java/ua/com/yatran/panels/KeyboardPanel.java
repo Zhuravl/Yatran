@@ -233,7 +233,7 @@ public class KeyboardPanel extends JPanel {
                         createKey(keyNames.substring(41, 42).toUpperCase(), 0, 10),
                         createKey(keyNames.substring(43, 44).toUpperCase(), 0, 11),
                         createKey(keyNames.substring(45, 46).toUpperCase(), 0, 12),
-                        createKey("Backspace", 0, 13, 2d)
+                        createKey("Backspace", 0, 13, 1.7d)
                 },
                 {
                         createKey("Tab", 1, 0, 1d),

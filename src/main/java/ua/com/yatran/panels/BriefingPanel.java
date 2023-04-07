@@ -14,8 +14,7 @@ import java.util.ResourceBundle;
 public class BriefingPanel extends JPanel {
 
     private JPanel contentPane;
-    private JLabel briefingPicture, briefingText;
-    private JButton continueButton;
+    private JLabel briefingPicture, briefingLabel1, briefingLabel2;
     private GamePanel gamePanel;
 
     public BriefingPanel(JPanel contentPane, GamePanel gamePanel) {
@@ -23,7 +22,7 @@ public class BriefingPanel extends JPanel {
         this.gamePanel = gamePanel;
         this.setLayout(null);
         registerKeyboardAction(
-                e -> continueButton.doClick(),
+                e -> startGame(),
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
 
@@ -37,6 +36,18 @@ public class BriefingPanel extends JPanel {
         Locale locale = Locale.getDefault();
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
+        briefingLabel1 = new JLabel(rb.getString("briefing_label_1"));
+        briefingLabel1.setFont(Constants.Common.FONT_MAIN);
+        briefingLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        briefingLabel1.setBounds(0, Constants.Common.ELEMENTS_CLEARANCE * 5, Constants.Common.MAIN_WINDOW_WIDTH, 40);
+        this.add(briefingLabel1);
+
+        briefingLabel2 = new JLabel(rb.getString("briefing_label_2"));
+        briefingLabel2.setFont(Constants.Common.FONT_MAIN);
+        briefingLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+        briefingLabel2.setBounds(0, briefingLabel1.getY() + briefingLabel1.getHeight(), Constants.Common.MAIN_WINDOW_WIDTH, 40);
+        this.add(briefingLabel2);
+
         briefingPicture = new JLabel();
         try {
             InputStream stream = getClass().getResourceAsStream("/images/Ukrainian-keyboard-standard.png");
@@ -45,23 +56,16 @@ public class BriefingPanel extends JPanel {
             throw new RuntimeException(e);
         }
         briefingPicture.setHorizontalAlignment(SwingConstants.CENTER);
-        briefingPicture.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, 400);
+        briefingPicture.setBounds(0, briefingLabel2.getY() + briefingLabel2.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH, 400);
         this.add(briefingPicture);
+    }
 
-        briefingText = new JLabel(rb.getString("briefing_label"));
-        briefingText.setFont(Constants.Common.FONT_MAIN);
-        briefingText.setBounds(50, briefingPicture.getY() + briefingPicture.getHeight() + 50, Constants.Common.MAIN_WINDOW_WIDTH, 20);
-        this.add(briefingText);
-
-        continueButton = new JButton(rb.getString("continue_button"));
-        continueButton.setFont(Constants.Common.FONT_MAIN);
-        continueButton.setBounds(briefingText.getX(), briefingText.getY() + briefingText.getHeight() + 30, 400, 100);
-        continueButton.setFocusPainted(false);
-        continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
-            CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.show(contentPane, Constants.Screen.GAME);
-            gamePanel.startGame();
-        }));
-        this.add(continueButton);
+    /**
+     * Switches to the Game Screen and starts the game
+     */
+    private void startGame() {
+        CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+        cardLayout.show(contentPane, Constants.Screen.GAME);
+        gamePanel.startGame();
     }
 }

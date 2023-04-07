@@ -14,6 +14,7 @@ public class RankingPanel extends JPanel {
 
     private JPanel contentPane;
     private JButton continueButton, exitButton;
+    private JLabel rankingLabel;
     private JTable rankingTable;
     private JScrollPane scrollPane;
     private RankingTableModel tableModel;
@@ -49,35 +50,39 @@ public class RankingPanel extends JPanel {
         Locale locale = Locale.getDefault();
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
+        rankingLabel = new JLabel(rb.getString("ranking_label"));
+        rankingLabel.setFont(Constants.Common.FONT_MAIN);
+        rankingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        rankingLabel.setBounds(0, Constants.Common.ELEMENTS_CLEARANCE * 5, Constants.Common.MAIN_WINDOW_WIDTH, 40);
+        this.add(rankingLabel);
+
         rankingTable = new JTable(tableModel);
-        rankingTable.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH - 20, 350);
+        rankingTable.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.ELEMENTS_CLEARANCE * 2, 350);
         rankingTable.setEnabled(false);
         rankingTable.getTableHeader().setEnabled(false);
         rankingTable.setShowGrid(true);
 
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 10, rankingTable.getWidth(), rankingTable.getHeight());
+        scrollPane.setBounds(Constants.Common.ELEMENTS_CLEARANCE, rankingLabel.getY() + rankingLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, rankingTable.getWidth(), rankingTable.getHeight());
         scrollPane.setViewportView(rankingTable);
         this.add(scrollPane);
 
+        exitButton = new JButton(rb.getString("exit_button"));
+        exitButton.setFont(Constants.Common.FONT_MAIN);
+        exitButton.setBounds(Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT);
+        exitButton.addActionListener(e -> EventQueue.invokeLater(() -> {
+            System.exit(0);
+        }));
+        this.add(exitButton);
+
         continueButton = new JButton(rb.getString("continue_button"));
         continueButton.setFont(Constants.Common.FONT_MAIN);
-        continueButton.setBounds(scrollPane.getX(), scrollPane.getY() + scrollPane.getHeight() + 20, 400, 100);
-        continueButton.setFocusPainted(false);
+        continueButton.setBounds(Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.BUTTON_WIDTH - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
             settingsPanel.selectLevel(GameContext.getSettings() != null ? GameContext.getSettings().getLevel() : 1);
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, Constants.Screen.REGISTER);
         }));
         this.add(continueButton);
-
-        exitButton = new JButton(rb.getString("exit_button"));
-        exitButton.setFont(Constants.Common.FONT_MAIN);
-        exitButton.setBounds(continueButton.getX(), continueButton.getY() + continueButton.getHeight() + 20, 400, 100);
-        exitButton.setFocusPainted(false);
-        exitButton.addActionListener(e -> EventQueue.invokeLater(() -> {
-            System.exit(0);
-        }));
-        this.add(exitButton);
     }
 }

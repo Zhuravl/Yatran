@@ -7,6 +7,7 @@ import ua.com.yatran.panels.GamePanel;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serial;
+import java.util.Objects;
 
 public class MovingFloorGamePanel extends AbstractGamePanel {
 
@@ -22,8 +23,9 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
     private int yFloor;
     private int widthFloor;
 
-    private final int HERO_HEIGHT = 30;
-    private final int HERO_WIDTH = 30;
+    private final int HERO_HEIGHT = 60;
+    private final int HERO_WIDTH = 45;
+    private Image heroImage;
     private int xHero;
     private int yHero;
 
@@ -33,6 +35,7 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
     private final int LETTER_BLOCK_Y = SCENE_SHIFT_Y - LETTER_BLOCK_HEIGHT;
 
     private Timer timer;
+    private Image backgroundImage;
 
     public MovingFloorGamePanel(GamePanel mainPanel, String[] letters) {
         super(mainPanel, letters);
@@ -93,6 +96,8 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
 
             xBlock = xBlock + LETTER_BLOCK_WIDTH + BLOCK_INTERVAL;
         }
+        heroImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Cockerel525.gif"))).getImage();
+        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/bg.png"))).getImage();
     }
 
     /**
@@ -161,14 +166,27 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        Graphics2D background = (Graphics2D) g.create();
+        background.drawImage(backgroundImage, 0, 0, super.getWidth(), super.getHeight(), null);
+        background.dispose();
+
+        Graphics2D columnLeft = (Graphics2D) g.create();
+        columnLeft.setColor(Color.GRAY);
+        columnLeft.fillRect(0, SCENE_SHIFT_Y, SCENE_SHIFT_X, Constants.Common.MAIN_WINDOW_HEIGHT);
+        columnLeft.dispose();
+
+        Graphics2D columnRight = (Graphics2D) g.create();
+        columnRight.setColor(Color.GRAY);
+        columnRight.fillRect(SCENE_SHIFT_X + FLOOR_WIDTH, SCENE_SHIFT_Y, SCENE_SHIFT_X, Constants.Common.MAIN_WINDOW_HEIGHT);
+        columnRight.dispose();
+
         Graphics2D movingFloor = (Graphics2D) g.create();
         movingFloor.setColor(Color.GRAY);
         movingFloor.fillRect(xFloor, yFloor, widthFloor, FLOOR_HEIGHT);
         movingFloor.dispose();
 
         Graphics2D hero = (Graphics2D) g.create();
-        hero.setColor(Color.RED);
-        hero.fillOval(xHero, yHero, HERO_WIDTH, HERO_HEIGHT);
+        hero.drawImage(heroImage, xHero, yHero, HERO_WIDTH, HERO_HEIGHT, null);
         hero.dispose();
     }
 }

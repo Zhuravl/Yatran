@@ -14,7 +14,7 @@ public abstract class AbstractGamePanel extends JPanel {
     public AbstractGamePanel(GamePanel mainPanel, String[] letters) {
         this.mainPanel = mainPanel;
         this.letters = letters;
-        setBounds(0, Constants.Common.MAIN_WINDOW_HEIGHT / 8, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 2);
+        setBounds(0, Constants.Common.MAIN_WINDOW_HEIGHT / 8, Constants.Common.MAIN_WINDOW_WIDTH, (Constants.Common.MAIN_WINDOW_HEIGHT - (Constants.Common.MAIN_WINDOW_HEIGHT / 5) - (Constants.Common.MAIN_WINDOW_HEIGHT / 8) - Constants.Common.ELEMENTS_CLEARANCE));
     }
 
     /**

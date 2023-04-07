@@ -17,9 +17,6 @@ public class LandingFrame extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static final int W_FRAME = 700;
-    public static final int H_FRAME = 600;
-
     private JLabel labelLogo;
     private JPanel contentPane;
     private Insets insets;
@@ -28,7 +25,7 @@ public class LandingFrame extends JFrame {
         super(Constants.Common.APP_NAME);
         setResizable(false);
         setLayout(null);
-        setSize(W_FRAME, H_FRAME);
+        setSize(Constants.Common.LANDING_WINDOW_WIDTH, Constants.Common.LANDING_WINDOW_HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -44,8 +41,7 @@ public class LandingFrame extends JFrame {
     private void GUI() {
         contentPane = new JPanel();
         contentPane.setLayout(null);
-        contentPane.setBounds(insets.left, insets.top, W_FRAME - insets.left - insets.right, H_FRAME - insets.bottom - insets.top);
-
+        contentPane.setBounds(insets.left, insets.top, Constants.Common.LANDING_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.LANDING_WINDOW_HEIGHT - insets.bottom - insets.top);
         labelLogo = new JLabel();
         try {
             InputStream stream = getClass().getResourceAsStream("/images/Yatran-logo.png");
@@ -54,7 +50,7 @@ public class LandingFrame extends JFrame {
             throw new RuntimeException(e);
         }
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
-        labelLogo.setBounds(0, 0, 700, 300);
+        labelLogo.setBounds(0, 0, Constants.Common.LANDING_WINDOW_WIDTH, Constants.Common.LANDING_WINDOW_HEIGHT / 2);
         contentPane.add(labelLogo);
 
         createButtonsForAllLocales();
@@ -66,19 +62,17 @@ public class LandingFrame extends JFrame {
      * Creates buttons for all available locales
      */
     private void createButtonsForAllLocales() {
-        int previousX = labelLogo.getX();
-        int previousY = labelLogo.getY();
+        int previousX = (Constants.Common.LANDING_WINDOW_WIDTH / 2) - (Constants.Common.BUTTON_WIDTH / 2);
+        int previousY = labelLogo.getHeight();
 
         for (int index = 0; index < Language.values().length; index++) {
             JButton button = new JButton(ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.values()[index].getLocale()).getString("landing_button"));
-            button.setFont(Constants.Common.FONT_LANDING);
-            button.setBounds(200, 300, 200, 30);
+            button.setFont(Constants.Common.FONT_MAIN);
             if (index == 0) {
-                button.setBounds(previousX + 150, previousY + 300, 400, 100);
+                button.setBounds(previousX, previousY, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
             } else {
-                button.setBounds(previousX, previousY + 120, 400, 100);
+                button.setBounds(previousX, previousY + Constants.Common.BUTTON_HEIGHT + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
             }
-            button.setFocusPainted(false);
             int finalIndex = index;
             button.addActionListener(e -> {
                 EventQueue.invokeLater(() -> {

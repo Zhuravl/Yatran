@@ -52,42 +52,46 @@ public class InfoBarPanel extends JPanel {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         keyboardLabel = new JLabel(rb.getString("keyboard_label") + ":");
-        keyboardLabel.setFont(Constants.Common.FONT_MAIN);
-        keyboardLabel.setBounds(20, 20, 80, 50);
+        keyboardLabel.setFont(Constants.Common.FONT_HINT);
+        keyboardLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        keyboardLabel.setBounds(Constants.Common.ELEMENTS_CLEARANCE * 2, Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(keyboardLabel);
 
         keyboardField = new JTextField();
-        keyboardField.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + 20, keyboardLabel.getY(), 70, keyboardLabel.getHeight());
+        keyboardField.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, keyboardLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         keyboardField.setEnabled(false);
         this.add(keyboardField);
 
         levelLabel = new JLabel(rb.getString("level_label") + ":");
-        levelLabel.setFont(Constants.Common.FONT_MAIN);
-        levelLabel.setBounds(keyboardField.getX() + keyboardField.getWidth() + 20, keyboardField.getY(), 70, keyboardField.getHeight());
+        levelLabel.setFont(Constants.Common.FONT_HINT);
+        levelLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        levelLabel.setBounds(keyboardField.getX() + keyboardField.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, keyboardLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(levelLabel);
 
         levelField = new JTextField();
-        levelField.setBounds(levelLabel.getX() + levelLabel.getWidth() + 20, levelLabel.getY(), 70, levelLabel.getHeight());
+        levelField.setBounds(levelLabel.getX() + levelLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, levelLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         levelField.setEnabled(false);
         this.add(levelField);
 
         scoresLabel = new JLabel(rb.getString("score_label") + ":");
-        scoresLabel.setFont(Constants.Common.FONT_MAIN);
-        scoresLabel.setBounds(levelField.getX() + levelField.getWidth() + 20, levelField.getY(), 70, levelField.getHeight());
+        scoresLabel.setFont(Constants.Common.FONT_HINT);
+        scoresLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        scoresLabel.setBounds(levelField.getX() + levelField.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, levelField.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(scoresLabel);
 
         scoreField = new JTextField();
-        scoreField.setBounds(scoresLabel.getX() + scoresLabel.getWidth() + 20, scoresLabel.getY(), 70, scoresLabel.getHeight());
+        scoreField.setBounds(scoresLabel.getX() + scoresLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, scoresLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         scoreField.setEnabled(false);
         this.add(scoreField);
 
         mistakesLabel = new JLabel(rb.getString("mistakes_label") + ":");
-        mistakesLabel.setFont(Constants.Common.FONT_MAIN);
-        mistakesLabel.setBounds(scoreField.getX() + scoreField.getWidth() + 20, scoreField.getY(), 70, scoreField.getHeight());
+        mistakesLabel.setFont(Constants.Common.FONT_HINT);
+        mistakesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        mistakesLabel.setBounds(scoreField.getX() + scoreField.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, scoreField.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(mistakesLabel);
 
         mistakesBar = new JProgressBar(MISTAKES_MIN, MISTAKES_MAX);
-        mistakesBar.setBounds(mistakesLabel.getX() + mistakesLabel.getWidth() + 20, mistakesLabel.getY(), 70, mistakesLabel.getHeight());
+        mistakesBar.setBounds(mistakesLabel.getX() + mistakesLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, mistakesLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         mistakesBar.setStringPainted(true);
         this.add(mistakesBar);
     }

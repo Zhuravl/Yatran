@@ -18,8 +18,8 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super(Constants.Common.APP_NAME);
         setLayout(null);
-        setSize(Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT);
-        setResizable(true);
+        setSize(Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT + Constants.Common.WINDOW_TITLE_BAR_HEIGHT);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
     private void GUI() {
         contentPane = new JPanel();
         contentPane.setLayout(new CardLayout());
-        contentPane.setBounds(insets.left, insets.top, Constants.Common.MAIN_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.MAIN_WINDOW_HEIGHT - insets.bottom - insets.top);
+        contentPane.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT);
 
         registerPanel = new RegisterPanel(contentPane);
         settingsPanel = new SettingsPanel(contentPane);
