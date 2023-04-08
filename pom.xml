@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <flatlaf.version>3.0</flatlaf.version>
+        <flatlaf.version>3.1</flatlaf.version>
 
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
+            <version>${flatlaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
             <version>${flatlaf.version}</version>
         </dependency>
     </dependencies>

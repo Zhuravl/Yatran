@@ -187,7 +187,7 @@ public class GamePanel extends JPanel {
         this.add(infoBarPanel);
 
         keyboardPanel = new KeyboardPanel();
-        keyboardPanel.setBounds(Constants.Common.ELEMENTS_CLEARANCE / 2, Constants.Common.MAIN_WINDOW_HEIGHT - (Constants.Common.MAIN_WINDOW_HEIGHT / 6) - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT / 5);
+        keyboardPanel.setBounds(Constants.Common.ELEMENTS_CLEARANCE / 4, Constants.Common.MAIN_WINDOW_HEIGHT - (Constants.Common.MAIN_WINDOW_HEIGHT / 6) - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH - (Constants.Common.ELEMENTS_CLEARANCE / 2), Constants.Common.MAIN_WINDOW_HEIGHT / 5);
         this.add(keyboardPanel);
     }
 

@@ -238,7 +238,7 @@ public class KeyboardPanel extends JPanel {
                         createKey(keyNames.substring(41, 42).toUpperCase(), 0, 10),
                         createKey(keyNames.substring(43, 44).toUpperCase(), 0, 11),
                         createKey(keyNames.substring(45, 46).toUpperCase(), 0, 12),
-                        createKey("Backspace", 0, 13, 1.7d)
+                        createKey("Backspace", 0, 13, 1.4d)
                 },
                 {
                         createKey("Tab", 1, 0, 1d),
@@ -254,7 +254,7 @@ public class KeyboardPanel extends JPanel {
                         createKey(keyNames.substring(25, 26).toUpperCase(), 1, 10),
                         createKey(keyNames.substring(29, 30).toUpperCase(), 1, 11),
                         createKey(keyNames.substring(31, 32).toUpperCase(), 1, 12),
-                        createKey(keyNames.substring(46, 47).toUpperCase(), 1, 13, 1.5d)
+                        createKey(keyNames.substring(46, 47).toUpperCase(), 1, 13, 1.4d)
                 },
                 {
                         createKey("Caps", 2, 0, 1.5d),
@@ -269,7 +269,7 @@ public class KeyboardPanel extends JPanel {
                         createKey(keyNames.substring(5, 6).toUpperCase(), 2, 9),
                         createKey(keyNames.substring(7, 8).toUpperCase(), 2, 10),
                         createKey(keyNames.substring(30, 31).toUpperCase(), 2, 11),
-                        createKey("Enter", 2, 12, 1.5d)
+                        createKey("Enter", 2, 12, 1.9d)
                 },
                 {
                         createKey("Shift", 3, 0, 2d),

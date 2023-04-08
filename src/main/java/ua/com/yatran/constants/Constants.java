@@ -25,7 +25,7 @@ public class Constants {
         public static final Font FONT_HINT = new Font("Tahoma", Font.PLAIN, 14);
         public static final Font FONT_LETTER_BLOCK = new Font("Tahoma", Font.PLAIN, 16);
         public static final Color BUTTON_COLOR_DEFAULT = Color.WHITE;
-        public static final Color BUTTON_COLOR_ACCENT = Color.BLUE;
+        public static final Color BUTTON_COLOR_ACCENT = new Color(0, 130, 255);
     }
 
     public static class Game {
