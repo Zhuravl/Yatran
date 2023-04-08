@@ -335,6 +335,7 @@ public class KeyboardPanel extends JPanel {
         } else {
             comp = new JButton(text);
         }
+        comp.setFocusable(false);
         return comp;
     }
 
