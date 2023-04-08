@@ -22,8 +22,17 @@ public class KeyboardPanel extends JPanel {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String keyNames;
+    private Component[] previousComps;
+
     public KeyboardPanel() {
         this.setLayout(new KeyBoardLayout());
+
+        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.ENGLISH.getLocale());
+        keyNames = rb.getString("key_list");
+
+        previousComps = new Component[2];
+
         GUI();
     }
 
@@ -32,7 +41,7 @@ public class KeyboardPanel extends JPanel {
      */
     public void refreshGUI() {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, GameContext.getSettings().getLanguage().getLocale());
-        String keyNames = rb.getString("key_list");
+        keyNames = rb.getString("key_list");
         ((JButton) getComponent(0)).setText(keyNames.substring(44, 45).toUpperCase());
         ((JButton) getComponent(1)).setText(keyNames.substring(42, 43).toUpperCase());
         ((JButton) getComponent(2)).setText(keyNames.substring(40, 41).toUpperCase());
@@ -91,7 +100,7 @@ public class KeyboardPanel extends JPanel {
      * Resets highlighting for all buttons
      */
     public void resetButtonHighlighting() {
-        setBackgroundColor(Constants.Common.BUTTON_COLOR_DEFAULT, getComponents());
+        setBackgroundColor(Constants.Common.BUTTON_COLOR_DEFAULT, previousComps);
     }
 
     /**
@@ -102,9 +111,7 @@ public class KeyboardPanel extends JPanel {
     public void highlightButton(String text) {
         final int SPACE_KEY_INDEX = 94;
         resetButtonHighlighting();
-        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, GameContext.getSettings().getLanguage().getLocale());
         Color accentColor = Constants.Common.BUTTON_COLOR_ACCENT;
-        String keyNames = rb.getString("key_list");
         int neededKeyIndex;
         if (" ".equals(text)) {
             neededKeyIndex = SPACE_KEY_INDEX;
@@ -216,8 +223,6 @@ public class KeyboardPanel extends JPanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.UKRAINIAN.getLocale());
-        String keyNames = rb.getString("key_list");
         Key[][] keys = new Key[][]{
                 {
                         createKey(keyNames.substring(44, 45).toUpperCase(), 0, 0),
@@ -339,8 +344,12 @@ public class KeyboardPanel extends JPanel {
      * @param color color to set as a background for keys
      */
     private void setBackgroundColor(Color color, Component... comps) {
-        for (Component comp : comps) {
-            comp.setBackground(color);
+        for (int index = 0; index < comps.length; index++) {
+            Component component = comps[index];
+            if (component != null) {
+                component.setBackground(color);
+                previousComps[index] = component;
+            }
         }
     }
 }
