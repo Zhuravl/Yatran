@@ -50,7 +50,7 @@ public class BriefingPanel extends JPanel {
 
         briefingPicture = new JLabel();
         try {
-            InputStream stream = getClass().getResourceAsStream("/images/Ukrainian-keyboard-standard.png");
+            InputStream stream = getClass().getResourceAsStream("/images/keyboard.png");
             briefingPicture.setIcon(new ImageIcon(ImageIO.read(stream)));
         } catch (IOException e) {
             throw new RuntimeException(e);

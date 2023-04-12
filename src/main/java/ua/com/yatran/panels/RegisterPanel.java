@@ -56,7 +56,7 @@ public class RegisterPanel extends JPanel {
         button.setBounds(Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.BUTTON_WIDTH - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
         button.addActionListener(e -> EventQueue.invokeLater(() -> {
             if (usernameField.getText() != null && usernameField.getText().length() >= Constants.Common.USERNAME_MIN) {
-                GameContext.setRecord(new RankingRecord(usernameField.getText()));
+                GameContext.setRecord(new RankingRecord(usernameField.getText().trim()));
                 CardLayout cardLayout = (CardLayout) contentPane.getLayout();
                 cardLayout.show(contentPane, Constants.Screen.SETTINGS);
             }

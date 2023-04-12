@@ -23,7 +23,7 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
     private int yFloor;
     private int widthFloor;
 
-    private final int HERO_HEIGHT = 60;
+    private final int HERO_HEIGHT = 50;
     private final int HERO_WIDTH = 45;
     private Image heroImage;
     private int xHero;
@@ -96,8 +96,8 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
 
             xBlock = xBlock + LETTER_BLOCK_WIDTH + BLOCK_INTERVAL;
         }
-        heroImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Cockerel525.gif"))).getImage();
-        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/bg.png"))).getImage();
+        heroImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/cossack.gif"))).getImage();
+        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background.png"))).getImage();
     }
 
     /**
@@ -166,27 +166,28 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D background = (Graphics2D) g.create();
-        background.drawImage(backgroundImage, 0, 0, super.getWidth(), super.getHeight(), null);
-        background.dispose();
+        //Background image
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.drawImage(backgroundImage, 0, 0, super.getWidth(), super.getHeight(), null);
 
-        Graphics2D columnLeft = (Graphics2D) g.create();
-        columnLeft.setColor(Color.GRAY);
-        columnLeft.fillRect(0, SCENE_SHIFT_Y, SCENE_SHIFT_X, Constants.Common.MAIN_WINDOW_HEIGHT);
-        columnLeft.dispose();
+        //Left bridge column
+        g2d.setColor(Color.GRAY);
+        int[] x_left = new int[]{0, 0, SCENE_SHIFT_X / 2, SCENE_SHIFT_X, SCENE_SHIFT_X};
+        int[] y_left = new int[]{SCENE_SHIFT_Y, Constants.Common.MAIN_WINDOW_HEIGHT, Constants.Common.MAIN_WINDOW_HEIGHT, SCENE_SHIFT_Y + FLOOR_HEIGHT, SCENE_SHIFT_Y};
+        g2d.fillPolygon(new Polygon(x_left, y_left, x_left.length));
 
-        Graphics2D columnRight = (Graphics2D) g.create();
-        columnRight.setColor(Color.GRAY);
-        columnRight.fillRect(SCENE_SHIFT_X + FLOOR_WIDTH, SCENE_SHIFT_Y, SCENE_SHIFT_X, Constants.Common.MAIN_WINDOW_HEIGHT);
-        columnRight.dispose();
+        //Right bridge column
+        g2d.setColor(Color.GRAY);
+        int[] x_right = new int[]{SCENE_SHIFT_X + FLOOR_WIDTH, SCENE_SHIFT_X + FLOOR_WIDTH, SCENE_SHIFT_X + FLOOR_WIDTH + (SCENE_SHIFT_X / 2), SCENE_SHIFT_X + FLOOR_WIDTH + SCENE_SHIFT_X, SCENE_SHIFT_X + FLOOR_WIDTH + SCENE_SHIFT_X};
+        int[] y_right = new int[]{SCENE_SHIFT_Y, SCENE_SHIFT_Y + FLOOR_HEIGHT, Constants.Common.MAIN_WINDOW_HEIGHT, Constants.Common.MAIN_WINDOW_HEIGHT, SCENE_SHIFT_Y};
+        g2d.fillPolygon(new Polygon(x_right, y_right, x_right.length));
 
-        Graphics2D movingFloor = (Graphics2D) g.create();
-        movingFloor.setColor(Color.GRAY);
-        movingFloor.fillRect(xFloor, yFloor, widthFloor, FLOOR_HEIGHT);
-        movingFloor.dispose();
+        //Bridge deck (floor)
+        g2d.setColor(Color.GRAY);
+        g2d.fillRect(xFloor, yFloor, widthFloor, FLOOR_HEIGHT);
 
-        Graphics2D hero = (Graphics2D) g.create();
-        hero.drawImage(heroImage, xHero, yHero, HERO_WIDTH, HERO_HEIGHT, null);
-        hero.dispose();
+        //Hero animation
+        g2d.drawImage(heroImage, xHero, yHero, HERO_WIDTH, HERO_HEIGHT, null);
+        g2d.dispose();
     }
 }

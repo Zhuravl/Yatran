@@ -44,7 +44,7 @@ public class LandingFrame extends JFrame {
         contentPane.setBounds(insets.left, insets.top, Constants.Common.LANDING_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.LANDING_WINDOW_HEIGHT - insets.bottom - insets.top);
         labelLogo = new JLabel();
         try {
-            InputStream stream = getClass().getResourceAsStream("/images/Yatran-logo.png");
+            InputStream stream = getClass().getResourceAsStream("/images/logo.png");
             labelLogo.setIcon(new ImageIcon(ImageIO.read(stream)));
         } catch (IOException e) {
             throw new RuntimeException(e);
