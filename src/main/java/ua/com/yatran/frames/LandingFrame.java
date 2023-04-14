@@ -69,7 +69,7 @@ public class LandingFrame extends JFrame {
             JButton button = new JButton(ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.values()[index].getLocale()).getString("landing_button"));
             button.setFont(Constants.Common.FONT_MAIN);
             if (index == 0) {
-                button.setBounds(previousX, previousY, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
+                button.setBounds(previousX, previousY + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
             } else {
                 button.setBounds(previousX, previousY + Constants.Common.BUTTON_HEIGHT + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
             }
