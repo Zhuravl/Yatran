@@ -292,6 +292,7 @@ public class GamePanel extends JPanel {
                 infoBarPanel.setMistakesBar(mistakes);
                 if (mistakes >= GameContext.getMaxMistakes()) {
                     //The player has made too many mistakes - stopping the game
+                    playRoundLoseSound();
                     stopGame();
                 }
             }
