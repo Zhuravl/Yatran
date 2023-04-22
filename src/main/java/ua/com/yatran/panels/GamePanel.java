@@ -5,11 +5,14 @@ import ua.com.yatran.helpers.GameContext;
 import ua.com.yatran.interfaces.AbstractGamePanel;
 import ua.com.yatran.panels.games.MovingFloorGamePanel;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class GamePanel extends JPanel {
@@ -20,6 +23,7 @@ public class GamePanel extends JPanel {
     private KeyboardPanel keyboardPanel;
     private String[] letters;
     private int currentLetterIndex;
+    private Clip correctKeySound, wrongKeySound, roundWinSound, roundLoseSound;
 
     private RankingPanel rankingPanel;
 
@@ -131,6 +135,26 @@ public class GamePanel extends JPanel {
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, InputEvent.SHIFT_DOWN_MASK), "Key >", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, InputEvent.SHIFT_DOWN_MASK), "Key ?", actionListener);
 
+        try {
+            AudioInputStream audioInputStreamCorrect = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/keyCorrect.wav").getAbsoluteFile());
+            correctKeySound = AudioSystem.getClip();
+            correctKeySound.open(audioInputStreamCorrect);
+
+            AudioInputStream audioInputStreamWrong = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/keyWrong.wav").getAbsoluteFile());
+            wrongKeySound = AudioSystem.getClip();
+            wrongKeySound.open(audioInputStreamWrong);
+
+            AudioInputStream audioInputStreamWin = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/roundWin.wav").getAbsoluteFile());
+            roundWinSound = AudioSystem.getClip();
+            roundWinSound.open(audioInputStreamWin);
+
+            AudioInputStream audioInputStreamLose = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/roundLose.wav").getAbsoluteFile());
+            roundLoseSound = AudioSystem.getClip();
+            roundLoseSound.open(audioInputStreamLose);
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
         GUI();
     }
 
@@ -153,6 +177,10 @@ public class GamePanel extends JPanel {
     public void nextLevel() {
         int nextLevel = GameContext.getSettings().getLevel() + 1;
         int lastLevel = GameContext.getMaxLevel();
+        if (GameContext.getSettings().isSoundOn()) {
+            roundWinSound.setMicrosecondPosition(0);
+            roundWinSound.start();
+        }
         if (lastLevel >= nextLevel) {
             //The next level is available - continue the game
             GameContext.getSettings().setLevel(nextLevel);
@@ -217,34 +245,55 @@ public class GamePanel extends JPanel {
     }
 
     /**
+     * Plays the Round Lose sound if the sound preferences is set to on
+     */
+    public void playRoundLoseSound() {
+        if (GameContext.getSettings().isSoundOn()) {
+            roundLoseSound.setMicrosecondPosition(0);
+            roundLoseSound.start();
+        }
+    }
+
+    /**
      * Checks if the correct key was pressed and adds score or mistake
      *
      * @param key the key pressed by the gamer
      */
     private void checkKeyPressed(String key) {
-        if (letters[currentLetterIndex].equals(key)) {
-            //The correct key was pressed - add scores
-            gameSubPanel.hideBlock(currentLetterIndex);
-            int score = GameContext.getSettings().getScore();
-            int level = GameContext.getSettings().getLevel();
-            score = score + level; //Level-based score multiplication to make the higher level more valuable compared with the same effort spent
-            GameContext.getSettings().setScore(score);
-            infoBarPanel.setScoreField(score);
-            currentLetterIndex++;
-            if (letters.length > currentLetterIndex) {
-                keyboardPanel.highlightButton(letters[currentLetterIndex]);
+        if (letters.length > currentLetterIndex) {
+            //There are keys to press existing
+            if (letters[currentLetterIndex].equals(key)) {
+                //The correct key was pressed - add scores
+                if (GameContext.getSettings().isSoundOn()) {
+                    correctKeySound.setMicrosecondPosition(0);
+                    correctKeySound.start();
+                }
+                gameSubPanel.hideBlock(currentLetterIndex);
+                int score = GameContext.getSettings().getScore();
+                int level = GameContext.getSettings().getLevel();
+                score = score + level; //Level-based score multiplication to make the higher level more valuable compared with the same effort spent
+                GameContext.getSettings().setScore(score);
+                infoBarPanel.setScoreField(score);
+                currentLetterIndex++;
+                if (letters.length > currentLetterIndex) {
+                    keyboardPanel.highlightButton(letters[currentLetterIndex]);
+                } else {
+                    keyboardPanel.resetButtonHighlighting();
+                }
             } else {
-                keyboardPanel.resetButtonHighlighting();
-            }
-        } else {
-            //The incorrect key was pressed - add mistakes
-            int mistakes = GameContext.getSettings().getMistakes();
-            mistakes++;
-            GameContext.getSettings().setMistakes(mistakes);
-            infoBarPanel.setMistakesBar(mistakes);
-            if (mistakes >= GameContext.getMaxMistakes()) {
-                //The player has made too many mistakes - stopping the game
-                stopGame();
+                //The incorrect key was pressed - add mistakes
+                if (GameContext.getSettings().isSoundOn()) {
+                    wrongKeySound.setMicrosecondPosition(0);
+                    wrongKeySound.start();
+                }
+                int mistakes = GameContext.getSettings().getMistakes();
+                mistakes++;
+                GameContext.getSettings().setMistakes(mistakes);
+                infoBarPanel.setMistakesBar(mistakes);
+                if (mistakes >= GameContext.getMaxMistakes()) {
+                    //The player has made too many mistakes - stopping the game
+                    stopGame();
+                }
             }
         }
     }

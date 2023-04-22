@@ -132,6 +132,10 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
 
         } else {
             //The Hero loses ground under his legs - showing the Hero's fall
+            if (yHero == (SCENE_SHIFT_Y - HERO_HEIGHT)) {
+                //Play the Round Lose sound 'at the beginning of the end' and only once
+                mainPanel.playRoundLoseSound();
+            }
             yHero = yHero + (Constants.Game.MOVING_FLOOR_SPEED * 3);
             if (yHero > (yFloor + FLOOR_HEIGHT * 2)) {
                 timer.stop();
