@@ -177,10 +177,6 @@ public class GamePanel extends JPanel {
     public void nextLevel() {
         int nextLevel = GameContext.getSettings().getLevel() + 1;
         int lastLevel = GameContext.getMaxLevel();
-        if (GameContext.getSettings().isSoundOn()) {
-            roundWinSound.setMicrosecondPosition(0);
-            roundWinSound.start();
-        }
         if (lastLevel >= nextLevel) {
             //The next level is available - continue the game
             GameContext.getSettings().setLevel(nextLevel);
@@ -276,9 +272,15 @@ public class GamePanel extends JPanel {
                 infoBarPanel.setScoreField(score);
                 currentLetterIndex++;
                 if (letters.length > currentLetterIndex) {
+                    //Highlight the next key to continue the round
                     keyboardPanel.highlightButton(letters[currentLetterIndex]);
                 } else {
+                    //All keys were successfully hit - user wins the round
                     keyboardPanel.resetButtonHighlighting();
+                    if (GameContext.getSettings().isSoundOn()) {
+                        roundWinSound.setMicrosecondPosition(0);
+                        roundWinSound.start();
+                    }
                 }
             } else {
                 //The incorrect key was pressed - add mistakes
