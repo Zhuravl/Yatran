@@ -22,7 +22,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-          cache: maven
 
       # BUILD FOR DISTRIBUTION
       - id: build
@@ -56,7 +55,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-          cache: maven
 
       # BUILD FOR DISTRIBUTION
       - id: build
@@ -90,7 +88,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-          cache: maven
 
       # BUILD FOR DISTRIBUTION
       - id: build
