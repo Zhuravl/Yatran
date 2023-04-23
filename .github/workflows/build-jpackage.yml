@@ -66,8 +66,8 @@ jobs:
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version 1.0.0 --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.ico --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type msi --win-dir-chooser --win-menu --win-per-user-install --win-shortcut
       # SAVE INSTALLER
-      - id: upload-installer to temp
-        name: Upload installer
+      - id: upload-installer
+        name: Upload installer to temp
         uses: actions/upload-artifact@v3
         with:
           path: ./consoleapp/build/distributions/target/Yatran-1.0.0.msi
