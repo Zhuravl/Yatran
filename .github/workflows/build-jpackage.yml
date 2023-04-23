@@ -35,7 +35,7 @@ jobs:
         name: Upload installer to temp
         uses: actions/upload-artifact@v3
         with:
-          path: ./consoleapp/build/target/Yatran-1.0.0.deb
+          path: target/Yatran-1.0.0.deb
           name: linux-installer
           retention-days: 1
 
@@ -68,7 +68,7 @@ jobs:
         name: Upload installer to temp
         uses: actions/upload-artifact@v3
         with:
-          path: ./consoleapp/build/distributions/target/Yatran-1.0.0.msi
+          path: target/Yatran-1.0.0.msi
           name: windows-installer
           retention-days: 1
 
@@ -101,7 +101,7 @@ jobs:
         name: Upload installer to temp
         uses: actions/upload-artifact@v3
         with:
-          path: ./consoleapp/build/distributions/target/Yatran-1.0.0.pkg
+          path: target/Yatran-1.0.0.pkg
           name: macos-installer
           retention-days: 1
 
