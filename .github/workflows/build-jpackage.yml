@@ -35,10 +35,10 @@ jobs:
         uses: actions/upload-release-asset@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./target/Yatran*.deb
-          asset_content_type: application/x-binary
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./target/Yatran*.deb
+        asset_content_type: application/x-binary
 
 
   build-windows-installer:
@@ -69,10 +69,10 @@ jobs:
         uses: actions/upload-release-asset@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./target/Yatran*.msi
-          asset_content_type: application/x-binary
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./target/Yatran*.msi
+        asset_content_type: application/x-binary
 
 
   build-macos-installer:
@@ -103,7 +103,7 @@ jobs:
         uses: actions/upload-release-asset@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./target/Yatran*.pkg
-          asset_content_type: application/x-binary
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./target/Yatran*.pkg
+        asset_content_type: application/x-binary
