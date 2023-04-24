@@ -8,6 +8,7 @@ jobs:
   build-linux-installer:
     name: Build Installer on Linux
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
 
       # SETUP BUILD ENVIRONMENT
@@ -29,8 +30,6 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.png --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type deb --linux-shortcut
-          ls -as
-          ls -as target
       # UPLOAD INSTALLER
       - id: upload-linux-installer
         name: Upload Linux installer
@@ -39,14 +38,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: target/Yatran-${{ github.event.release.tag_name }}.deb
-          asset_name: Yatran-${{ github.event.release.tag_name }}.deb
+          asset_path: target/yatran_${{ github.event.release.tag_name }}-1_amd64.deb
+          asset_name: yatran_${{ github.event.release.tag_name }}-1_amd64.deb
           asset_content_type: application/x-binary
 
 
   build-windows-installer:
     name: Build Installer on Windows
     runs-on: windows-latest
+    permissions: write-all
     steps:
 
       # SETUP BUILD ENVIRONMENT
@@ -66,8 +66,6 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.ico --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type msi --win-dir-chooser --win-menu --win-per-user-install --win-shortcut
-          ls -as
-          ls -as target
       # UPLOAD INSTALLER
       - id: upload-windows-installer
         name: Upload Windows installer
@@ -84,6 +82,7 @@ jobs:
   build-macos-installer:
     name: Build Installer on MacOS
     runs-on: macos-latest
+    permissions: write-all
     steps:
 
       # SETUP BUILD ENVIRONMENT
@@ -103,8 +102,6 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.icns --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type pkg
-          ls -as
-          ls -as target
       # UPLOAD INSTALLER
       - id: upload-macos-installer
         name: Upload MacOS installer
