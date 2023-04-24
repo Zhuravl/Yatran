@@ -37,7 +37,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./target/Yatran*.deb
+          asset_path: ./target/Yatran-${{ github.event.release.tag_name }}.deb
+          asset_name: Yatran-${{ github.event.release.tag_name }}.deb
           asset_content_type: application/x-binary
 
 
@@ -71,7 +72,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./target/Yatran*.msi
+          asset_path: ./target/Yatran-${{ github.event.release.tag_name }}.msi
+          asset_name: Yatran-${{ github.event.release.tag_name }}.msi
           asset_content_type: application/x-binary
 
 
@@ -105,5 +107,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./target/Yatran*.pkg
+          asset_path: ./target/Yatran-${{ github.event.release.tag_name }}.pkg
+          asset_name: Yatran-${{ github.event.release.tag_name }}.pkg
           asset_content_type: application/x-binary
