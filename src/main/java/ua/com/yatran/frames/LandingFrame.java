@@ -3,13 +3,11 @@ package ua.com.yatran.frames;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.enums.Language;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serial;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LandingFrame extends JFrame {
@@ -43,12 +41,7 @@ public class LandingFrame extends JFrame {
         contentPane.setLayout(null);
         contentPane.setBounds(insets.left, insets.top, Constants.Common.LANDING_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.LANDING_WINDOW_HEIGHT - insets.bottom - insets.top);
         labelLogo = new JLabel();
-        try {
-            InputStream stream = getClass().getResourceAsStream("/images/logo.png");
-            labelLogo.setIcon(new ImageIcon(ImageIO.read(stream)));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        labelLogo.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/logo.png"))));
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         labelLogo.setBounds(0, 0, Constants.Common.LANDING_WINDOW_WIDTH, Constants.Common.LANDING_WINDOW_HEIGHT / 2);
         contentPane.add(labelLogo);

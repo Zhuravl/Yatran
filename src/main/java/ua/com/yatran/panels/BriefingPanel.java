@@ -2,13 +2,11 @@ package ua.com.yatran.panels;
 
 import ua.com.yatran.constants.Constants;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BriefingPanel extends JPanel {
@@ -49,12 +47,7 @@ public class BriefingPanel extends JPanel {
         this.add(briefingLabel2);
 
         briefingPicture = new JLabel();
-        try {
-            InputStream stream = getClass().getResourceAsStream("/images/keyboard.png");
-            briefingPicture.setIcon(new ImageIcon(ImageIO.read(stream)));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        briefingPicture.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/keyboard.png"))));
         briefingPicture.setHorizontalAlignment(SwingConstants.CENTER);
         briefingPicture.setBounds(0, briefingLabel2.getY() + briefingLabel2.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH, 400);
         this.add(briefingPicture);

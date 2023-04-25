@@ -11,9 +11,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class GamePanel extends JPanel {
 
@@ -136,19 +136,19 @@ public class GamePanel extends JPanel {
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, InputEvent.SHIFT_DOWN_MASK), "Key ?", actionListener);
 
         try {
-            AudioInputStream audioInputStreamCorrect = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/keyCorrect.wav").getAbsoluteFile());
+            AudioInputStream audioInputStreamCorrect = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource("/sounds/keyCorrect.wav")));
             correctKeySound = AudioSystem.getClip();
             correctKeySound.open(audioInputStreamCorrect);
 
-            AudioInputStream audioInputStreamWrong = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/keyWrong.wav").getAbsoluteFile());
+            AudioInputStream audioInputStreamWrong = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource("/sounds/keyWrong.wav")));
             wrongKeySound = AudioSystem.getClip();
             wrongKeySound.open(audioInputStreamWrong);
 
-            AudioInputStream audioInputStreamWin = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/roundWin.wav").getAbsoluteFile());
+            AudioInputStream audioInputStreamWin = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource("/sounds/roundWin.wav")));
             roundWinSound = AudioSystem.getClip();
             roundWinSound.open(audioInputStreamWin);
 
-            AudioInputStream audioInputStreamLose = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/roundLose.wav").getAbsoluteFile());
+            AudioInputStream audioInputStreamLose = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource("/sounds/roundLose.wav")));
             roundLoseSound = AudioSystem.getClip();
             roundLoseSound.open(audioInputStreamLose);
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
