@@ -23,7 +23,7 @@ public class Constants {
         public static final int ELEMENTS_CLEARANCE = 20;
         public static final Font FONT_MAIN = new Font("Tahoma", Font.PLAIN, 26);
         public static final Font FONT_HINT = new Font("Tahoma", Font.PLAIN, 14);
-        public static final Font FONT_LETTER_BLOCK = new Font("Tahoma", Font.PLAIN, 16);
+        public static final Font FONT_LETTER_BLOCK = new Font("Tahoma", Font.PLAIN, 22);
         public static final Color BUTTON_COLOR_DEFAULT = Color.WHITE;
         public static final Color BUTTON_COLOR_ACCENT = new Color(0, 130, 255);
     }
