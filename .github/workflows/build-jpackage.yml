@@ -30,7 +30,6 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.png --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type deb --linux-shortcut --linux-app-release ${{ github.event.release.tag_name }} --linux-deb-maintainer 'Illia Zhuravskyi <zhuravskyi.illia@gmail.com>' --linux-menu-group Yatran
-          ls -as target
           mv target/yatran_${{ github.event.release.tag_name }}-${{ github.event.release.tag_name }}_amd64.deb target/Yatran-${{ github.event.release.tag_name }}.deb
       # UPLOAD INSTALLER
       - id: upload-linux-installer
