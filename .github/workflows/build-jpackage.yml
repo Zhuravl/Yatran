@@ -68,6 +68,7 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.ico --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type msi --win-dir-chooser --win-menu --win-per-user-install --win-shortcut --win-menu-group Yatran
+          ls -as target
           mv target/Yatran-${{ github.event.release.tag_name }}.msi target/Yatran-${{ github.event.release.tag_name }}-Windows.msi
       # UPLOAD INSTALLER
       - id: upload-windows-installer
@@ -105,6 +106,7 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.icns --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type pkg
+          ls -as target
           mv target/Yatran-${{ github.event.release.tag_name }}.pkg target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg
       # UPLOAD INSTALLER
       - id: upload-macos-installer
