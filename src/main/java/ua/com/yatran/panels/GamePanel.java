@@ -172,19 +172,16 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Starts the next game level or triggers game stopping
+     * Starts the next game, increasing the level (if it's available)
      */
     public void nextLevel() {
-        int nextLevel = GameContext.getSettings().getLevel() + 1;
+        int currentLevel = GameContext.getSettings().getLevel();
         int lastLevel = GameContext.getMaxLevel();
-        if (lastLevel >= nextLevel) {
-            //The next level is available - continue the game
-            GameContext.getSettings().setLevel(nextLevel);
-            startGame();
-        } else {
-            //It was the last level - stop the game
-            stopGame();
+        if (lastLevel > currentLevel) {
+            //The next level is available - switch to the next level
+            GameContext.getSettings().setLevel(currentLevel + 1);
         }
+        startGame();
     }
 
     /**
