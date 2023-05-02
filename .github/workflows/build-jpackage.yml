@@ -29,8 +29,8 @@ jobs:
         name: Build distribution
         run: |
           mvn clean package
-          jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.png --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type deb --linux-shortcut --linux-app-release ${{ github.event.release.tag_name }} --linux-deb-maintainer 'Illia Zhuravskyi <zhuravskyi.illia@gmail.com>' --linux-menu-group Yatran
-          mv target/yatran_${{ github.event.release.tag_name }}-${{ github.event.release.tag_name }}_amd64.deb target/Yatran-${{ github.event.release.tag_name }}.deb
+          jpackage --input target/ --dest target/ --name Yatran --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.png --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type deb --linux-shortcut --linux-app-release ${{ github.event.release.tag_name }} --linux-deb-maintainer 'Illia Zhuravskyi <zhuravskyi.illia@gmail.com>' --linux-menu-group Yatran
+          mv target/yatran-${{ github.event.release.tag_name }}_amd64.deb target/Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
       # UPLOAD INSTALLER
       - id: upload-linux-installer
         name: Upload Linux installer
@@ -39,8 +39,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: target/Yatran-${{ github.event.release.tag_name }}.deb
-          asset_name: Yatran-${{ github.event.release.tag_name }}.deb
+          asset_path: target/Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
+          asset_name: Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
           asset_content_type: application/x-binary
 
 
@@ -67,6 +67,7 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.ico --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type msi --win-dir-chooser --win-menu --win-per-user-install --win-shortcut --win-menu-group Yatran
+          mv target/Yatran-${{ github.event.release.tag_name }}.msi target/Yatran-${{ github.event.release.tag_name }}-Windows.msi
       # UPLOAD INSTALLER
       - id: upload-windows-installer
         name: Upload Windows installer
@@ -75,8 +76,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: target/Yatran-${{ github.event.release.tag_name }}.msi
-          asset_name: Yatran-${{ github.event.release.tag_name }}.msi
+          asset_path: target/Yatran-${{ github.event.release.tag_name }}-Windows.msi
+          asset_name: Yatran-${{ github.event.release.tag_name }}-Windows.msi
           asset_content_type: application/x-binary
 
 
@@ -103,6 +104,7 @@ jobs:
         run: |
           mvn clean package
           jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.icns --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type pkg
+          mv target/Yatran-${{ github.event.release.tag_name }}.pkg target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg
       # UPLOAD INSTALLER
       - id: upload-macos-installer
         name: Upload MacOS installer
@@ -111,6 +113,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: target/Yatran-${{ github.event.release.tag_name }}.pkg
-          asset_name: Yatran-${{ github.event.release.tag_name }}.pkg
+          asset_path: target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg
+          asset_name: Yatran-${{ github.event.release.tag_name }}-macOS.pkg
           asset_content_type: application/x-binary
