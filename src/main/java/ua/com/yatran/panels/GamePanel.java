@@ -4,6 +4,7 @@ import ua.com.yatran.constants.Constants;
 import ua.com.yatran.helpers.GameContext;
 import ua.com.yatran.interfaces.AbstractGamePanel;
 import ua.com.yatran.panels.games.FallingCeilingGamePanel;
+import ua.com.yatran.panels.games.HuntingHurricaneGamePanel;
 import ua.com.yatran.panels.games.MovingFloorGamePanel;
 
 import javax.sound.sampled.*;
@@ -305,9 +306,11 @@ public class GamePanel extends JPanel {
      */
     private AbstractGamePanel getNextGameSkin() {
         if (gameSubPanel instanceof MovingFloorGamePanel) {
-            return new FallingCeilingGamePanel(this, letters);
-        } else {
-            return new MovingFloorGamePanel(this, letters);
+            return new HuntingHurricaneGamePanel(this, letters);
         }
+        if (gameSubPanel instanceof HuntingHurricaneGamePanel) {
+            return new FallingCeilingGamePanel(this, letters);
+        }
+        return new MovingFloorGamePanel(this, letters);
     }
 }
