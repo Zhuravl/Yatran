@@ -3,6 +3,7 @@ package ua.com.yatran.panels;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.helpers.GameContext;
 import ua.com.yatran.interfaces.AbstractGamePanel;
+import ua.com.yatran.panels.games.FallingCeilingGamePanel;
 import ua.com.yatran.panels.games.MovingFloorGamePanel;
 
 import javax.sound.sampled.*;
@@ -167,7 +168,7 @@ public class GamePanel extends JPanel {
         infoBarPanel.refreshGUI();
         keyboardPanel.refreshGUI();
         keyboardPanel.highlightButton(letters[currentLetterIndex]);
-        setGameSubPanel(new MovingFloorGamePanel(this, letters));
+        setGameSubPanel(getNextGameSkin());
         gameSubPanel.startGame();
     }
 
@@ -295,6 +296,18 @@ public class GamePanel extends JPanel {
                     stopGame();
                 }
             }
+        }
+    }
+
+    /**
+     * Returns the instance of the next game skin, based on the current one.
+     * The main idea is to move through the seasons (spring -> summer -> autumn -> winter -> spring)
+     */
+    private AbstractGamePanel getNextGameSkin() {
+        if (gameSubPanel instanceof MovingFloorGamePanel) {
+            return new FallingCeilingGamePanel(this, letters);
+        } else {
+            return new MovingFloorGamePanel(this, letters);
         }
     }
 }
