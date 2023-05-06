@@ -9,25 +9,25 @@ import java.awt.*;
 import java.io.Serial;
 import java.util.Objects;
 
-public class HuntingHurricaneGamePanel extends AbstractGamePanel {
+public class ScaryCloudGamePanel extends AbstractGamePanel {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private static final int HURRICANE_HEIGHT = 150;
-    private static final int HURRICANE_WIDTH = 100;
+    private static final int CLOUD_HEIGHT = 150;
+    private static final int CLOUD_WIDTH = 150;
 
-    private Image hurricaneImage;
-    private int xHurricane;
-    private int yHurricane;
+    private Image cloudImage;
+    private int xCloud;
+    private int yCloud;
 
-    public HuntingHurricaneGamePanel(GamePanel mainPanel, String[] letters) {
+    public ScaryCloudGamePanel(GamePanel mainPanel, String[] letters) {
         super(mainPanel, letters);
 
         setLayout(null);
 
-        xHurricane = SCENE_SHIFT_X - HURRICANE_WIDTH;
-        yHurricane = SCENE_SHIFT_Y - HURRICANE_HEIGHT;
+        xCloud = SCENE_SHIFT_X - CLOUD_WIDTH;
+        yCloud = SCENE_SHIFT_Y - CLOUD_HEIGHT;
 
         GUI();
     }
@@ -37,8 +37,8 @@ public class HuntingHurricaneGamePanel extends AbstractGamePanel {
      */
     @Override
     protected void moveInfluence() {
-        if (xHurricane < SCENE_SHIFT_X + FLOOR_WIDTH) {
-            xHurricane = xHurricane + Constants.Game.INFLUENCE_SPEED;
+        if (xCloud < SCENE_SHIFT_X + FLOOR_WIDTH) {
+            xCloud = xCloud + Constants.Game.INFLUENCE_SPEED;
         }
     }
 
@@ -48,8 +48,8 @@ public class HuntingHurricaneGamePanel extends AbstractGamePanel {
     @Override
     protected void moveHero() {
         final int BANGS_LENGTH = HERO_WIDTH / 3;
-        if (xHero + BANGS_LENGTH >= xHurricane + HURRICANE_WIDTH) {
-            //The Hero still has not been overtaken by a hurricane
+        if (xHero + BANGS_LENGTH >= xCloud + CLOUD_WIDTH) {
+            //The Hero still has not hit by the cloud
             if (xHero < Constants.Common.MAIN_WINDOW_WIDTH - SCENE_SHIFT_X) {
                 //The Hero hasn't gone all the way yet
                 if (canHeroMoveOn()) {
@@ -65,13 +65,13 @@ public class HuntingHurricaneGamePanel extends AbstractGamePanel {
             }
 
         } else {
-            //The Hero was overtaken by a hurricane - showing the Hero's takeoff
+            //The cloud has hit the Hero - showing the Hero's fall
             if (yHero == (SCENE_SHIFT_Y - HERO_HEIGHT)) {
                 //Play the Round Lose sound 'at the beginning of the end' and only once
                 mainPanel.playRoundLoseSound();
             }
-            yHero = yHero - (Constants.Game.INFLUENCE_SPEED * 3);
-            if ((yHero + HERO_HEIGHT) < (yFloor - FLOOR_HEIGHT * 2)) {
+            yHero = yHero + (Constants.Game.INFLUENCE_SPEED * 3);
+            if (yHero > (yFloor + FLOOR_HEIGHT * 2)) {
                 timer.stop();
                 mainPanel.stopGame();
             }
@@ -110,8 +110,8 @@ public class HuntingHurricaneGamePanel extends AbstractGamePanel {
         //Hero animation
         g2d.drawImage(heroImage, xHero, yHero, HERO_WIDTH, HERO_HEIGHT, null);
 
-        //Hurricane animation
-        g2d.drawImage(hurricaneImage, xHurricane, yHurricane, HURRICANE_WIDTH, HURRICANE_HEIGHT, null);
+        //Cloud animation
+        g2d.drawImage(cloudImage, xCloud, yCloud, CLOUD_WIDTH, CLOUD_HEIGHT, null);
 
         g2d.dispose();
     }
@@ -120,7 +120,7 @@ public class HuntingHurricaneGamePanel extends AbstractGamePanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_autumn.png"))).getImage();
-        hurricaneImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/hurricane.gif"))).getImage();
+        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_spring.png"))).getImage();
+        cloudImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/cloud.gif"))).getImage();
     }
 }

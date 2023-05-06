@@ -4,8 +4,9 @@ import ua.com.yatran.constants.Constants;
 import ua.com.yatran.helpers.GameContext;
 import ua.com.yatran.interfaces.AbstractGamePanel;
 import ua.com.yatran.panels.games.FallingCeilingGamePanel;
-import ua.com.yatran.panels.games.HuntingHurricaneGamePanel;
+import ua.com.yatran.panels.games.HuntingWhirlwindGamePanel;
 import ua.com.yatran.panels.games.MovingFloorGamePanel;
+import ua.com.yatran.panels.games.ScaryCloudGamePanel;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -210,7 +211,7 @@ public class GamePanel extends JPanel {
         this.add(infoBarPanel);
 
         keyboardPanel = new KeyboardPanel();
-        keyboardPanel.setBounds(Constants.Common.ELEMENTS_CLEARANCE / 4, Constants.Common.MAIN_WINDOW_HEIGHT - (Constants.Common.MAIN_WINDOW_HEIGHT / 6) - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH - (Constants.Common.ELEMENTS_CLEARANCE / 2), Constants.Common.MAIN_WINDOW_HEIGHT / 5);
+        keyboardPanel.setBounds(Constants.Common.ELEMENTS_CLEARANCE / 4, Constants.Common.MAIN_WINDOW_HEIGHT - (Constants.Common.MAIN_WINDOW_HEIGHT / 6) - 35, Constants.Common.MAIN_WINDOW_WIDTH - (Constants.Common.ELEMENTS_CLEARANCE / 2), Constants.Common.MAIN_WINDOW_HEIGHT / 5);
         this.add(keyboardPanel);
     }
 
@@ -302,15 +303,17 @@ public class GamePanel extends JPanel {
 
     /**
      * Returns the instance of the next game skin, based on the current one.
-     * The main idea is to move through the seasons (spring -> summer -> autumn -> winter -> spring)
+     * The main idea is to move through the seasons (summer -> autumn -> winter -> spring -> summer)
      */
     private AbstractGamePanel getNextGameSkin() {
         if (gameSubPanel instanceof MovingFloorGamePanel) {
-            return new HuntingHurricaneGamePanel(this, letters);
-        }
-        if (gameSubPanel instanceof HuntingHurricaneGamePanel) {
+            return new HuntingWhirlwindGamePanel(this, letters);
+        } else if (gameSubPanel instanceof HuntingWhirlwindGamePanel) {
             return new FallingCeilingGamePanel(this, letters);
+        } else if (gameSubPanel instanceof FallingCeilingGamePanel) {
+            return new ScaryCloudGamePanel(this, letters);
+        } else {
+            return new MovingFloorGamePanel(this, letters);
         }
-        return new MovingFloorGamePanel(this, letters);
     }
 }
