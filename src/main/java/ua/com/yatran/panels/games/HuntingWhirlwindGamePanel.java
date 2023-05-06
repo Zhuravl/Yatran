@@ -9,15 +9,25 @@ import java.awt.*;
 import java.io.Serial;
 import java.util.Objects;
 
-public class MovingFloorGamePanel extends AbstractGamePanel {
+public class HuntingWhirlwindGamePanel extends AbstractGamePanel {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public MovingFloorGamePanel(GamePanel mainPanel, String[] letters) {
+    private static final int WHIRLWIND_HEIGHT = 150;
+    private static final int WHIRLWIND_WIDTH = 100;
+
+    private Image whirlwindImage;
+    private int xWhirlwind;
+    private int yWhirlwind;
+
+    public HuntingWhirlwindGamePanel(GamePanel mainPanel, String[] letters) {
         super(mainPanel, letters);
 
         setLayout(null);
+
+        xWhirlwind = SCENE_SHIFT_X - WHIRLWIND_WIDTH;
+        yWhirlwind = SCENE_SHIFT_Y - WHIRLWIND_HEIGHT;
 
         GUI();
     }
@@ -27,9 +37,8 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
      */
     @Override
     protected void moveInfluence() {
-        if (xFloor < SCENE_SHIFT_X + FLOOR_WIDTH) {
-            xFloor = xFloor + Constants.Game.INFLUENCE_SPEED;
-            widthFloor = widthFloor - Constants.Game.INFLUENCE_SPEED;
+        if (xWhirlwind < SCENE_SHIFT_X + FLOOR_WIDTH) {
+            xWhirlwind = xWhirlwind + Constants.Game.INFLUENCE_SPEED;
         }
     }
 
@@ -38,8 +47,9 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
      */
     @Override
     protected void moveHero() {
-        if (xHero + HERO_WIDTH > xFloor) {
-            //The Hero still has ground under his legs
+        final int BANGS_LENGTH = HERO_WIDTH / 3;
+        if (xHero + BANGS_LENGTH >= xWhirlwind + WHIRLWIND_WIDTH) {
+            //The Hero still has not been overtaken by a whirlwind
             if (xHero < Constants.Common.MAIN_WINDOW_WIDTH - SCENE_SHIFT_X) {
                 //The Hero hasn't gone all the way yet
                 if (canHeroMoveOn()) {
@@ -55,13 +65,13 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
             }
 
         } else {
-            //The Hero loses ground under his legs - showing the Hero's fall
+            //The Hero was overtaken by a whirlwind - showing the Hero's takeoff
             if (yHero == (SCENE_SHIFT_Y - HERO_HEIGHT)) {
                 //Play the Round Lose sound 'at the beginning of the end' and only once
                 mainPanel.playRoundLoseSound();
             }
-            yHero = yHero + (Constants.Game.INFLUENCE_SPEED * 3);
-            if (yHero > (yFloor + FLOOR_HEIGHT * 2)) {
+            yHero = yHero - (Constants.Game.INFLUENCE_SPEED * 3);
+            if ((yHero + HERO_HEIGHT) < (yFloor - FLOOR_HEIGHT * 2)) {
                 timer.stop();
                 mainPanel.stopGame();
             }
@@ -99,6 +109,10 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
 
         //Hero animation
         g2d.drawImage(heroImage, xHero, yHero, HERO_WIDTH, HERO_HEIGHT, null);
+
+        //Whirlwind animation
+        g2d.drawImage(whirlwindImage, xWhirlwind, yWhirlwind, WHIRLWIND_WIDTH, WHIRLWIND_HEIGHT, null);
+
         g2d.dispose();
     }
 
@@ -106,6 +120,7 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_summer.png"))).getImage();
+        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_autumn.png"))).getImage();
+        whirlwindImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/whirlwind.gif"))).getImage();
     }
 }

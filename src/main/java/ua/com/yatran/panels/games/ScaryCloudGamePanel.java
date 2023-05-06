@@ -9,15 +9,25 @@ import java.awt.*;
 import java.io.Serial;
 import java.util.Objects;
 
-public class MovingFloorGamePanel extends AbstractGamePanel {
+public class ScaryCloudGamePanel extends AbstractGamePanel {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public MovingFloorGamePanel(GamePanel mainPanel, String[] letters) {
+    private static final int CLOUD_HEIGHT = 150;
+    private static final int CLOUD_WIDTH = 150;
+
+    private Image cloudImage;
+    private int xCloud;
+    private int yCloud;
+
+    public ScaryCloudGamePanel(GamePanel mainPanel, String[] letters) {
         super(mainPanel, letters);
 
         setLayout(null);
+
+        xCloud = SCENE_SHIFT_X - CLOUD_WIDTH;
+        yCloud = SCENE_SHIFT_Y - CLOUD_HEIGHT;
 
         GUI();
     }
@@ -27,9 +37,8 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
      */
     @Override
     protected void moveInfluence() {
-        if (xFloor < SCENE_SHIFT_X + FLOOR_WIDTH) {
-            xFloor = xFloor + Constants.Game.INFLUENCE_SPEED;
-            widthFloor = widthFloor - Constants.Game.INFLUENCE_SPEED;
+        if (xCloud < SCENE_SHIFT_X + FLOOR_WIDTH) {
+            xCloud = xCloud + Constants.Game.INFLUENCE_SPEED;
         }
     }
 
@@ -38,8 +47,9 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
      */
     @Override
     protected void moveHero() {
-        if (xHero + HERO_WIDTH > xFloor) {
-            //The Hero still has ground under his legs
+        final int BANGS_LENGTH = HERO_WIDTH / 3;
+        if (xHero + BANGS_LENGTH >= xCloud + CLOUD_WIDTH) {
+            //The Hero still has not hit by the cloud
             if (xHero < Constants.Common.MAIN_WINDOW_WIDTH - SCENE_SHIFT_X) {
                 //The Hero hasn't gone all the way yet
                 if (canHeroMoveOn()) {
@@ -55,7 +65,7 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
             }
 
         } else {
-            //The Hero loses ground under his legs - showing the Hero's fall
+            //The cloud has hit the Hero - showing the Hero's fall
             if (yHero == (SCENE_SHIFT_Y - HERO_HEIGHT)) {
                 //Play the Round Lose sound 'at the beginning of the end' and only once
                 mainPanel.playRoundLoseSound();
@@ -99,6 +109,10 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
 
         //Hero animation
         g2d.drawImage(heroImage, xHero, yHero, HERO_WIDTH, HERO_HEIGHT, null);
+
+        //Cloud animation
+        g2d.drawImage(cloudImage, xCloud, yCloud, CLOUD_WIDTH, CLOUD_HEIGHT, null);
+
         g2d.dispose();
     }
 
@@ -106,6 +120,7 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_summer.png"))).getImage();
+        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_spring.png"))).getImage();
+        cloudImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/cloud.gif"))).getImage();
     }
 }
