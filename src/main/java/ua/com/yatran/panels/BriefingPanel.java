@@ -49,7 +49,9 @@ public class BriefingPanel extends JPanel {
         briefingPicture = new JLabel();
         briefingPicture.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/keyboard.png"))));
         briefingPicture.setHorizontalAlignment(SwingConstants.CENTER);
-        briefingPicture.setBounds(0, briefingLabel2.getY() + briefingLabel2.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH, 400);
+        briefingPicture.setBackground(Color.WHITE);
+        briefingPicture.setOpaque(true);
+        briefingPicture.setBounds(Constants.Common.ELEMENTS_CLEARANCE * 5, briefingLabel2.getY() + briefingLabel2.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.ELEMENTS_CLEARANCE * 10, 380);
         this.add(briefingPicture);
     }
 

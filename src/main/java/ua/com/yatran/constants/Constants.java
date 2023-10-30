@@ -24,7 +24,7 @@ public class Constants {
         public static final Font FONT_MAIN = new Font("Tahoma", Font.PLAIN, 26);
         public static final Font FONT_HINT = new Font("Tahoma", Font.PLAIN, 14);
         public static final Font FONT_LETTER_BLOCK = new Font("Tahoma", Font.PLAIN, 22);
-        public static final Color BUTTON_COLOR_DEFAULT = Color.WHITE;
+        public static final Color BUTTON_COLOR_DEFAULT = new Color(68, 74, 88);
         public static final Color BUTTON_COLOR_ACCENT = new Color(0, 130, 255);
     }
 

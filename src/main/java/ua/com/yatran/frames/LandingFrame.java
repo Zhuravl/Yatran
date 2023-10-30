@@ -42,6 +42,8 @@ public class LandingFrame extends JFrame {
         contentPane.setBounds(insets.left, insets.top, Constants.Common.LANDING_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.LANDING_WINDOW_HEIGHT - insets.bottom - insets.top);
         labelLogo = new JLabel();
         labelLogo.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/logo.png"))));
+        labelLogo.setBackground(Color.WHITE);
+        labelLogo.setOpaque(true);
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         labelLogo.setBounds(0, 0, Constants.Common.LANDING_WINDOW_WIDTH, Constants.Common.LANDING_WINDOW_HEIGHT / 2);
         contentPane.add(labelLogo);
