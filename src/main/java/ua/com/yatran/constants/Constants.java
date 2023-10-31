@@ -9,6 +9,7 @@ public class Constants {
 
     public static class Common {
         public static final String APP_NAME = "Yatran";
+        public static final String APP_PROMO = "Typing tutor";
         public static final String LOCALE_PREFIX = "Locale";
         public static final String RANKING_FILE_NAME = "Data.ytr";
         public static final int USERNAME_MIN = 2;
@@ -21,9 +22,11 @@ public class Constants {
         public static final int BUTTON_WIDTH = 400;
         public static final int BUTTON_HEIGHT = 100;
         public static final int ELEMENTS_CLEARANCE = 20;
+        public static final Font FONT_LOGO = new Font("Tahoma", Font.PLAIN, 100);
         public static final Font FONT_MAIN = new Font("Tahoma", Font.PLAIN, 26);
         public static final Font FONT_HINT = new Font("Tahoma", Font.PLAIN, 14);
         public static final Font FONT_LETTER_BLOCK = new Font("Tahoma", Font.PLAIN, 22);
+        public static final Color BUTTON_COLOR_LOGO = new Color(213, 211, 209);
         public static final Color BUTTON_COLOR_DEFAULT = new Color(68, 74, 88);
         public static final Color BUTTON_COLOR_ACCENT = new Color(0, 130, 255);
     }
