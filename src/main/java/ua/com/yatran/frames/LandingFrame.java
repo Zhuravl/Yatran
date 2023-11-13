@@ -3,8 +3,11 @@ package ua.com.yatran.frames;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.enums.Language;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serial;
 import java.util.Locale;
 import java.util.Objects;
@@ -41,9 +44,15 @@ public class LandingFrame extends JFrame {
         contentPane.setLayout(null);
         contentPane.setBounds(insets.left, insets.top, Constants.Common.LANDING_WINDOW_WIDTH - insets.left - insets.right, Constants.Common.LANDING_WINDOW_HEIGHT - insets.bottom - insets.top);
         labelLogo = new JLabel();
-        labelLogo.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/icon.png"))));
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         labelLogo.setBounds(Constants.Common.ELEMENTS_CLEARANCE * 4, Constants.Common.ELEMENTS_CLEARANCE * 2, 150, 150);
+        try {
+            BufferedImage bimg = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/icon-large.png")));
+            Image img = bimg.getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH);
+            labelLogo.setIcon(new ImageIcon(img));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         contentPane.add(labelLogo);
 
         labelName = new JLabel(Constants.Common.APP_NAME.toUpperCase());

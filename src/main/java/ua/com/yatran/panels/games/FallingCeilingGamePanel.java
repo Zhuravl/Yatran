@@ -4,8 +4,10 @@ import ua.com.yatran.constants.Constants;
 import ua.com.yatran.interfaces.AbstractGamePanel;
 import ua.com.yatran.panels.GamePanel;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serial;
 import java.util.Objects;
 import java.util.Random;
@@ -122,7 +124,12 @@ public class FallingCeilingGamePanel extends AbstractGamePanel {
      */
     private void GUI() {
         icicles = createIcicles();
-        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_winter.png"))).getImage();
+        try {
+            BufferedImage bimg = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/background_winter.png")));
+            backgroundImage = bimg.getScaledInstance(super.getWidth(), super.getHeight(), Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
