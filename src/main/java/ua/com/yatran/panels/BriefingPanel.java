@@ -2,9 +2,12 @@ package ua.com.yatran.panels;
 
 import ua.com.yatran.constants.Constants;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -47,9 +50,15 @@ public class BriefingPanel extends JPanel {
         this.add(briefingLabel2);
 
         briefingPicture = new JLabel();
-        briefingPicture.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/keyboard.png"))));
         briefingPicture.setHorizontalAlignment(SwingConstants.CENTER);
-        briefingPicture.setBounds(0, briefingLabel2.getY() + briefingLabel2.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH, 400);
+        briefingPicture.setBounds(Constants.Common.ELEMENTS_CLEARANCE * 5, briefingLabel2.getY() + briefingLabel2.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.ELEMENTS_CLEARANCE * 10, 380);
+        try {
+            BufferedImage bimg = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/keyboard.png")));
+            Image img = bimg.getScaledInstance(briefingPicture.getWidth(), briefingPicture.getHeight(), Image.SCALE_SMOOTH);
+            briefingPicture.setIcon(new ImageIcon(img));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.add(briefingPicture);
     }
 

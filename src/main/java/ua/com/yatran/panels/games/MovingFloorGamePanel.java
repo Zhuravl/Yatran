@@ -4,8 +4,10 @@ import ua.com.yatran.constants.Constants;
 import ua.com.yatran.interfaces.AbstractGamePanel;
 import ua.com.yatran.panels.GamePanel;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serial;
 import java.util.Objects;
 
@@ -106,6 +108,11 @@ public class MovingFloorGamePanel extends AbstractGamePanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_summer.png"))).getImage();
+        try {
+            BufferedImage bimg = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/background_summer.png")));
+            backgroundImage = bimg.getScaledInstance(super.getWidth(), super.getHeight(), Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

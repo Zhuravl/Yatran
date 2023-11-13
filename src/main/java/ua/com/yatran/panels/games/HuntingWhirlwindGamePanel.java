@@ -4,8 +4,11 @@ import ua.com.yatran.constants.Constants;
 import ua.com.yatran.interfaces.AbstractGamePanel;
 import ua.com.yatran.panels.GamePanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serial;
 import java.util.Objects;
 
@@ -120,7 +123,12 @@ public class HuntingWhirlwindGamePanel extends AbstractGamePanel {
      * Initiates and configures the UI elements
      */
     private void GUI() {
-        backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background_autumn.png"))).getImage();
-        whirlwindImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/whirlwind.gif"))).getImage();
+        try {
+            BufferedImage bimg = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/background_autumn.png")));
+            backgroundImage = bimg.getScaledInstance(super.getWidth(), super.getHeight(), Image.SCALE_SMOOTH);
+            whirlwindImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/whirlwind.gif"))).getImage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
