@@ -60,7 +60,7 @@ public class LandingFrame extends JFrame {
         labelName.setForeground(Constants.Common.BUTTON_COLOR_LOGO);
         labelName.setHorizontalAlignment(SwingConstants.LEFT);
         labelName.setVerticalAlignment(SwingConstants.TOP);
-        labelName.setBounds(labelLogo.getX() + labelLogo.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, labelLogo.getY(), 375, 100);
+        labelName.setBounds(labelLogo.getX() + labelLogo.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, labelLogo.getY(), 425, 100);
         contentPane.add(labelName);
 
         labelPromo = new JLabel(Constants.Common.APP_PROMO.toUpperCase());
