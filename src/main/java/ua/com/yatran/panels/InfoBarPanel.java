@@ -15,8 +15,8 @@ public class InfoBarPanel extends JPanel {
     private static final int MISTAKES_MIN = 0;
     private static final int MISTAKES_MAX = 10;
 
-    private JLabel keyboardLabel, levelLabel, scoresLabel, mistakesLabel;
-    private JTextField keyboardField, levelField, scoreField;
+    private JLabel keyboardLabel, layoutLabel, levelLabel, scoresLabel, mistakesLabel;
+    private JTextField keyboardField, layoutField, levelField, scoreField;
     private JProgressBar mistakesBar;
 
     public InfoBarPanel() {
@@ -37,7 +37,8 @@ public class InfoBarPanel extends JPanel {
      * Refreshes GUI to pull the latest data
      */
     public void refreshGUI() {
-        keyboardField.setText(GameContext.getSettings().getLanguage().getKeyboardName());
+        keyboardField.setText(GameContext.getSettings().getLayout().getType().getName());
+        layoutField.setText(GameContext.getSettings().getLayout().getName());
         levelField.setText(String.valueOf(GameContext.getSettings().getLevel()));
         scoreField.setText(String.valueOf(GameContext.getSettings().getScore()));
         mistakesBar.setMaximum(GameContext.getMaxMistakes());
@@ -54,44 +55,55 @@ public class InfoBarPanel extends JPanel {
         keyboardLabel = new JLabel(rb.getString("keyboard_label") + ":");
         keyboardLabel.setFont(Constants.Common.FONT_HINT);
         keyboardLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        keyboardLabel.setBounds(Constants.Common.ELEMENTS_CLEARANCE * 2, Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        keyboardLabel.setBounds(Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 5, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(keyboardLabel);
 
         keyboardField = new JTextField();
-        keyboardField.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, keyboardLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        keyboardField.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE / 4, keyboardLabel.getY(), Constants.Common.BUTTON_WIDTH / 8, Constants.Common.BUTTON_HEIGHT / 2);
         keyboardField.setEnabled(false);
         this.add(keyboardField);
+
+        layoutLabel = new JLabel(rb.getString("layout_label") + ":");
+        layoutLabel.setFont(Constants.Common.FONT_HINT);
+        layoutLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        layoutLabel.setBounds(keyboardField.getX() + keyboardField.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, keyboardField.getY(), Constants.Common.BUTTON_WIDTH / 5, Constants.Common.BUTTON_HEIGHT / 2);
+        this.add(layoutLabel);
+
+        layoutField = new JTextField();
+        layoutField.setBounds(layoutLabel.getX() + layoutLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE / 4, layoutLabel.getY(), Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
+        layoutField.setEnabled(false);
+        this.add(layoutField);
 
         levelLabel = new JLabel(rb.getString("level_label") + ":");
         levelLabel.setFont(Constants.Common.FONT_HINT);
         levelLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        levelLabel.setBounds(keyboardField.getX() + keyboardField.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, keyboardLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        levelLabel.setBounds(layoutField.getX() + layoutField.getWidth(), layoutLabel.getY(), Constants.Common.BUTTON_WIDTH / 5, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(levelLabel);
 
         levelField = new JTextField();
-        levelField.setBounds(levelLabel.getX() + levelLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, levelLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        levelField.setBounds(levelLabel.getX() + levelLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE / 4, levelLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         levelField.setEnabled(false);
         this.add(levelField);
 
         scoresLabel = new JLabel(rb.getString("score_label") + ":");
         scoresLabel.setFont(Constants.Common.FONT_HINT);
         scoresLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        scoresLabel.setBounds(levelField.getX() + levelField.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, levelField.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        scoresLabel.setBounds(levelField.getX() + levelField.getWidth(), levelField.getY(), Constants.Common.BUTTON_WIDTH / 5, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(scoresLabel);
 
         scoreField = new JTextField();
-        scoreField.setBounds(scoresLabel.getX() + scoresLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, scoresLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        scoreField.setBounds(scoresLabel.getX() + scoresLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE / 4, scoresLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         scoreField.setEnabled(false);
         this.add(scoreField);
 
         mistakesLabel = new JLabel(rb.getString("mistakes_label") + ":");
         mistakesLabel.setFont(Constants.Common.FONT_HINT);
         mistakesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        mistakesLabel.setBounds(scoreField.getX() + scoreField.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, scoreField.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        mistakesLabel.setBounds(scoreField.getX() + scoreField.getWidth(), scoreField.getY(), Constants.Common.BUTTON_WIDTH / 5, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(mistakesLabel);
 
         mistakesBar = new JProgressBar(MISTAKES_MIN, MISTAKES_MAX);
-        mistakesBar.setBounds(mistakesLabel.getX() + mistakesLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, mistakesLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
+        mistakesBar.setBounds(mistakesLabel.getX() + mistakesLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE / 4, mistakesLabel.getY(), Constants.Common.BUTTON_WIDTH / 4, Constants.Common.BUTTON_HEIGHT / 2);
         mistakesBar.setStringPainted(true);
         this.add(mistakesBar);
     }

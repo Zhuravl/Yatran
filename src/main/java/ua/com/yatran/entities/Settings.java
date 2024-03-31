@@ -1,6 +1,6 @@
 package ua.com.yatran.entities;
 
-import ua.com.yatran.enums.Language;
+import ua.com.yatran.enums.Layout;
 
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Settings {
 
-    private Language language;
+    private Layout layout;
     private int level;
     private int score;
     private int mistakes;
@@ -18,12 +18,12 @@ public class Settings {
     public Settings() {
     }
 
-    public Language getLanguage() {
-        return language;
+    public Layout getLayout() {
+        return layout;
     }
 
-    public void setLanguage(Language language) {
-        this.language = language;
+    public void setLayout(Layout layout) {
+        this.layout = layout;
     }
 
     public int getLevel() {
@@ -62,19 +62,23 @@ public class Settings {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Settings settings = (Settings) o;
-        return level == settings.level && score == settings.score && mistakes == settings.mistakes && soundOn == settings.soundOn && language == settings.language;
+        Settings that = (Settings) o;
+        return layout == that.layout &&
+                level == that.level &&
+                score == that.score &&
+                mistakes == that.mistakes &&
+                soundOn == that.soundOn;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(language, level, score, mistakes, soundOn);
+        return Objects.hash(layout, level, score, mistakes, soundOn);
     }
 
     @Override
     public String toString() {
         return "Settings{" +
-                "language=" + language +
+                "layout=" + layout +
                 ", level=" + level +
                 ", score=" + score +
                 ", mistakes=" + mistakes +

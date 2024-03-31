@@ -1,8 +1,10 @@
 package ua.com.yatran.panels;
 
 import ua.com.yatran.constants.Constants;
+import ua.com.yatran.enums.Keyboard;
 import ua.com.yatran.helpers.GameContext;
 import ua.com.yatran.interfaces.AbstractGamePanel;
+import ua.com.yatran.interfaces.AbstractKeyboardPanel;
 import ua.com.yatran.panels.games.FallingCeilingGamePanel;
 import ua.com.yatran.panels.games.HuntingWhirlwindGamePanel;
 import ua.com.yatran.panels.games.MovingFloorGamePanel;
@@ -23,7 +25,7 @@ public class GamePanel extends JPanel {
     private JPanel contentPane;
     private InfoBarPanel infoBarPanel;
     private AbstractGamePanel gameSubPanel;
-    private KeyboardPanel keyboardPanel;
+    private AbstractKeyboardPanel keyboardPanel;
     private String[] letters;
     private int currentLetterIndex;
     private Clip correctKeySound, wrongKeySound, roundWinSound, roundLoseSound;
@@ -65,7 +67,7 @@ public class GamePanel extends JPanel {
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0), "Key p", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_OPEN_BRACKET, 0), "Key [", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_CLOSE_BRACKET, 0), "Key ]", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SLASH, 0), "Key Backslash", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SLASH, 0), "Key \\", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "Key a", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), "Key s", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), "Key d", actionListener);
@@ -90,19 +92,19 @@ public class GamePanel extends JPanel {
 
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "Key Space", actionListener);
 
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_QUOTE, InputEvent.SHIFT_DOWN_MASK), "Key ~", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.SHIFT_DOWN_MASK), "Key !", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.SHIFT_DOWN_MASK), "Key @", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.SHIFT_DOWN_MASK), "Key #", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_4, InputEvent.SHIFT_DOWN_MASK), "Key $", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_QUOTE, InputEvent.SHIFT_DOWN_MASK), "Key+S ~", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.SHIFT_DOWN_MASK), "Key+S !", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.SHIFT_DOWN_MASK), "Key+S @", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.SHIFT_DOWN_MASK), "Key+S #", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_4, InputEvent.SHIFT_DOWN_MASK), "Key+S $", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_5, InputEvent.SHIFT_DOWN_MASK), "Key %", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_6, InputEvent.SHIFT_DOWN_MASK), "Key ^", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_7, InputEvent.SHIFT_DOWN_MASK), "Key &", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_8, InputEvent.SHIFT_DOWN_MASK), "Key *", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_9, InputEvent.SHIFT_DOWN_MASK), "Key (", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_0, InputEvent.SHIFT_DOWN_MASK), "Key )", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.SHIFT_DOWN_MASK), "Key _", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, InputEvent.SHIFT_DOWN_MASK), "Key +", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_6, InputEvent.SHIFT_DOWN_MASK), "Key+S ^", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_7, InputEvent.SHIFT_DOWN_MASK), "Key+S &", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_8, InputEvent.SHIFT_DOWN_MASK), "Key+S *", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_9, InputEvent.SHIFT_DOWN_MASK), "Key+S (", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_0, InputEvent.SHIFT_DOWN_MASK), "Key+S )", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.SHIFT_DOWN_MASK), "Key+S _", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, InputEvent.SHIFT_DOWN_MASK), "Key+S +", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.SHIFT_DOWN_MASK), "Key Q", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.SHIFT_DOWN_MASK), "Key W", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.SHIFT_DOWN_MASK), "Key E", actionListener);
@@ -113,8 +115,8 @@ public class GamePanel extends JPanel {
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.SHIFT_DOWN_MASK), "Key I", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.SHIFT_DOWN_MASK), "Key O", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.SHIFT_DOWN_MASK), "Key P", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_OPEN_BRACKET, InputEvent.SHIFT_DOWN_MASK), "Key {", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_CLOSE_BRACKET, InputEvent.SHIFT_DOWN_MASK), "Key }", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_OPEN_BRACKET, InputEvent.SHIFT_DOWN_MASK), "Key+S {", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_CLOSE_BRACKET, InputEvent.SHIFT_DOWN_MASK), "Key+S }", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SLASH, InputEvent.SHIFT_DOWN_MASK), "Key |", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.SHIFT_DOWN_MASK), "Key A", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_DOWN_MASK), "Key S", actionListener);
@@ -125,8 +127,8 @@ public class GamePanel extends JPanel {
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_J, InputEvent.SHIFT_DOWN_MASK), "Key J", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.SHIFT_DOWN_MASK), "Key K", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.SHIFT_DOWN_MASK), "Key L", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_SEMICOLON, InputEvent.SHIFT_DOWN_MASK), "Key :", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_QUOTE, InputEvent.SHIFT_DOWN_MASK), "Key Double Quote", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_SEMICOLON, InputEvent.SHIFT_DOWN_MASK), "Key+S :", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_QUOTE, InputEvent.SHIFT_DOWN_MASK), "Key+S \"", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.SHIFT_DOWN_MASK), "Key Z", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.SHIFT_DOWN_MASK), "Key X", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.SHIFT_DOWN_MASK), "Key C", actionListener);
@@ -134,9 +136,28 @@ public class GamePanel extends JPanel {
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.SHIFT_DOWN_MASK), "Key B", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.SHIFT_DOWN_MASK), "Key N", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.SHIFT_DOWN_MASK), "Key M", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, InputEvent.SHIFT_DOWN_MASK), "Key <", actionListener);
-        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, InputEvent.SHIFT_DOWN_MASK), "Key >", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, InputEvent.SHIFT_DOWN_MASK), "Key+S <", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, InputEvent.SHIFT_DOWN_MASK), "Key+S >", actionListener);
         registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, InputEvent.SHIFT_DOWN_MASK), "Key ?", actionListener);
+
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_AMPERSAND, 0), "Key &", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_ASTERISK, 0), "Key *", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_QUOTEDBL, 0), "Key \"", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_LESS, 0), "Key <", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_GREATER, 0), "Key >", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_BRACELEFT, 0), "Key {", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_BRACERIGHT, 0), "Key }", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_AT, 0), "Key @", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_COLON, 0), "Key :", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_CIRCUMFLEX, 0), "Key ^", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_DOLLAR, 0), "Key $", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_EXCLAMATION_MARK, 0), "Key !", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT_PARENTHESIS, 0), "Key (", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_NUMBER_SIGN, 0), "Key #", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "Key +", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT_PARENTHESIS, 0), "Key )", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_UNDERSCORE, 0), "Key _", actionListener);
+        registerKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_DEAD_TILDE, 0), "Key ~", actionListener);
 
         try {
             AudioInputStream audioInputStreamCorrect = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource("/sounds/keyCorrect.wav")));
@@ -168,7 +189,7 @@ public class GamePanel extends JPanel {
         letters = GameContext.getRandomLettersForLevel();
         currentLetterIndex = 0;
         infoBarPanel.refreshGUI();
-        keyboardPanel.refreshGUI();
+        setKeyboardSubPanel(GameContext.getSettings().getLayout().getType());
         keyboardPanel.highlightButton(letters[currentLetterIndex]);
         setGameSubPanel(getNextGameSkin());
         gameSubPanel.startGame();
@@ -209,10 +230,6 @@ public class GamePanel extends JPanel {
         infoBarPanel = new InfoBarPanel();
         infoBarPanel.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 8);
         this.add(infoBarPanel);
-
-        keyboardPanel = new KeyboardPanel();
-        keyboardPanel.setBounds(Constants.Common.ELEMENTS_CLEARANCE / 4, Constants.Common.MAIN_WINDOW_HEIGHT - (Constants.Common.MAIN_WINDOW_HEIGHT / 6) - 35, Constants.Common.MAIN_WINDOW_WIDTH - (Constants.Common.ELEMENTS_CLEARANCE / 2), Constants.Common.MAIN_WINDOW_HEIGHT / 5);
-        this.add(keyboardPanel);
     }
 
     /**
@@ -228,6 +245,21 @@ public class GamePanel extends JPanel {
 
         im.put(keyStroke, name);
         am.put(name, action);
+    }
+
+    /**
+     * Sets a Keyboard Sub Panel to the panel
+     *
+     * @param keyboard current keyboard to set
+     */
+    private void setKeyboardSubPanel(Keyboard keyboard) {
+        String keys = GameContext.getSettings().getLayout().getKeys();
+        switch (keyboard) {
+            case ISO -> keyboardPanel = new KeyboardPanelIso(keys);
+            case ANSI -> keyboardPanel = new KeyboardPanelAnsi(keys);
+            default -> keyboardPanel = new KeyboardPanelAnsi(keys);
+        }
+        this.add(keyboardPanel);
     }
 
     /**

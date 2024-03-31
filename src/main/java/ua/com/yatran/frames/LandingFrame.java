@@ -1,7 +1,6 @@
 package ua.com.yatran.frames;
 
 import ua.com.yatran.constants.Constants;
-import ua.com.yatran.enums.Language;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -80,30 +79,32 @@ public class LandingFrame extends JFrame {
      * Creates buttons for all available locales
      */
     private void createButtonsForAllLocales() {
-        int previousX = (Constants.Common.LANDING_WINDOW_WIDTH / 2) - (Constants.Common.BUTTON_WIDTH / 2);
-        int previousY = labelLogo.getHeight() + Constants.Common.ELEMENTS_CLEARANCE * 6;
-
-        for (int index = 0; index < Language.values().length; index++) {
-            JButton button = new JButton(ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.values()[index].getLocale()).getString("landing_button"));
-            button.setFont(Constants.Common.FONT_MAIN);
-            if (index == 0) {
-                button.setBounds(previousX, previousY + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
-            } else {
-                button.setBounds(previousX, previousY + Constants.Common.BUTTON_HEIGHT + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
-            }
-            int finalIndex = index;
-            button.addActionListener(e -> {
-                EventQueue.invokeLater(() -> {
-                    LandingFrame.this.dispose();
-                    Locale.setDefault(Language.values()[finalIndex].getLocale());
-                    ResourceBundle.clearCache();
-                    new MainFrame();
-                });
+        Locale localeUkr = new Locale("uk", "UA");
+        JButton buttonUkr = new JButton(ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, localeUkr).getString("landing_button"));
+        buttonUkr.setFont(Constants.Common.FONT_MAIN);
+        buttonUkr.setBounds((Constants.Common.LANDING_WINDOW_WIDTH / 2) - (Constants.Common.BUTTON_WIDTH / 2), (labelLogo.getHeight() + Constants.Common.ELEMENTS_CLEARANCE * 6) + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
+        buttonUkr.addActionListener(e -> {
+            EventQueue.invokeLater(() -> {
+                Locale.setDefault(localeUkr);
+                ResourceBundle.clearCache();
+                LandingFrame.this.dispose();
+                new MainFrame();
             });
-            contentPane.add(button);
+        });
+        contentPane.add(buttonUkr);
 
-            previousX = button.getX();
-            previousY = button.getY();
-        }
+        Locale localeEng = new Locale("en", "US");
+        JButton buttonEng = new JButton(ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, localeEng).getString("landing_button"));
+        buttonEng.setFont(Constants.Common.FONT_MAIN);
+        buttonEng.setBounds(buttonUkr.getX(), buttonUkr.getY() + Constants.Common.BUTTON_HEIGHT + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
+        buttonEng.addActionListener(e -> {
+            EventQueue.invokeLater(() -> {
+                Locale.setDefault(localeEng);
+                ResourceBundle.clearCache();
+                LandingFrame.this.dispose();
+                new MainFrame();
+            });
+        });
+        contentPane.add(buttonEng);
     }
 }

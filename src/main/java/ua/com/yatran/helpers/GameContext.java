@@ -3,7 +3,6 @@ package ua.com.yatran.helpers;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.RankingRecord;
 import ua.com.yatran.entities.Settings;
-import ua.com.yatran.enums.Language;
 
 import java.io.*;
 import java.util.*;
@@ -74,22 +73,14 @@ public class GameContext {
     }
 
     /**
-     * Returns all supported in the application keyboards
-     */
-    public static Object[] getAvailableKeyboards() {
-        return Arrays.stream(Language.values()).map(Language::getKeyboardName).toArray();
-    }
-
-    /**
      * Returns all supported in the application levels for the specified language (keyboard).
      * A number of levels are calculated by dividing the existing list of chars by pairs.
      * The first level will contain the first two chars.
      *
-     * @param language the language to calculate available levels for
+     * @param tasks the set of keys to press while the game
      */
-    public static String[] getAvailableLevels(Language language) {
-        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, language.getLocale());
-        char[] keyArray = rb.getString("key_list").toCharArray();
+    public static String[] getAvailableLevels(String tasks) {
+        char[] keyArray = tasks.toCharArray();
         int lastLevel = keyArray.length / Constants.Game.CHARACTERS_IN_LEVEL;
         if (keyArray.length % Constants.Game.CHARACTERS_IN_LEVEL != 0) {
             //Add an extra level to cover the last key without a pair
@@ -106,7 +97,7 @@ public class GameContext {
      * Returns the last available level for the current keyboard language
      */
     public static int getMaxLevel() {
-        String[] levelsArray = getAvailableLevels(getSettings().getLanguage());
+        String[] levelsArray = getAvailableLevels(getSettings().getLayout().getKeys());
         return Integer.parseInt(levelsArray[levelsArray.length - 1]);
     }
 
@@ -115,7 +106,7 @@ public class GameContext {
      * The number of allowed mistakes should equal 10% of all symbols typed during the game (during remaining levels, including the current).
      */
     public static int getMaxMistakes() {
-        int levelsRemaining = (getAvailableLevels(getSettings().getLanguage()).length - getSettings().getLevel()) + 1;
+        int levelsRemaining = (getAvailableLevels(getSettings().getLayout().getKeys()).length - getSettings().getLevel()) + 1;
         return (int) (levelsRemaining * Constants.Game.LEVEL_CHARACTER_SIZE * 0.1);
     }
 
@@ -160,8 +151,7 @@ public class GameContext {
      */
     public static String[] getRandomLettersForLevel() {
         String[] resultList = new String[Constants.Game.LEVEL_CHARACTER_SIZE];
-        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, getSettings().getLanguage().getLocale());
-        String keys = " " + rb.getString("key_list");
+        String keys = " " + getSettings().getLayout().getKeys();
         int maxIndex = (getSettings().getLevel() * Constants.Game.CHARACTERS_IN_LEVEL) + 1;
         if (maxIndex > keys.length()) {
             //Normalize the MAX index for the last level with an odd number of characters

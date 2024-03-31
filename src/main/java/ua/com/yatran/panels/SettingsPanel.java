@@ -2,7 +2,8 @@ package ua.com.yatran.panels;
 
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.entities.Settings;
-import ua.com.yatran.enums.Language;
+import ua.com.yatran.enums.Keyboard;
+import ua.com.yatran.enums.Layout;
 import ua.com.yatran.helpers.GameContext;
 
 import javax.swing.*;
@@ -15,8 +16,8 @@ public class SettingsPanel extends JPanel {
 
     private JPanel contentPane;
     private JButton continueButton, exitButton;
-    private JLabel settingsLabel, settingsHintLabel, keyboardLabel, levelLabel, soundLabel;
-    private JComboBox keyboardBox, levelBox, soundBox;
+    private JLabel settingsLabel, settingsHintLabel, keyboardLabel, layoutLabel, levelLabel, soundLabel;
+    private JComboBox keyboardBox, layoutBox, levelBox, soundBox;
 
     public SettingsPanel(JPanel contentPane) {
         this.contentPane = contentPane;
@@ -62,21 +63,36 @@ public class SettingsPanel extends JPanel {
         keyboardLabel.setBounds((Constants.Common.MAIN_WINDOW_WIDTH / 2) - (Constants.Common.BUTTON_WIDTH / 2), settingsHintLabel.getY() + settingsHintLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(keyboardLabel);
 
-        keyboardBox = new JComboBox(GameContext.getAvailableKeyboards());
-        keyboardBox.setSelectedItem(Language.getByLocale(locale).getKeyboardName());
+        keyboardBox = new JComboBox(Keyboard.getAllKeyboardNames());
+        keyboardBox.setSelectedItem(Keyboard.getDefault(locale).getName());
         keyboardBox.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, keyboardLabel.getY(), Constants.Common.BUTTON_WIDTH / 2, keyboardLabel.getHeight());
         keyboardBox.addActionListener(e -> {
-            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(GameContext.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
-            levelBox.setModel(model);
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(Layout.getAllLayoutNamesForType(Keyboard.getByName((String) keyboardBox.getSelectedItem())));
+            layoutBox.setModel(model);
+            layoutBox.setSelectedItem(Layout.getDefault(locale, Keyboard.getByName((String) keyboardBox.getSelectedItem())).getName());
         });
         this.add(keyboardBox);
 
+        layoutLabel = new JLabel(rb.getString("layout_label"));
+        layoutLabel.setFont(Constants.Common.FONT_MAIN);
+        layoutLabel.setBounds((Constants.Common.MAIN_WINDOW_WIDTH / 2) - (Constants.Common.BUTTON_WIDTH / 2), keyboardLabel.getY() + keyboardLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
+        this.add(layoutLabel);
+
+        layoutBox = new JComboBox(Layout.getAllLayoutNamesForType(Keyboard.getByName((String) keyboardBox.getSelectedItem())));
+        layoutBox.setSelectedItem(Layout.getDefault(locale, Keyboard.getByName((String) keyboardBox.getSelectedItem())).getName());
+        layoutBox.setBounds(layoutLabel.getX() + layoutLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, layoutLabel.getY(), Constants.Common.BUTTON_WIDTH / 2, layoutLabel.getHeight());
+        layoutBox.addActionListener(e -> {
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(GameContext.getAvailableLevels(Layout.getByName(Keyboard.getByName((String) keyboardBox.getSelectedItem()), (String) layoutBox.getSelectedItem()).getKeys()));
+            levelBox.setModel(model);
+        });
+        this.add(layoutBox);
+
         levelLabel = new JLabel(rb.getString("level_label"));
         levelLabel.setFont(Constants.Common.FONT_MAIN);
-        levelLabel.setBounds(keyboardLabel.getX(), keyboardLabel.getY() + keyboardLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
+        levelLabel.setBounds(layoutLabel.getX(), layoutLabel.getY() + layoutLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(levelLabel);
 
-        levelBox = new JComboBox(GameContext.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
+        levelBox = new JComboBox(GameContext.getAvailableLevels(Layout.getByName(Keyboard.getByName((String) keyboardBox.getSelectedItem()), (String) layoutBox.getSelectedItem()).getKeys()));
         levelBox.setBounds(levelLabel.getX() + levelLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, levelLabel.getY(), Constants.Common.BUTTON_WIDTH / 2, levelLabel.getHeight());
         this.add(levelBox);
 
@@ -102,7 +118,7 @@ public class SettingsPanel extends JPanel {
         continueButton.setBounds(Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.BUTTON_WIDTH - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {
             Settings settings = new Settings();
-            settings.setLanguage(Language.getByKeyboardName((String) keyboardBox.getSelectedItem()));
+            settings.setLayout(Layout.getByName(Keyboard.getByName((String) keyboardBox.getSelectedItem()), (String) layoutBox.getSelectedItem()));
             settings.setLevel(levelBox.getSelectedIndex() + 1);
             settings.setScore(0);
             settings.setMistakes(0);
