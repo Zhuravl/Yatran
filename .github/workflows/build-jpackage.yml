@@ -8,114 +8,114 @@ jobs:
   build-linux-installer:
     name: Build Installer on Linux
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write
     steps:
-
-      # SETUP BUILD ENVIRONMENT
-      - id: checkout-code
-        name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: develop
-      - id: setup-jdk
-        name: Setup JDK
+          fetch-depth: 0
+
+      - name: Setup JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: 17
 
-      # BUILD FOR DISTRIBUTION
-      - id: build
-        name: Build distribution
+      - name: Build distribution
         run: |
           mvn clean package
-          jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.png --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type deb --linux-shortcut --linux-app-release ${{ github.event.release.tag_name }} --linux-deb-maintainer 'Illia Zhuravskyi <zhuravskyi.illia@gmail.com>' --linux-menu-group Yatran
-          ls -as target
+          jpackage --input target/ --dest target/ --name Yatran \
+                   --app-version ${{ github.event.release.tag_name }} \
+                   --description 'Typing tutor for children that allows improving typing words speed in a fun way' \
+                   --icon src/main/resources/images/icon.png \
+                   --main-jar Yatran-1.0.0-jar-with-dependencies.jar \
+                   --main-class ua.com.yatran.Yatran \
+                   --type deb --linux-shortcut \
+                   --linux-app-release ${{ github.event.release.tag_name }} \
+                   --linux-deb-maintainer 'Illia Zhuravskyi <zhuravskyi.illia@gmail.com>' \
+                   --linux-menu-group Yatran
           mv target/yatran_${{ github.event.release.tag_name }}-${{ github.event.release.tag_name }}_amd64.deb target/Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
-      # UPLOAD INSTALLER
-      - id: upload-linux-installer
-        name: Upload Linux installer
-        uses: actions/upload-release-asset@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Linux installer
+        uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
           asset_path: target/Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
           asset_name: Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
           asset_content_type: application/x-binary
 
-
   build-windows-installer:
     name: Build Installer on Windows
     runs-on: windows-latest
-    permissions: write-all
+    permissions:
+      contents: write
     steps:
-
-      # SETUP BUILD ENVIRONMENT
-      - id: checkout-code
-        name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
-      - id: setup-jdk
-        name: Setup JDK
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: 17
 
-      # BUILD FOR DISTRIBUTION
-      - id: build
-        name: Build distribution
+      - name: Build distribution
         run: |
           mvn clean package
-          jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.ico --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type msi --win-dir-chooser --win-menu --win-per-user-install --win-shortcut --win-menu-group Yatran
-          ls -as target
+          jpackage --input target/ --dest target/ --name Yatran \
+                   --app-version ${{ github.event.release.tag_name }} \
+                   --description 'Typing tutor for children that allows improving typing words speed in a fun way' \
+                   --icon src/main/resources/images/icon.ico \
+                   --main-jar Yatran-1.0.0-jar-with-dependencies.jar \
+                   --main-class ua.com.yatran.Yatran \
+                   --type msi --win-dir-chooser --win-menu --win-per-user-install --win-shortcut \
+                   --win-menu-group Yatran
           mv target/Yatran-${{ github.event.release.tag_name }}.msi target/Yatran-${{ github.event.release.tag_name }}-Windows.msi
-      # UPLOAD INSTALLER
-      - id: upload-windows-installer
-        name: Upload Windows installer
-        uses: actions/upload-release-asset@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Windows installer
+        uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
           asset_path: target/Yatran-${{ github.event.release.tag_name }}-Windows.msi
           asset_name: Yatran-${{ github.event.release.tag_name }}-Windows.msi
           asset_content_type: application/x-binary
 
-
   build-macos-installer:
     name: Build Installer on MacOS
     runs-on: macos-latest
-    permissions: write-all
+    permissions:
+      contents: write
     steps:
-
-      # SETUP BUILD ENVIRONMENT
-      - id: checkout-code
-        name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
-      - id: setup-jdk
-        name: Setup JDK
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: 17
 
-      # BUILD FOR DISTRIBUTION
-      - id: build
-        name: Build distribution
+      - name: Build distribution
         run: |
           mvn clean package
-          jpackage --input target/ --dest target/ --name Yatran --app-version ${{ github.event.release.tag_name }} --description 'Typing tutor for children that allows improving typing words speed in a fun way' --icon src/main/resources/images/icon.icns --main-jar Yatran-1.0.0-jar-with-dependencies.jar --main-class ua.com.yatran.Yatran --type pkg
-          ls -as target
+          jpackage --input target/ --dest target/ --name Yatran \
+                   --app-version ${{ github.event.release.tag_name }} \
+                   --description 'Typing tutor for children that allows improving typing words speed in a fun way' \
+                   --icon src/main/resources/images/icon.icns \
+                   --main-jar Yatran-1.0.0-jar-with-dependencies.jar \
+                   --main-class ua.com.yatran.Yatran \
+                   --type pkg
           mv target/Yatran-${{ github.event.release.tag_name }}.pkg target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg
-      # UPLOAD INSTALLER
-      - id: upload-macos-installer
-        name: Upload MacOS installer
-        uses: actions/upload-release-asset@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload MacOS installer
+        uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
           asset_path: target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg
           asset_name: Yatran-${{ github.event.release.tag_name }}-macOS.pkg
           asset_content_type: application/x-binary
