@@ -81,6 +81,24 @@ public class GameContext {
     }
 
     /**
+     * Returns all supported in the application languages
+     */
+    public static Language[] getAvailableLanguages() {
+        return Language.values();
+    }
+
+    /**
+     * Returns all needed keys for the specified language
+     *
+     * @param language the language to calculate needed keys for
+     */
+    public static char[] getAllKeys(Language language) {
+        ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, language.getLocale());
+        String result = rb.getString("key_list");
+        return result.toCharArray();
+    }
+
+    /**
      * Returns all supported in the application levels for the specified language (keyboard).
      * A number of levels are calculated by dividing the existing list of chars by pairs.
      * The first level will contain the first two chars.
@@ -156,7 +174,7 @@ public class GameContext {
     }
 
     /**
-     * Returns randomly created array of characters based on the current level and keyboard preference
+     * Returns randomly created an array of characters based on the current level and keyboard preference
      */
     public static String[] getRandomLettersForLevel() {
         String[] resultList = new String[Constants.Game.LEVEL_CHARACTER_SIZE];
