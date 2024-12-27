@@ -36,12 +36,13 @@ jobs:
                    --linux-deb-maintainer 'Illia Zhuravskyi <zhuravskyi.illia@gmail.com>' \
                    --linux-menu-group Yatran
           mv target/yatran_${{ github.event.release.tag_name }}-${{ github.event.release.tag_name }}_amd64.deb target/Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
+          echo "LINUX_INSTALLER_PATH=target/Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb" >> $GITHUB_ENV
 
       - name: Upload Linux installer
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
-          asset_path: target/Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
+          asset_path: ${{ env.LINUX_INSTALLER_PATH }}
           asset_name: Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
           asset_content_type: application/x-binary
 
@@ -74,12 +75,13 @@ jobs:
                    --type msi --win-dir-chooser --win-menu --win-per-user-install --win-shortcut \
                    --win-menu-group Yatran
           mv target/Yatran-${{ github.event.release.tag_name }}.msi target/Yatran-${{ github.event.release.tag_name }}-Windows.msi
+          echo "WINDOWS_INSTALLER_PATH=target/Yatran-${{ github.event.release.tag_name }}-Windows.msi" >> $GITHUB_ENV
 
       - name: Upload Windows installer
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
-          asset_path: target/Yatran-${{ github.event.release.tag_name }}-Windows.msi
+          asset_path: ${{ env.WINDOWS_INSTALLER_PATH }}
           asset_name: Yatran-${{ github.event.release.tag_name }}-Windows.msi
           asset_content_type: application/x-binary
 
@@ -111,11 +113,12 @@ jobs:
                    --main-class ua.com.yatran.Yatran \
                    --type pkg
           mv target/Yatran-${{ github.event.release.tag_name }}.pkg target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg
+          echo "MACOS_INSTALLER_PATH=target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg" >> $GITHUB_ENV
 
       - name: Upload MacOS installer
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
-          asset_path: target/Yatran-${{ github.event.release.tag_name }}-macOS.pkg
+          asset_path: ${{ env.MACOS_INSTALLER_PATH }}
           asset_name: Yatran-${{ github.event.release.tag_name }}-macOS.pkg
           asset_content_type: application/x-binary
