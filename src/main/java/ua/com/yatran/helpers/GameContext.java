@@ -94,7 +94,7 @@ public class GameContext {
      */
     public static char[] getAllKeys(Language language) {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, language.getLocale());
-        String result = rb.getString("key_list") + " ";
+        String result = rb.getString("key_list");
         return result.toCharArray();
     }
 

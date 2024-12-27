@@ -13,6 +13,7 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class GamePanel extends JPanel {
         this.rankingPanel = rankingPanel;
         this.setLayout(null);
 
-        bindKeys();
+        registerKeysBinding();
 
         try {
             AudioInputStream audioInputStreamCorrect = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource("/sounds/keyCorrect.wav")));
@@ -116,7 +117,7 @@ public class GamePanel extends JPanel {
     /**
      * Registers key bindings for all needed keys
      */
-    private void bindKeys() {
+    private void registerKeysBinding() {
         Action actionListener = new AbstractAction() {
             public void actionPerformed(ActionEvent actionEvent) {
                 checkKeyPressed(actionEvent.getActionCommand());
@@ -136,6 +137,10 @@ public class GamePanel extends JPanel {
                 }
             }
         }
+
+        //Add the Space key separately as it doesn't present in the key list
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "Key Space");
+        am.put("Key Space", actionListener);
     }
 
     /**
@@ -165,7 +170,7 @@ public class GamePanel extends JPanel {
      */
     private void checkKeyPressed(String key) {
         if (letters.length > currentLetterIndex) {
-            //There are keys to press existing
+            //The pressed key is existing
             if (letters[currentLetterIndex].equals(key)) {
                 //The correct key was pressed - add scores
                 if (GameContext.getSettings().isSoundOn()) {
