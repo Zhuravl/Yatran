@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup JDK
         uses: actions/setup-java@v3
@@ -41,10 +39,10 @@ jobs:
       - name: Upload Linux installer
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ${{ env.LINUX_INSTALLER_PATH }}
           asset_name: Yatran-${{ github.event.release.tag_name }}-Debian_amd64.deb
-          asset_content_type: application/x-binary
+          asset_content_type: application/x-deb
 
   build-windows-installer:
     name: Build Installer on Windows
@@ -54,8 +52,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup JDK
         uses: actions/setup-java@v3
@@ -80,10 +76,10 @@ jobs:
       - name: Upload Windows installer
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ${{ env.WINDOWS_INSTALLER_PATH }}
           asset_name: Yatran-${{ github.event.release.tag_name }}-Windows.msi
-          asset_content_type: application/x-binary
+          asset_content_type: application/x-msi
 
   build-macos-installer:
     name: Build Installer on MacOS
@@ -93,8 +89,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup JDK
         uses: actions/setup-java@v3
@@ -118,7 +112,7 @@ jobs:
       - name: Upload MacOS installer
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url.replace("{?name,label}", "") }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ${{ env.MACOS_INSTALLER_PATH }}
           asset_name: Yatran-${{ github.event.release.tag_name }}-macOS.pkg
-          asset_content_type: application/x-binary
+          asset_content_type: application/x-pkg
