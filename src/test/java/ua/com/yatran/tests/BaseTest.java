@@ -19,6 +19,8 @@ import ua.com.yatran.frames.LandingFrame;
 
 import java.awt.*;
 import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.swing.finder.WindowFinder.findFrame;
 
@@ -31,9 +33,7 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
     protected static Logger logger = LogManager.getLogger(BaseTest.class);
     protected FrameFixture window;
 
-    private LandingFeature landingPage;
-    private RegisterFeature registerPage;
-    private SettingsFeature settingsPage;
+    private final Map<String, Object> featureStorage = new ConcurrentHashMap<>();
 
     public BaseTest() {
     }
@@ -42,30 +42,30 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
      * Creates and returns an instance of {@link LandingFeature}
      */
     public LandingFeature landingPage() {
-        if (landingPage == null) {
-            landingPage = new LandingFeature(window, this);
+        if (featureStorage.get("landingFeature") == null) {
+            featureStorage.put("landingFeature", new LandingFeature(window, this));
         }
-        return landingPage;
+        return (LandingFeature) featureStorage.get("landingFeature");
     }
 
     /**
      * Creates and returns an instance of {@link RegisterFeature}
      */
     public RegisterFeature registerPage() {
-        if (registerPage == null) {
-            registerPage = new RegisterFeature(window);
+        if (featureStorage.get("registerFeature") == null) {
+            featureStorage.put("registerFeature", new RegisterFeature(window));
         }
-        return registerPage;
+        return (RegisterFeature) featureStorage.get("registerFeature");
     }
 
     /**
      * Creates and returns an instance of {@link SettingsFeature}
      */
     public SettingsFeature settingsPage() {
-        if (settingsPage == null) {
-            settingsPage = new SettingsFeature(window);
+        if (featureStorage.get("settingsFeature") == null) {
+            featureStorage.put("settingsFeature", new SettingsFeature(window));
         }
-        return settingsPage;
+        return (SettingsFeature) featureStorage.get("settingsFeature");
     }
 
     @BeforeSuite(alwaysRun = true)
@@ -114,9 +114,7 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
         logger.info("Switching frame context to " + targetFrame.getName() + "...");
         window = findFrame(targetFrame).using(robot());
         //Reset all feature classes after switching the frame context for re-creation of them with the updated window in the future steps
-        landingPage = null;
-        registerPage = null;
-        settingsPage = null;
+        featureStorage.clear();
         logger.info("The frame context has been successfully switched!");
     }
 }
