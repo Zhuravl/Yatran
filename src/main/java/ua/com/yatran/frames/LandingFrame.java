@@ -56,6 +56,7 @@ public class LandingFrame extends JFrame {
         contentPane.add(labelLogo);
 
         labelName = new JLabel(Constants.Common.APP_NAME.toUpperCase());
+        labelName.setName("labelName");
         labelName.setFont(Constants.Common.FONT_LOGO);
         labelName.setForeground(Constants.Common.BUTTON_COLOR_LOGO);
         labelName.setHorizontalAlignment(SwingConstants.LEFT);
@@ -85,6 +86,7 @@ public class LandingFrame extends JFrame {
 
         for (int index = 0; index < Language.values().length; index++) {
             JButton button = new JButton(ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, Language.values()[index].getLocale()).getString("landing_button"));
+            button.setName("language" + Language.values()[index].getLocale().getCountry() + "Button");
             button.setFont(Constants.Common.FONT_MAIN);
             if (index == 0) {
                 button.setBounds(previousX, previousY + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);

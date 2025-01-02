@@ -46,23 +46,27 @@ public class SettingsPanel extends JPanel {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         settingsLabel = new JLabel(rb.getString("settings_label"));
+        settingsLabel.setName("settingsLabel");
         settingsLabel.setFont(Constants.Common.FONT_MAIN);
         settingsLabel.setHorizontalAlignment(SwingConstants.CENTER);
         settingsLabel.setBounds(0, Constants.Common.ELEMENTS_CLEARANCE * 5, Constants.Common.MAIN_WINDOW_WIDTH, 40);
         this.add(settingsLabel);
 
         settingsHintLabel = new JLabel(rb.getString("settings_hint"));
+        settingsHintLabel.setName("settingsHintLabel");
         settingsHintLabel.setFont(Constants.Common.FONT_HINT);
         settingsHintLabel.setHorizontalAlignment(SwingConstants.CENTER);
         settingsHintLabel.setBounds(0, settingsLabel.getY() + settingsLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH, 30);
         this.add(settingsHintLabel);
 
         keyboardLabel = new JLabel(rb.getString("keyboard_label"));
+        keyboardLabel.setName("keyboardLabel");
         keyboardLabel.setFont(Constants.Common.FONT_MAIN);
         keyboardLabel.setBounds((Constants.Common.MAIN_WINDOW_WIDTH / 2) - (Constants.Common.BUTTON_WIDTH / 2), settingsHintLabel.getY() + settingsHintLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(keyboardLabel);
 
         keyboardBox = new JComboBox(GameContext.getAvailableKeyboards());
+        keyboardBox.setName("keyboardBox");
         keyboardBox.setSelectedItem(Language.getByLocale(locale).getKeyboardName());
         keyboardBox.setBounds(keyboardLabel.getX() + keyboardLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, keyboardLabel.getY(), Constants.Common.BUTTON_WIDTH / 2, keyboardLabel.getHeight());
         keyboardBox.addActionListener(e -> {
@@ -72,24 +76,29 @@ public class SettingsPanel extends JPanel {
         this.add(keyboardBox);
 
         levelLabel = new JLabel(rb.getString("level_label"));
+        levelLabel.setName("levelLabel");
         levelLabel.setFont(Constants.Common.FONT_MAIN);
         levelLabel.setBounds(keyboardLabel.getX(), keyboardLabel.getY() + keyboardLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(levelLabel);
 
         levelBox = new JComboBox(GameContext.getAvailableLevels(Language.getByKeyboardName((String) keyboardBox.getSelectedItem())));
+        levelBox.setName("levelBox");
         levelBox.setBounds(levelLabel.getX() + levelLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, levelLabel.getY(), Constants.Common.BUTTON_WIDTH / 2, levelLabel.getHeight());
         this.add(levelBox);
 
         soundLabel = new JLabel(rb.getString("sound_label"));
+        soundLabel.setName("soundLabel");
         soundLabel.setFont(Constants.Common.FONT_MAIN);
         soundLabel.setBounds(levelLabel.getX(), levelLabel.getY() + levelLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT / 2);
         this.add(soundLabel);
 
         soundBox = new JComboBox(GameContext.getSoundOptions());
+        soundBox.setName("soundBox");
         soundBox.setBounds(soundLabel.getX() + soundLabel.getWidth() + Constants.Common.ELEMENTS_CLEARANCE, soundLabel.getY(), Constants.Common.BUTTON_WIDTH / 2, soundLabel.getHeight());
         this.add(soundBox);
 
         exitButton = new JButton(rb.getString("exit_button"));
+        exitButton.setName("exitButton");
         exitButton.setFont(Constants.Common.FONT_MAIN);
         exitButton.setBounds(Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT);
         exitButton.addActionListener(e -> EventQueue.invokeLater(() -> {
@@ -98,6 +107,7 @@ public class SettingsPanel extends JPanel {
         this.add(exitButton);
 
         continueButton = new JButton(rb.getString("start_button"));
+        continueButton.setName("continueButton");
         continueButton.setFont(Constants.Common.FONT_MAIN);
         continueButton.setBounds(Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.BUTTON_WIDTH - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {

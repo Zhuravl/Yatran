@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="stdout" target="system_out">
+            <PatternLayout>
+                <Pattern>%d %p %C{1}.%M:%L [%t] %m %ex%n</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <File name="file" fileName="target/logs/log.log">
+            <PatternLayout>
+                <Pattern>%d %p %C{1}.%M:%L [%t] %m %ex%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="stdout" level="debug"/>
+            <AppenderRef ref="file" level="debug"/>
+        </Root>
+    </Loggers>
+</Configuration>

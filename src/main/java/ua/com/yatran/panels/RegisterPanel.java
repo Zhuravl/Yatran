@@ -32,18 +32,21 @@ public class RegisterPanel extends JPanel {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         usernameLabel = new JLabel(rb.getString("username_label"));
+        usernameLabel.setName("usernameLabel");
         usernameLabel.setFont(Constants.Common.FONT_MAIN);
         usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         usernameLabel.setBounds(0, Constants.Common.ELEMENTS_CLEARANCE * 5, Constants.Common.MAIN_WINDOW_WIDTH, 40);
         this.add(usernameLabel);
 
         usernameHintLabel = new JLabel(String.format(rb.getString("username_hint"), Constants.Common.USERNAME_MIN, Constants.Common.USERNAME_MAX));
+        usernameHintLabel.setName("usernameHintLabel");
         usernameHintLabel.setFont(Constants.Common.FONT_HINT);
         usernameHintLabel.setHorizontalAlignment(SwingConstants.CENTER);
         usernameHintLabel.setBounds(0, usernameLabel.getY() + usernameLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH, 30);
         this.add(usernameHintLabel);
 
         usernameField = new JTextField();
+        usernameField.setName("usernameField");
         usernameField.setBounds(((Constants.Common.MAIN_WINDOW_WIDTH / 2) - (Constants.Common.BUTTON_WIDTH / 2)), usernameHintLabel.getY() + usernameHintLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT / 2);
         usernameField.setFont(Constants.Common.FONT_MAIN);
         usernameField.addActionListener(e -> button.doClick());
@@ -52,10 +55,11 @@ public class RegisterPanel extends JPanel {
         this.add(usernameField);
 
         button = new JButton(rb.getString("continue_button"));
+        button.setName("continueButton");
         button.setFont(Constants.Common.FONT_MAIN);
         button.setBounds(Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.BUTTON_WIDTH - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
         button.addActionListener(e -> EventQueue.invokeLater(() -> {
-            if (usernameField.getText() != null && usernameField.getText().length() >= Constants.Common.USERNAME_MIN) {
+            if (usernameField.getText() != null && (usernameField.getText().length() >= Constants.Common.USERNAME_MIN && usernameField.getText().length() <= Constants.Common.USERNAME_MAX)) {
                 GameContext.setRecord(new RankingRecord(usernameField.getText().trim()));
                 CardLayout cardLayout = (CardLayout) contentPane.getLayout();
                 cardLayout.show(contentPane, Constants.Screen.SETTINGS);
