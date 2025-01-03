@@ -12,9 +12,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ua.com.yatran.Yatran;
-import ua.com.yatran.features.LandingFeature;
-import ua.com.yatran.features.RegisterFeature;
-import ua.com.yatran.features.SettingsFeature;
+import ua.com.yatran.features.*;
 import ua.com.yatran.frames.LandingFrame;
 
 import java.awt.*;
@@ -41,7 +39,7 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
     /**
      * Creates and returns an instance of {@link LandingFeature}
      */
-    public LandingFeature landingPage() {
+    public LandingFeature landingFeature() {
         if (featureStorage.get("landingFeature") == null) {
             featureStorage.put("landingFeature", new LandingFeature(window, this));
         }
@@ -51,7 +49,7 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
     /**
      * Creates and returns an instance of {@link RegisterFeature}
      */
-    public RegisterFeature registerPage() {
+    public RegisterFeature registerFeature() {
         if (featureStorage.get("registerFeature") == null) {
             featureStorage.put("registerFeature", new RegisterFeature(window));
         }
@@ -61,11 +59,31 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
     /**
      * Creates and returns an instance of {@link SettingsFeature}
      */
-    public SettingsFeature settingsPage() {
+    public SettingsFeature settingsFeature() {
         if (featureStorage.get("settingsFeature") == null) {
             featureStorage.put("settingsFeature", new SettingsFeature(window));
         }
         return (SettingsFeature) featureStorage.get("settingsFeature");
+    }
+
+    /**
+     * Creates and returns an instance of {@link BriefingFeature}
+     */
+    public BriefingFeature briefingFeature() {
+        if (featureStorage.get("briefingFeature") == null) {
+            featureStorage.put("briefingFeature", new BriefingFeature(window));
+        }
+        return (BriefingFeature) featureStorage.get("briefingFeature");
+    }
+
+    /**
+     * Creates and returns an instance of {@link GameFeature}
+     */
+    public GameFeature gameFeature() {
+        if (featureStorage.get("gameFeature") == null) {
+            featureStorage.put("gameFeature", new GameFeature(window));
+        }
+        return (GameFeature) featureStorage.get("gameFeature");
     }
 
     @BeforeSuite(alwaysRun = true)

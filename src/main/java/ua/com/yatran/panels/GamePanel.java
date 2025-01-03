@@ -106,10 +106,12 @@ public class GamePanel extends JPanel {
      */
     private void GUI() {
         infoBarPanel = new InfoBarPanel();
+        infoBarPanel.setName("infoBarPanel");
         infoBarPanel.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH, Constants.Common.MAIN_WINDOW_HEIGHT / 8);
         this.add(infoBarPanel);
 
         keyboardPanel = new KeyboardPanel();
+        keyboardPanel.setName("keyboardPanel");
         keyboardPanel.setBounds(Constants.Common.ELEMENTS_CLEARANCE / 4, Constants.Common.MAIN_WINDOW_HEIGHT - (Constants.Common.MAIN_WINDOW_HEIGHT / 6) - 35, Constants.Common.MAIN_WINDOW_WIDTH - (Constants.Common.ELEMENTS_CLEARANCE / 2), Constants.Common.MAIN_WINDOW_HEIGHT / 5);
         this.add(keyboardPanel);
     }

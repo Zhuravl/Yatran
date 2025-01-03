@@ -38,18 +38,21 @@ public class BriefingPanel extends JPanel {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         briefingLabel1 = new JLabel(rb.getString("briefing_label_1"));
+        briefingLabel1.setName("briefingLabel1");
         briefingLabel1.setFont(Constants.Common.FONT_MAIN);
         briefingLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         briefingLabel1.setBounds(0, Constants.Common.ELEMENTS_CLEARANCE * 5, Constants.Common.MAIN_WINDOW_WIDTH, 40);
         this.add(briefingLabel1);
 
         briefingLabel2 = new JLabel(rb.getString("briefing_label_2"));
+        briefingLabel2.setName("briefingLabel2");
         briefingLabel2.setFont(Constants.Common.FONT_MAIN);
         briefingLabel2.setHorizontalAlignment(SwingConstants.CENTER);
         briefingLabel2.setBounds(0, briefingLabel1.getY() + briefingLabel1.getHeight(), Constants.Common.MAIN_WINDOW_WIDTH, 40);
         this.add(briefingLabel2);
 
         briefingPicture = new JLabel();
+        briefingPicture.setName("briefingPicture");
         briefingPicture.setHorizontalAlignment(SwingConstants.CENTER);
         briefingPicture.setBounds(Constants.Common.ELEMENTS_CLEARANCE * 5, briefingLabel2.getY() + briefingLabel2.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.ELEMENTS_CLEARANCE * 10, 380);
         try {

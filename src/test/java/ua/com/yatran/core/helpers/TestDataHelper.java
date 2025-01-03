@@ -1,5 +1,7 @@
 package ua.com.yatran.core.helpers;
 
+import io.github.zhuravl.randomname.RandomName;
+import io.github.zhuravl.randomname.enums.NamePart;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.enums.Language;
 
@@ -29,6 +31,20 @@ public class TestDataHelper {
     }
 
     /**
+     * Returns random enum value excluding the defined
+     *
+     * @param clazz enum class to return instance from
+     * @param <T>   return class type
+     */
+    public static <T extends Enum<?>> T getRandomEnum(Class<T> clazz, T excluded) {
+        T result;
+        do {
+            result = getRandomEnum(clazz);
+        } while (result == excluded);
+        return result;
+    }
+
+    /**
      * Returns the expected registration label text corresponding to the selected language
      *
      * @param language language to get text for
@@ -49,5 +65,21 @@ public class TestDataHelper {
             sb.append(ALL_CHARACTERS.charAt(new Random().nextInt(ALL_CHARACTERS.length())));
         }
         return sb.toString();
+    }
+
+    /**
+     * Returns randomly generated name in the specified language
+     *
+     * @param language language to generate name in
+     */
+    public static String getRandomName(Language language) {
+        switch (language) {
+            case ENGLISH:
+                return RandomName.getName(io.github.zhuravl.randomname.enums.Language.ENG, NamePart.FIRST);
+            case UKRAINIAN:
+                return RandomName.getName(io.github.zhuravl.randomname.enums.Language.UKR, NamePart.FIRST);
+            default:
+                throw new IllegalArgumentException("Provided language is not supported in random name generator - " + language + "!");
+        }
     }
 }
