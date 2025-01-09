@@ -12,7 +12,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ua.com.yatran.Yatran;
-import ua.com.yatran.features.*;
+import ua.com.yatran.actions.*;
 import ua.com.yatran.frames.LandingFrame;
 
 import java.awt.*;
@@ -31,59 +31,69 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
     protected static Logger logger = LogManager.getLogger(BaseTest.class);
     protected FrameFixture window;
 
-    private final Map<String, Object> featureStorage = new ConcurrentHashMap<>();
+    private final Map<String, Object> actionsStorage = new ConcurrentHashMap<>();
 
     public BaseTest() {
     }
 
     /**
-     * Creates and returns an instance of {@link LandingFeature}
+     * Creates and returns an instance of {@link LandingActions}
      */
-    public LandingFeature landingFeature() {
-        if (featureStorage.get("landingFeature") == null) {
-            featureStorage.put("landingFeature", new LandingFeature(window, this));
+    public LandingActions landingActions() {
+        if (actionsStorage.get("landingActions") == null) {
+            actionsStorage.put("landingActions", new LandingActions(window, this));
         }
-        return (LandingFeature) featureStorage.get("landingFeature");
+        return (LandingActions) actionsStorage.get("landingActions");
     }
 
     /**
-     * Creates and returns an instance of {@link RegisterFeature}
+     * Creates and returns an instance of {@link RegisteringActions}
      */
-    public RegisterFeature registerFeature() {
-        if (featureStorage.get("registerFeature") == null) {
-            featureStorage.put("registerFeature", new RegisterFeature(window));
+    public RegisteringActions registeringActions() {
+        if (actionsStorage.get("registeringActions") == null) {
+            actionsStorage.put("registeringActions", new RegisteringActions(window));
         }
-        return (RegisterFeature) featureStorage.get("registerFeature");
+        return (RegisteringActions) actionsStorage.get("registeringActions");
     }
 
     /**
-     * Creates and returns an instance of {@link SettingsFeature}
+     * Creates and returns an instance of {@link SettingsActions}
      */
-    public SettingsFeature settingsFeature() {
-        if (featureStorage.get("settingsFeature") == null) {
-            featureStorage.put("settingsFeature", new SettingsFeature(window));
+    public SettingsActions settingsActions() {
+        if (actionsStorage.get("settingsActions") == null) {
+            actionsStorage.put("settingsActions", new SettingsActions(window));
         }
-        return (SettingsFeature) featureStorage.get("settingsFeature");
+        return (SettingsActions) actionsStorage.get("settingsActions");
     }
 
     /**
-     * Creates and returns an instance of {@link BriefingFeature}
+     * Creates and returns an instance of {@link BriefingActions}
      */
-    public BriefingFeature briefingFeature() {
-        if (featureStorage.get("briefingFeature") == null) {
-            featureStorage.put("briefingFeature", new BriefingFeature(window));
+    public BriefingActions briefingActions() {
+        if (actionsStorage.get("briefingActions") == null) {
+            actionsStorage.put("briefingActions", new BriefingActions(window));
         }
-        return (BriefingFeature) featureStorage.get("briefingFeature");
+        return (BriefingActions) actionsStorage.get("briefingActions");
     }
 
     /**
-     * Creates and returns an instance of {@link GameFeature}
+     * Creates and returns an instance of {@link GameActions}
      */
-    public GameFeature gameFeature() {
-        if (featureStorage.get("gameFeature") == null) {
-            featureStorage.put("gameFeature", new GameFeature(window));
+    public GameActions gameActions() {
+        if (actionsStorage.get("gameActions") == null) {
+            actionsStorage.put("gameActions", new GameActions(window));
         }
-        return (GameFeature) featureStorage.get("gameFeature");
+        return (GameActions) actionsStorage.get("gameActions");
+    }
+
+    /**
+     * Creates and returns an instance of {@link RankingActions}
+     */
+    public RankingActions rankingActions() {
+        if (actionsStorage.get("rankingActions") == null) {
+            actionsStorage.put("rankingActions", new RankingActions(window));
+        }
+        return (RankingActions) actionsStorage.get("rankingActions");
     }
 
     @BeforeSuite(alwaysRun = true)
@@ -131,8 +141,8 @@ public abstract class BaseTest extends AssertJSwingTestCaseTemplate {
     public void switchFrameContext(Class<? extends Frame> targetFrame) {
         logger.info("Switching frame context to " + targetFrame.getName() + "...");
         window = findFrame(targetFrame).using(robot());
-        //Reset all feature classes after switching the frame context for re-creation of them with the updated window in the future steps
-        featureStorage.clear();
+        //Reset all action classes after switching the frame context for re-creation of them with the updated window in the future steps
+        actionsStorage.clear();
         logger.info("The frame context has been successfully switched!");
     }
 }

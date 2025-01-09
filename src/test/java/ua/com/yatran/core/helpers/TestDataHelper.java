@@ -5,8 +5,9 @@ import io.github.zhuravl.randomname.enums.NamePart;
 import ua.com.yatran.constants.Constants;
 import ua.com.yatran.enums.Language;
 
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.*;
 
 public class TestDataHelper {
 
@@ -68,6 +69,15 @@ public class TestDataHelper {
     }
 
     /**
+     * Returns randomly generated number in range from zero to the given bound
+     *
+     * @param bound the bound of random number generation (exclusive)
+     */
+    public static Integer getRandomNumber(int bound) {
+        return RANDOM.nextInt(bound);
+    }
+
+    /**
      * Returns randomly generated name in the specified language
      *
      * @param language language to generate name in
@@ -81,5 +91,42 @@ public class TestDataHelper {
             default:
                 throw new IllegalArgumentException("Provided language is not supported in random name generator - " + language + "!");
         }
+    }
+
+    /**
+     * Returns current date
+     */
+    public static Calendar getCurrentDate() {
+        return getCurrentDate(Calendar.SECOND, 0);
+    }
+
+    /**
+     * Returns current date plus defined months
+     *
+     * @param field the given calendar field (like 'Calendar.MONTH')
+     * @param value the value to add to current date
+     */
+    public static Calendar getCurrentDate(int field, int value) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.add(field, value);
+        return calendar;
+    }
+
+    /**
+     * Converts string to the Calendar instance
+     *
+     * @param date date in string format
+     */
+    public static Calendar parseToCalendar(String date) {
+        Calendar calendar = null;
+        try {
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+            Date parsedDate = dateFormat.parse(date);
+            calendar = Calendar.getInstance();
+            calendar.setTime(parsedDate);
+        } catch (ParseException e) {
+            //Do nothing here;
+        }
+        return calendar;
     }
 }

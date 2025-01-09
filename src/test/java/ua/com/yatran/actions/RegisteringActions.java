@@ -1,14 +1,14 @@
-package ua.com.yatran.features;
+package ua.com.yatran.actions;
 
 import org.assertj.swing.fixture.FrameFixture;
-import ua.com.yatran.elements.RegisterElements;
+import ua.com.yatran.elements.RegisteringElements;
 
-public class RegisterFeature extends BaseFeatures {
+public class RegisteringActions extends BaseActions {
 
-    RegisterElements registerElements;
+    RegisteringElements registeringElements;
 
-    public RegisterFeature(FrameFixture window) {
-        registerElements = new RegisterElements(window);
+    public RegisteringActions(FrameFixture window) {
+        registeringElements = new RegisteringElements(window);
     }
 
     /**
@@ -16,7 +16,7 @@ public class RegisterFeature extends BaseFeatures {
      */
     public String getRegistrationLabelText() {
         logger.info("Getting currently displayed registration label text...");
-        String result = registerElements.getRegistrationLabelText();
+        String result = registeringElements.getRegistrationLabelText();
         logger.info("The result text = '" + result + "'");
         return result;
     }
@@ -38,9 +38,9 @@ public class RegisterFeature extends BaseFeatures {
      */
     public void registerUser(String username, boolean clickContinueButton) {
         logger.info("Register user: '" + username + "'...");
-        registerElements.enterUsername(username);
+        registeringElements.enterUsername(username);
         if (clickContinueButton) {
-            registerElements.clickContinueButton();
+            registeringElements.clickContinueButton();
         }
         logger.info("The user has been successfully registered!");
     }
@@ -50,7 +50,7 @@ public class RegisterFeature extends BaseFeatures {
      */
     public String getCurrentUsername() {
         logger.info("Getting current username...");
-        String result = registerElements.getCurrentUsername();
+        String result = registeringElements.getCurrentUsername();
         logger.info("The result = '" + result + "'");
         return result;
     }

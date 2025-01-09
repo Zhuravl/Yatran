@@ -2,9 +2,9 @@ package ua.com.yatran.elements;
 
 import org.assertj.swing.fixture.FrameFixture;
 
-public class RegisterElements extends BaseElements {
+public class RegisteringElements extends BaseElements {
 
-    public RegisterElements(FrameFixture window) {
+    public RegisteringElements(FrameFixture window) {
         super(window);
     }
 

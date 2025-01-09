@@ -88,8 +88,14 @@ public class RankingRecord implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RankingRecord rankingRecord = (RankingRecord) o;
-        return Objects.equals(username, rankingRecord.username) && Objects.equals(score, rankingRecord.score) && Objects.equals(level, rankingRecord.level) && Objects.equals(mistakes, rankingRecord.mistakes) && Objects.equals(date, rankingRecord.date);
+        RankingRecord that = (RankingRecord) o;
+        String thisDateString = (date != null ? getDateFormatted() : null);
+        String thatDateString = (that.date != null ? that.getDateFormatted() : null);
+        return Objects.equals(username, that.username) &&
+                Objects.equals(score, that.score) &&
+                Objects.equals(level, that.level) &&
+                Objects.equals(mistakes, that.mistakes) &&
+                Objects.equals(thisDateString, thatDateString);
     }
 
     @Override

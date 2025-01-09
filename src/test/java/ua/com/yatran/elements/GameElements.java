@@ -3,6 +3,8 @@ package ua.com.yatran.elements;
 import org.assertj.swing.fixture.FrameFixture;
 import ua.com.yatran.enums.Language;
 
+import java.awt.event.KeyEvent;
+
 public class GameElements extends BaseElements {
 
     public GameElements(FrameFixture window) {
@@ -51,5 +53,10 @@ public class GameElements extends BaseElements {
         Integer result = window.progressBar("mistakesBar").target().getValue();
         logger.info("The result = " + result);
         return result;
+    }
+
+    public void pressSkipGameCombination() {
+        logger.info("Pressing the Skip game combination");
+        window.pressKey(KeyEvent.VK_SHIFT).pressKey(KeyEvent.VK_ESCAPE).releaseKey(KeyEvent.VK_SHIFT).releaseKey(KeyEvent.VK_ESCAPE);
     }
 }

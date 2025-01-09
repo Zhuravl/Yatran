@@ -7,7 +7,7 @@ import ua.com.yatran.core.entities.GameSession;
 import ua.com.yatran.core.helpers.TestDataHelper;
 import ua.com.yatran.enums.Language;
 
-public class SettingsPageTests extends BaseTest {
+public class SettingsTests extends BaseTest {
 
     private static final int GAME_LEVEL_FIRST = 1;
     private static final int GAME_LEVEL_LAST = 47;
@@ -28,11 +28,11 @@ public class SettingsPageTests extends BaseTest {
         gameInfo.setScores(0);
         gameInfo.setMistakes(0);
 
-        landingFeature().selectLanguage(session.getLanguage());
-        registerFeature().registerUser(session.getUsername());
-        settingsFeature().clickContinueButton();
-        briefingFeature().startGame();
-        Assert.assertEquals(gameFeature().getGameInfo(), gameInfo, "Assert that the default game settings are correct and applied");
+        landingActions().selectLanguage(session.getLanguage());
+        registeringActions().registerUser(session.getUsername());
+        settingsActions().clickContinueButton();
+        briefingActions().startGame();
+        Assert.assertEquals(gameActions().getGameInfo(), gameInfo, "Assert that the default game settings are correct and applied");
     }
 
     @Test
@@ -50,10 +50,10 @@ public class SettingsPageTests extends BaseTest {
         gameInfo.setScores(0);
         gameInfo.setMistakes(0);
 
-        landingFeature().selectLanguage(session.getLanguage());
-        registerFeature().registerUser(session.getUsername());
-        settingsFeature().setSettings(session);
-        briefingFeature().startGame();
-        Assert.assertEquals(gameFeature().getGameInfo(), gameInfo, "Assert that the custom game settings are applied correctly");
+        landingActions().selectLanguage(session.getLanguage());
+        registeringActions().registerUser(session.getUsername());
+        settingsActions().setSettings(session);
+        briefingActions().startGame();
+        Assert.assertEquals(gameActions().getGameInfo(), gameInfo, "Assert that the custom game settings are applied correctly");
     }
 }

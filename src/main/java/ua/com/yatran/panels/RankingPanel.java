@@ -51,23 +51,27 @@ public class RankingPanel extends JPanel {
         ResourceBundle rb = ResourceBundle.getBundle(Constants.Common.LOCALE_PREFIX, locale);
 
         rankingLabel = new JLabel(rb.getString("ranking_label"));
+        rankingLabel.setName("rankingLabel");
         rankingLabel.setFont(Constants.Common.FONT_MAIN);
         rankingLabel.setHorizontalAlignment(SwingConstants.CENTER);
         rankingLabel.setBounds(0, Constants.Common.ELEMENTS_CLEARANCE * 5, Constants.Common.MAIN_WINDOW_WIDTH, 40);
         this.add(rankingLabel);
 
         rankingTable = new JTable(tableModel);
+        rankingTable.setName("rankingTable");
         rankingTable.setBounds(0, 0, Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.ELEMENTS_CLEARANCE * 2, 350);
         rankingTable.setEnabled(false);
         rankingTable.getTableHeader().setEnabled(false);
         rankingTable.setShowGrid(true);
 
         scrollPane = new JScrollPane();
+        scrollPane.setName("scrollPane");
         scrollPane.setBounds(Constants.Common.ELEMENTS_CLEARANCE, rankingLabel.getY() + rankingLabel.getHeight() + Constants.Common.ELEMENTS_CLEARANCE, rankingTable.getWidth(), rankingTable.getHeight());
         scrollPane.setViewportView(rankingTable);
         this.add(scrollPane);
 
         exitButton = new JButton(rb.getString("exit_button"));
+        exitButton.setName("exitButton");
         exitButton.setFont(Constants.Common.FONT_MAIN);
         exitButton.setBounds(Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH / 2, Constants.Common.BUTTON_HEIGHT);
         exitButton.addActionListener(e -> EventQueue.invokeLater(() -> {
@@ -76,6 +80,7 @@ public class RankingPanel extends JPanel {
         this.add(exitButton);
 
         continueButton = new JButton(rb.getString("continue_button"));
+        continueButton.setName("continueButton");
         continueButton.setFont(Constants.Common.FONT_MAIN);
         continueButton.setBounds(Constants.Common.MAIN_WINDOW_WIDTH - Constants.Common.BUTTON_WIDTH - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.MAIN_WINDOW_HEIGHT - Constants.Common.BUTTON_HEIGHT - Constants.Common.ELEMENTS_CLEARANCE, Constants.Common.BUTTON_WIDTH, Constants.Common.BUTTON_HEIGHT);
         continueButton.addActionListener(e -> EventQueue.invokeLater(() -> {

@@ -1,14 +1,14 @@
-package ua.com.yatran.features;
+package ua.com.yatran.actions;
 
 import org.assertj.swing.fixture.FrameFixture;
 import ua.com.yatran.core.entities.GameSession;
 import ua.com.yatran.elements.SettingsElements;
 
-public class SettingsFeature extends BaseFeatures {
+public class SettingsActions extends BaseActions {
 
     private final SettingsElements settingsElements;
 
-    public SettingsFeature(FrameFixture window) {
+    public SettingsActions(FrameFixture window) {
         settingsElements = new SettingsElements(window);
     }
 

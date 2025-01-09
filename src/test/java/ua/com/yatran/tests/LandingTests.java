@@ -6,12 +6,12 @@ import org.testng.annotations.Test;
 import ua.com.yatran.core.helpers.TestDataHelper;
 import ua.com.yatran.enums.Language;
 
-public class LandingPageTests extends BaseTest {
+public class LandingTests extends BaseTest {
 
     @Test(dataProvider = "getAllLanguages")
     public void checkLocaleSelection(Language language) {
-        landingFeature().selectLanguage(language);
-        Assert.assertEquals(registerFeature().getRegistrationLabelText(), TestDataHelper.getRegistrationLabelText(language), "Assert that registration label text corresponds to the selected language");
+        landingActions().selectLanguage(language);
+        Assert.assertEquals(registeringActions().getRegistrationLabelText(), TestDataHelper.getRegistrationLabelText(language), "Assert that registration label text corresponds to the selected language");
     }
 
     @DataProvider

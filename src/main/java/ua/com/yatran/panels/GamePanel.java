@@ -1,6 +1,7 @@
 package ua.com.yatran.panels;
 
 import ua.com.yatran.constants.Constants;
+import ua.com.yatran.entities.RankingRecord;
 import ua.com.yatran.enums.Language;
 import ua.com.yatran.helpers.GameContext;
 import ua.com.yatran.interfaces.AbstractGamePanel;
@@ -16,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class GamePanel extends JPanel {
@@ -143,6 +145,16 @@ public class GamePanel extends JPanel {
         //Add the Space key separately as it doesn't present in the key list
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "Key Space");
         am.put("Key Space", actionListener);
+
+        //Add a hotkey for skipping the game (for testing purposes)
+        Action skipListener = new AbstractAction() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                skipGame();
+            }
+        };
+
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, KeyEvent.SHIFT_DOWN_MASK), "Key Shift + Escape");
+        am.put("Key Shift + Escape", skipListener);
     }
 
     /**
@@ -230,5 +242,19 @@ public class GamePanel extends JPanel {
         } else {
             return new MovingFloorGamePanel(this, letters);
         }
+    }
+
+    /**
+     * Skips the game, replaces the current result with the last saved and switches to the next frame.
+     * The method is created for testing purposes only!
+     */
+    private void skipGame() {
+        gameSubPanel.stopGame();
+        List<RankingRecord> recordList = GameContext.getRecordList();
+        RankingRecord lastRecord = recordList.get(recordList.size() - 1);
+        GameContext.setRecord(lastRecord);
+        rankingPanel.refreshGUI();
+        CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+        cardLayout.show(contentPane, Constants.Screen.RANKING);
     }
 }

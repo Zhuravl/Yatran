@@ -1,4 +1,4 @@
-package ua.com.yatran.features;
+package ua.com.yatran.actions;
 
 import org.assertj.swing.fixture.FrameFixture;
 import ua.com.yatran.elements.LandingElements;
@@ -6,12 +6,12 @@ import ua.com.yatran.enums.Language;
 import ua.com.yatran.frames.MainFrame;
 import ua.com.yatran.tests.BaseTest;
 
-public class LandingFeature extends BaseFeatures {
+public class LandingActions extends BaseActions {
 
     private LandingElements landingElements;
     private BaseTest baseTest; //Link for the ability to switch the frame context after work with the Landing page
 
-    public LandingFeature(FrameFixture window, BaseTest baseTest) {
+    public LandingActions(FrameFixture window, BaseTest baseTest) {
         landingElements = new LandingElements(window);
         this.baseTest = baseTest;
     }

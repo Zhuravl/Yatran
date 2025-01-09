@@ -1,13 +1,13 @@
-package ua.com.yatran.features;
+package ua.com.yatran.actions;
 
 import org.assertj.swing.fixture.FrameFixture;
 import ua.com.yatran.elements.BriefingElements;
 
-public class BriefingFeature extends BaseFeatures {
+public class BriefingActions extends BaseActions {
 
     private final BriefingElements briefingElements;
 
-    public BriefingFeature(FrameFixture window) {
+    public BriefingActions(FrameFixture window) {
         briefingElements = new BriefingElements(window);
     }
 
